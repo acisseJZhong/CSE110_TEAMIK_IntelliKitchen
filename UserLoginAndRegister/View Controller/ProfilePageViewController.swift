@@ -117,9 +117,14 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
                 if error == nil{
                     self.signoutTapped((Any).self)
+                    print("an email has sent!")
+                    let loginController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginController) as? LoginController
+                    self.view.window?.rootViewController = loginController
+                    self.view.window?.makeKeyAndVisible()
                 }
                 else{
                     ///
+                    print("error")
                 }
             }
     }

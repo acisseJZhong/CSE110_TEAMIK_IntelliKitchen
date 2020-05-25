@@ -52,13 +52,6 @@ class ForgetPasswordViewController: UIViewController {
         
     }
     
-    @IBAction func backTapped(_ sender: Any) {
-        
-        let loginController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginController) as? LoginController
-        view.window?.rootViewController = loginController
-        view.window?.makeKeyAndVisible()
-        
-    }
     
 
     

@@ -122,33 +122,7 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell!
     }
     
-    
-    
-    @IBAction func recipeTapped(_ sender: Any) {
-        
-        let recipeController = self.storyboard?.instantiateViewController(identifier: "recipe") as? RecipeViewController
-        self.view.window?.rootViewController = recipeController
-        self.view.window?.makeKeyAndVisible()
-    }
-    
-    
-    @IBAction func choresTapped(_ sender: Any) {
-
-        let choresController = self.storyboard?.instantiateViewController(identifier: "chores") as? ChoresViewController
-        self.view.window?.rootViewController = choresController
-        self.view.window?.makeKeyAndVisible()
-    }
-    
-    
-    @IBAction func profileTapped(_ sender: Any) {
-        let profileController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
-        print(Constants.Storyboard.profileController)
-        view.window?.rootViewController = profileController
-        view.window?.makeKeyAndVisible()
-    }
-    
-    
-    
+ 
     
 }
 

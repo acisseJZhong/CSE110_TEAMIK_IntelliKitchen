@@ -313,28 +313,6 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
         return cell
     }
 
-    @IBAction func foodTapped(_ sender: Any) {
-        let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
-               self.view.window?.rootViewController = homepageFoodController
-               self.view.window?.makeKeyAndVisible()
-    }
-    
-    
-    
-    @IBAction func choresTapped(_ sender: Any) {
-        let choresController = self.storyboard?.instantiateViewController(identifier: "chores") as? ChoresViewController
-        self.view.window?.rootViewController = choresController
-        self.view.window?.makeKeyAndVisible()
-    }
-    
-    
-    @IBAction func profileTapped(_ sender: Any) {
-        let profileController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
-        print(Constants.Storyboard.profileController)
-        view.window?.rootViewController = profileController
-        view.window?.makeKeyAndVisible()
-    }
-    
     
     
     

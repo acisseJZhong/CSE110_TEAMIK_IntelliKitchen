@@ -10,7 +10,6 @@
 		8A0755CF24649D5100EC96C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0755CE24649D5100EC96C3 /* Constants.swift */; };
 		8A0755D12464A05400EC96C3 /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0755D02464A05400EC96C3 /* WelcomeController.swift */; };
 		8A0755D32464A5B500EC96C3 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0755D22464A5B500EC96C3 /* LoginController.swift */; };
-		8A4F33DC247B1F0200F9826D /* ByIngredientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33DB247B1F0200F9826D /* ByIngredientController.swift */; };
 		8A4F33DE247B1F6200F9826D /* RecipeListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33DD247B1F6200F9826D /* RecipeListScreen.swift */; };
 		8A4F33E0247B1FBB00F9826D /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33DF247B1FBB00F9826D /* RecipeCell.swift */; };
 		8A4F33E2247B1FC400F9826D /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33E1247B1FC400F9826D /* Recipe.swift */; };
@@ -19,6 +18,7 @@
 		8A4F33EA247B212500F9826D /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33E9247B212400F9826D /* RatingViewController.swift */; };
 		8A4F33EC247B213900F9826D /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33EB247B213800F9826D /* ScrollViewController.swift */; };
 		8A4F33EE247B26CE00F9826D /* ByNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33ED247B26CE00F9826D /* ByNameController.swift */; };
+		8A4F33FA247B3C7900F9826D /* ByIngredientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */; };
 		8AC0BC7E246D17E800459411 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AC0BC7D246D17E800459411 /* GoogleService-Info.plist */; };
 		8AC4E6C22459600400A1E91E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6C12459600400A1E91E /* AppDelegate.swift */; };
 		8AC4E6C42459600400A1E91E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6C32459600400A1E91E /* SceneDelegate.swift */; };
@@ -45,7 +45,6 @@
 		8A0755CE24649D5100EC96C3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8A0755D02464A05400EC96C3 /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		8A0755D22464A5B500EC96C3 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		8A4F33DB247B1F0200F9826D /* ByIngredientController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ByIngredientController.swift; path = ../../../../Downloads/IntelliKitchen/IntelliKitchen/ByIngredientController.swift; sourceTree = "<group>"; };
 		8A4F33DD247B1F6200F9826D /* RecipeListScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeListScreen.swift; sourceTree = "<group>"; };
 		8A4F33DF247B1FBB00F9826D /* RecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		8A4F33E1247B1FC400F9826D /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
@@ -54,6 +53,7 @@
 		8A4F33E9247B212400F9826D /* RatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		8A4F33EB247B213800F9826D /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		8A4F33ED247B26CE00F9826D /* ByNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByNameController.swift; sourceTree = "<group>"; };
+		8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByIngredientController.swift; sourceTree = "<group>"; };
 		8AC0BC7D246D17E800459411 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8AC4E6BE2459600400A1E91E /* UserLoginAndRegister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UserLoginAndRegister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC4E6C12459600400A1E91E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 				8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */,
 				8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */,
 				8A0755D02464A05400EC96C3 /* WelcomeController.swift */,
-				8A4F33DB247B1F0200F9826D /* ByIngredientController.swift */,
+				8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */,
 				8A4F33ED247B26CE00F9826D /* ByNameController.swift */,
 				8A0755D22464A5B500EC96C3 /* LoginController.swift */,
 				8A4F33E7247B211B00F9826D /* CommentCell.swift */,
@@ -335,7 +335,7 @@
 				8AEF2E5224778E2C0041EAFA /* FavoriteRecipeCell.swift in Sources */,
 				8A0755D32464A5B500EC96C3 /* LoginController.swift in Sources */,
 				8A4F33EE247B26CE00F9826D /* ByNameController.swift in Sources */,
-				8A4F33DC247B1F0200F9826D /* ByIngredientController.swift in Sources */,
+				8A4F33FA247B3C7900F9826D /* ByIngredientController.swift in Sources */,
 				8AC4E6C42459600400A1E91E /* SceneDelegate.swift in Sources */,
 				8A4F33E2247B1FC400F9826D /* Recipe.swift in Sources */,
 				8A4F33E8247B211B00F9826D /* CommentCell.swift in Sources */,

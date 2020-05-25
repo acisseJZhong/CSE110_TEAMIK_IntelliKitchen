@@ -25,9 +25,7 @@ class LoginController: UIViewController, GIDSignInDelegate{
    
     @IBOutlet weak var loginButton: UIButton!
    
-    @IBOutlet weak var forgetPasswordButton: UIButton!
-   
-    @IBOutlet weak var registerButton: UIButton!
+
    
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -104,22 +102,6 @@ class LoginController: UIViewController, GIDSignInDelegate{
     }
    
    
-    
-    
-   @IBAction func forgetPasswordTapped(_ sender: Any) {
-        let forgetPasswordController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.forgetPasswordController) as? ForgetPasswordViewController
-        self.view.window?.rootViewController = forgetPasswordController
-        self.view.window?.makeKeyAndVisible()
-   }
-
-
-   
-   @IBAction func registerTapped(_ sender: Any) {
-        let registerController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.registerController) as? RegisterViewController
-        self.view.window?.rootViewController = registerController
-        self.view.window?.makeKeyAndVisible()
-
-   }
     
 
     

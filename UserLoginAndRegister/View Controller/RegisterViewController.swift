@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestore
 import FirebaseAuth
 
 class RegisterViewController: UIViewController {
@@ -129,14 +130,5 @@ class RegisterViewController: UIViewController {
     
     
     
-
-    
-    // going back to login page
-    @IBAction func backTapped(_ sender: Any) {
-        let loginController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginController) as? LoginController
-        view.window?.rootViewController = loginController
-        view.window?.makeKeyAndVisible()
-        
-    }
     
 }

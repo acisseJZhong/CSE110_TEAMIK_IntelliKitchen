@@ -17,14 +17,6 @@ class WelcomeController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func getStartedTapped(_ sender: Any) {
-        let profileController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
-        print(Constants.Storyboard.profileController)
-        view.window?.rootViewController = profileController
-        view.window?.makeKeyAndVisible()
-    }
-
-    
     
 }
 
