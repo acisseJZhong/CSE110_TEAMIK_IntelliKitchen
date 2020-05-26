@@ -63,7 +63,7 @@
 		8A4F33ED247B26CE00F9826D /* ByNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByNameController.swift; sourceTree = "<group>"; };
 		8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByIngredientController.swift; sourceTree = "<group>"; };
 		8AC0BC7D246D17E800459411 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		8AC4E6BE2459600400A1E91E /* UserLoginAndRegister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UserLoginAndRegister.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC4E6BE2459600400A1E91E /* IntelliKitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelliKitchen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC4E6C12459600400A1E91E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AC4E6C32459600400A1E91E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8AC4E6C82459600400A1E91E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 		8AC4E6BF2459600400A1E91E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AC4E6BE2459600400A1E91E /* UserLoginAndRegister.app */,
+				8AC4E6BE2459600400A1E91E /* IntelliKitchen.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,9 +214,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8AC4E6BD2459600400A1E91E /* UserLoginAndRegister */ = {
+		8AC4E6BD2459600400A1E91E /* IntelliKitchen */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8AC4E6D22459600600A1E91E /* Build configuration list for PBXNativeTarget "UserLoginAndRegister" */;
+			buildConfigurationList = 8AC4E6D22459600600A1E91E /* Build configuration list for PBXNativeTarget "IntelliKitchen" */;
 			buildPhases = (
 				6DFAFC1CDC874E1F816EF529 /* [CP] Check Pods Manifest.lock */,
 				8AC4E6BA2459600400A1E91E /* Sources */,
@@ -229,9 +229,9 @@
 			);
 			dependencies = (
 			);
-			name = UserLoginAndRegister;
+			name = IntelliKitchen;
 			productName = UserLoginAndRegister;
-			productReference = 8AC4E6BE2459600400A1E91E /* UserLoginAndRegister.app */;
+			productReference = 8AC4E6BE2459600400A1E91E /* IntelliKitchen.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -249,7 +249,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8AC4E6B92459600400A1E91E /* Build configuration list for PBXProject "UserLoginAndRegister" */;
+			buildConfigurationList = 8AC4E6B92459600400A1E91E /* Build configuration list for PBXProject "IntelliKitchen" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -262,7 +262,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8AC4E6BD2459600400A1E91E /* UserLoginAndRegister */,
+				8AC4E6BD2459600400A1E91E /* IntelliKitchen */,
 			);
 		};
 /* End PBXProject section */
@@ -530,8 +530,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xu.UserLoginAndRegister;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xu.IntelliKichen;
+				PRODUCT_NAME = IntelliKitchen;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -549,8 +549,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xu.UserLoginAndRegister;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xu.IntelliKichen;
+				PRODUCT_NAME = IntelliKitchen;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -559,7 +559,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8AC4E6B92459600400A1E91E /* Build configuration list for PBXProject "UserLoginAndRegister" */ = {
+		8AC4E6B92459600400A1E91E /* Build configuration list for PBXProject "IntelliKitchen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC4E6D02459600600A1E91E /* Debug */,
@@ -568,7 +568,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8AC4E6D22459600600A1E91E /* Build configuration list for PBXNativeTarget "UserLoginAndRegister" */ = {
+		8AC4E6D22459600600A1E91E /* Build configuration list for PBXNativeTarget "IntelliKitchen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8AC4E6D32459600600A1E91E /* Debug */,

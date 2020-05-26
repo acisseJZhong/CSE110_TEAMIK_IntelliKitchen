@@ -11,7 +11,7 @@
         <!--Login Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="login" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -135,7 +135,7 @@
         <!--Forget Password View Controller-->
         <scene sceneID="LSR-aW-EH7">
             <objects>
-                <viewController storyboardIdentifier="forgetPassword" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="N2S-jq-3cy" customClass="ForgetPasswordViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="forgetPassword" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="N2S-jq-3cy" customClass="ForgetPasswordViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="07K-Gd-H9v">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -224,7 +224,7 @@
         <!--Register View Controller-->
         <scene sceneID="2fR-BF-XZ0">
             <objects>
-                <viewController storyboardIdentifier="register" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="qDR-9q-3U9" customClass="RegisterViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="register" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="qDR-9q-3U9" customClass="RegisterViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IHe-AA-9Vo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -236,39 +236,32 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="sdJ-kO-e5J"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lfU-yk-xxc">
-                                <rect key="frame" x="72" y="305" width="296" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lfU-yk-xxc">
+                                <rect key="frame" x="50" y="305" width="318" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" smartInsertDeleteType="no" textContentType="email"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RZo-Dl-wI4">
-                                <rect key="frame" x="72" y="366" width="296" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RZo-Dl-wI4">
+                                <rect key="frame" x="50" y="366" width="318" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c4E-R3-Jiz" userLabel="Username">
-                                <rect key="frame" x="72" y="245" width="296" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c4E-R3-Jiz" userLabel="Username">
+                                <rect key="frame" x="50" y="245" width="318" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                             </textField>
-                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Your password should have at least 6 digits." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lmn-35-ODP">
-                                <rect key="frame" x="72" y="408" width="284" height="19"/>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Your password should have at least 6 digits." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lmn-35-ODP">
+                                <rect key="frame" x="50" y="408" width="306" height="19"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YbS-f9-xfP">
-                                <rect key="frame" x="72" y="445" width="296" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YbS-f9-xfP">
+                                <rect key="frame" x="50" y="445" width="318" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lge-bA-Uug">
-                                <rect key="frame" x="53" y="629" width="315" height="66"/>
-                                <state key="normal" backgroundImage="Register"/>
-                                <connections>
-                                    <action selector="registerTapped:" destination="qDR-9q-3U9" eventType="touchUpInside" id="7M0-cC-FO0"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSc-A4-3It" userLabel="Error">
                                 <rect key="frame" x="214" y="508" width="0.0" height="96"/>
                                 <constraints>
@@ -278,6 +271,13 @@
                                 <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lge-bA-Uug">
+                                <rect key="frame" x="72" y="612" width="296" height="63"/>
+                                <state key="normal" backgroundImage="Register"/>
+                                <connections>
+                                    <action selector="registerTapped:" destination="qDR-9q-3U9" eventType="touchUpInside" id="7M0-cC-FO0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -300,9 +300,9 @@
                             <constraint firstItem="Ho3-TR-7Yf" firstAttribute="trailing" secondItem="lmn-35-ODP" secondAttribute="trailing" constant="58" id="VZw-L9-iXa"/>
                             <constraint firstItem="lfU-yk-xxc" firstAttribute="top" secondItem="IHe-AA-9Vo" secondAttribute="top" constant="305" id="WAK-jW-xOx"/>
                             <constraint firstItem="Ho3-TR-7Yf" firstAttribute="trailing" secondItem="RZo-Dl-wI4" secondAttribute="trailing" constant="46" id="XUU-wf-Qq3"/>
-                            <constraint firstItem="Ho3-TR-7Yf" firstAttribute="bottom" secondItem="lge-bA-Uug" secondAttribute="bottom" constant="167" id="a2q-GQ-Rv5"/>
+                            <constraint firstItem="Ho3-TR-7Yf" firstAttribute="bottom" secondItem="lge-bA-Uug" secondAttribute="bottom" constant="170" id="a2q-GQ-Rv5"/>
                             <constraint firstItem="YbS-f9-xfP" firstAttribute="leading" secondItem="lfU-yk-xxc" secondAttribute="leading" id="bCX-9t-n0q"/>
-                            <constraint firstItem="lge-bA-Uug" firstAttribute="leading" secondItem="Ho3-TR-7Yf" secondAttribute="leading" constant="53" id="dYs-af-xxo"/>
+                            <constraint firstItem="lge-bA-Uug" firstAttribute="leading" secondItem="Ho3-TR-7Yf" secondAttribute="leading" constant="72" id="dYs-af-xxo"/>
                             <constraint firstItem="YbS-f9-xfP" firstAttribute="trailing" secondItem="lge-bA-Uug" secondAttribute="trailing" id="dli-n5-cZm"/>
                             <constraint firstItem="RZo-Dl-wI4" firstAttribute="leading" secondItem="Ho3-TR-7Yf" secondAttribute="leading" constant="72" id="e3i-hu-koX"/>
                             <constraint firstItem="YbS-f9-xfP" firstAttribute="trailing" secondItem="lfU-yk-xxc" secondAttribute="trailing" id="e6X-zh-OYY"/>
@@ -329,12 +329,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4K6-pd-Y8p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="-867"/>
+            <point key="canvasLocation" x="992.75362318840587" y="-867.1875"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="1EG-r1-8ph">
             <objects>
-                <viewController storyboardIdentifier="welcome" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Tef-Ch-eWD" userLabel="Welcome View Controller" customClass="WelcomeController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcome" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Tef-Ch-eWD" userLabel="Welcome View Controller" customClass="WelcomeController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jux-1g-eC7" customClass="welcome">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -368,7 +368,7 @@
         <!--Profile Page-->
         <scene sceneID="0TD-d1-wRM">
             <objects>
-                <viewController storyboardIdentifier="Profile" title="Profile Page" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="bin-64-Hy2" customClass="ProfilePageViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Profile" title="Profile Page" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="bin-64-Hy2" customClass="ProfilePageViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mrJ-Pi-6lT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -577,7 +577,7 @@
         <!--Profile Page View Controller-->
         <scene sceneID="MaA-4y-AfG">
             <objects>
-                <viewController id="UQe-Ho-30d" customClass="ProfilePageViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UQe-Ho-30d" customClass="ProfilePageViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mt9-Iz-oTN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -586,7 +586,7 @@
                                 <rect key="frame" x="0.0" y="100" width="414" height="708"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteRecipeCell" id="NXy-S6-1TQ" customClass="FavoriteRecipeCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteRecipeCell" id="NXy-S6-1TQ" customClass="FavoriteRecipeCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NXy-S6-1TQ" id="Z3D-kB-QWy">
@@ -650,7 +650,7 @@
         <!--Chores View Controller-->
         <scene sceneID="Tnj-6w-WQL">
             <objects>
-                <viewController storyboardIdentifier="chores" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Wd2-dh-UwT" customClass="ChoresViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chores" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Wd2-dh-UwT" customClass="ChoresViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6r1-6f-a3b">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -740,7 +740,7 @@
                                 <rect key="frame" x="58" y="267" width="304" height="318"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChoresCell" id="gZC-4u-uba" customClass="ChoresTableViewCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChoresCell" id="gZC-4u-uba" customClass="ChoresTableViewCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="304" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gZC-4u-uba" id="ROs-xe-UoZ">
@@ -805,7 +805,7 @@
         <!--Recipe View Controller-->
         <scene sceneID="3lN-fO-JOg">
             <objects>
-                <viewController storyboardIdentifier="recipe" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="hBn-sK-hAd" customClass="RecipeViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="recipe" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="hBn-sK-hAd" customClass="RecipeViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3CW-Gv-4L8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -907,7 +907,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="KBO-p2-OrI" customClass="CollectionViewCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="KBO-p2-OrI" customClass="CollectionViewCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="136" height="136"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EBf-0M-cmZ">
@@ -990,7 +990,7 @@
         <!--Food View Controller-->
         <scene sceneID="B2w-0w-gvQ">
             <objects>
-                <viewController storyboardIdentifier="homepageFood" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="nM8-sp-pj9" customClass="FoodViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homepageFood" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="nM8-sp-pj9" customClass="FoodViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6cE-hX-3Eg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1179,7 +1179,7 @@
         <!--Rating View Controller-->
         <scene sceneID="PW1-Zt-UMn">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="8EZ-6a-c4V" customClass="RatingViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="8EZ-6a-c4V" customClass="RatingViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XW0-OR-fvI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1231,7 +1231,7 @@
         <!--Scroll View Controller-->
         <scene sceneID="87T-R5-5xi">
             <objects>
-                <viewController storyboardIdentifier="menudetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="kDF-ox-H9a" customClass="ScrollViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="menudetail" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="kDF-ox-H9a" customClass="ScrollViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bjl-aA-kyT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1323,7 +1323,7 @@
                                                     <constraint firstAttribute="height" constant="260" id="DRn-jm-t7D"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="112" id="jdJ-ms-vX1" customClass="CommentCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentCell" rowHeight="112" id="jdJ-ms-vX1" customClass="CommentCell" customModule="IntelliKitchen" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="359" height="112"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jdJ-ms-vX1" id="MY2-Ry-ZDk">
@@ -1571,7 +1571,7 @@
         <!--By Ingredient Controller-->
         <scene sceneID="oiZ-Z4-CST">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="dKU-yL-tE1" customClass="ByIngredientController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="dKU-yL-tE1" customClass="ByIngredientController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5sU-cT-Har">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1762,7 +1762,7 @@ Ingredient</string>
         <!--By Name Controller-->
         <scene sceneID="MHk-5k-rG2">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="USg-Qc-yJD" customClass="ByNameController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="USg-Qc-yJD" customClass="ByNameController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vMB-3o-GJC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1930,7 +1930,7 @@ Name</string>
         <!--Item-->
         <scene sceneID="FGa-sL-A3t">
             <objects>
-                <viewController storyboardIdentifier="ResultViewController" id="1rU-AY-MFO" customClass="RecipeListScreen" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResultViewController" id="1rU-AY-MFO" customClass="RecipeListScreen" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AIe-t5-ua9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1944,7 +1944,7 @@ Name</string>
                                 <rect key="frame" x="0.0" y="118" width="414" height="690"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="110" id="6F6-nR-WWv" customClass="RecipeCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecipeCell" rowHeight="110" id="6F6-nR-WWv" customClass="RecipeCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6F6-nR-WWv" id="nkm-Lb-zf3">
@@ -2008,7 +2008,7 @@ Name</string>
         <!--Add Food View Controller-->
         <scene sceneID="JNG-ni-aoV">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="vxy-PY-QLz" customClass="AddFoodViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="vxy-PY-QLz" customClass="AddFoodViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Y0M-Oz-sBL" customClass="A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2092,7 +2092,7 @@ Name</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="foodCell" id="5Hj-wf-MGH" customClass="AddFoodTableViewCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="foodCell" id="5Hj-wf-MGH" customClass="AddFoodTableViewCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="394" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Hj-wf-MGH" id="aBc-Xb-lqB">
@@ -2174,7 +2174,7 @@ Name</string>
         <!--Add Chores View Controller-->
         <scene sceneID="5JL-VC-7f8">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="U5m-Kq-lub" customClass="AddChoresViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="U5m-Kq-lub" customClass="AddChoresViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8hl-Lx-ZS2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2279,7 +2279,7 @@ Name</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="choresCell" id="1W1-MB-txM" customClass="AddChoresTableViewCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="choresCell" id="1W1-MB-txM" customClass="AddChoresTableViewCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="392" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1W1-MB-txM" id="7LG-42-cGF">
@@ -2339,7 +2339,7 @@ Name</string>
         <!--My Chores View Controller-->
         <scene sceneID="DjF-HF-Bpk">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Z2J-bS-RUH" customClass="MyChoresViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="Z2J-bS-RUH" customClass="MyChoresViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SdL-hA-xy6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2380,7 +2380,7 @@ Name</string>
                                     <constraint firstAttribute="height" constant="601" id="ygV-Kn-U3C"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="HD4-ua-ymb" customClass="MyChoresTableViewCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="HD4-ua-ymb" customClass="MyChoresTableViewCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="394" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HD4-ua-ymb" id="1la-Ib-Rv1">
@@ -2504,12 +2504,12 @@ Name</string>
         <!--My Food View Controller-->
         <scene sceneID="63U-cj-nCG">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="MIq-cK-lJW" customClass="MyFoodViewController" customModule="UserLoginAndRegister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="MIq-cK-lJW" customClass="MyFoodViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SiH-Fl-ewH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="My Food" translatesAutoresizingMaskIntoConstraints="NO" id="hIu-MB-WK2">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="My Food" translatesAutoresizingMaskIntoConstraints="NO" id="hIu-MB-WK2">
                                 <rect key="frame" x="29" y="78" width="117" height="30"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Food" translatesAutoresizingMaskIntoConstraints="NO" id="NWQ-Hw-8Z1">
@@ -2538,7 +2538,7 @@ Name</string>
                                     <constraint firstAttribute="height" constant="601" id="AqB-pK-DKX"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="xME-SK-QFJ" customClass="CustomTableViewCell" customModule="UserLoginAndRegister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="xME-SK-QFJ" customClass="CustomTableViewCell" customModule="IntelliKitchen" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="394" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xME-SK-QFJ" id="VEY-aE-8M0">
@@ -2638,6 +2638,7 @@ Name</string>
                             <constraint firstItem="rhm-DD-0wp" firstAttribute="trailing" secondItem="ldM-ne-AJH" secondAttribute="trailing" constant="44" id="PAF-cD-FP1"/>
                             <constraint firstItem="rhm-DD-0wp" firstAttribute="trailing" secondItem="hCu-FO-ykH" secondAttribute="trailing" constant="52" id="Rqf-x3-ZrH"/>
                             <constraint firstItem="hCu-FO-ykH" firstAttribute="top" secondItem="pfN-9d-gkm" secondAttribute="top" id="Xs2-EU-aZY"/>
+                            <constraint firstItem="hIu-MB-WK2" firstAttribute="leading" secondItem="rhm-DD-0wp" secondAttribute="leading" constant="29" id="ZDW-cu-4G7"/>
                             <constraint firstItem="rhm-DD-0wp" firstAttribute="bottom" secondItem="ldM-ne-AJH" secondAttribute="bottom" constant="0.5" id="aUT-H8-SPu"/>
                             <constraint firstItem="hCu-FO-ykH" firstAttribute="top" secondItem="LAX-2q-To6" secondAttribute="bottom" constant="41" id="d8x-BT-2KT"/>
                             <constraint firstItem="NWQ-Hw-8Z1" firstAttribute="leading" secondItem="rhm-DD-0wp" secondAttribute="leading" constant="38" id="iEy-yt-O8b"/>
@@ -2663,11 +2664,11 @@ Name</string>
         <segue reference="9G8-Cl-qD7"/>
         <segue reference="5wx-Ok-YXk"/>
         <segue reference="6a3-b0-ic6"/>
-        <segue reference="Jk9-u3-0Hk"/>
-        <segue reference="KVd-js-MXM"/>
+        <segue reference="INZ-WA-o1H"/>
+        <segue reference="YFH-jT-jsd"/>
         <segue reference="ra0-k0-FEd"/>
         <segue reference="Sia-ox-8h1"/>
-        <segue reference="RVq-XJ-LmH"/>
+        <segue reference="gQe-gm-S3n"/>
         <segue reference="sdJ-kO-e5J"/>
     </inferredMetricsTieBreakers>
     <resources>
