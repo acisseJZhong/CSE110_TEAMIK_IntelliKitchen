@@ -228,13 +228,6 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     
-    @IBAction func homeTapped(_ sender: Any) {
-        let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
-        self.view.window?.rootViewController = homepageFoodController
-        self.view.window?.makeKeyAndVisible()
-    }
-    
-   
     
 }
 

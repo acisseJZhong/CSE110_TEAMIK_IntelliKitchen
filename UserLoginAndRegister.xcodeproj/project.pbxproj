@@ -28,6 +28,14 @@
 		8AC4E6D82459611F00A1E91E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */; };
 		8AC4E6DB245B7D3900A1E91E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6DA245B7D3900A1E91E /* Utilities.swift */; };
 		8AC4E6DE245B8AE800A1E91E /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */; };
+		8AEA49D6247C8080009118D0 /* MyChoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49D5247C807F009118D0 /* MyChoresTableViewCell.swift */; };
+		8AEA49D8247C8086009118D0 /* AddChoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49D7247C8085009118D0 /* AddChoresTableViewCell.swift */; };
+		8AEA49DA247C808B009118D0 /* AddFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49D9247C808B009118D0 /* AddFoodTableViewCell.swift */; };
+		8AEA49DC247C8090009118D0 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49DB247C8090009118D0 /* CustomTableViewCell.swift */; };
+		8AEA49DE247C809F009118D0 /* MyFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49DD247C809F009118D0 /* MyFoodViewController.swift */; };
+		8AEA49E0247C80A5009118D0 /* MyChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */; };
+		8AEA49E2247C80AA009118D0 /* AddChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */; };
+		8AEA49E4247C80AF009118D0 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */; };
 		8AEF2E5024778E120041EAFA /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */; };
 		8AEF2E5224778E2C0041EAFA /* FavoriteRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */; };
 		8AEF2E5424778E310041EAFA /* FavoriteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */; };
@@ -65,6 +73,14 @@
 		8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8AC4E6DA245B7D3900A1E91E /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		8AEA49D5247C807F009118D0 /* MyChoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChoresTableViewCell.swift; sourceTree = "<group>"; };
+		8AEA49D7247C8085009118D0 /* AddChoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChoresTableViewCell.swift; sourceTree = "<group>"; };
+		8AEA49D9247C808B009118D0 /* AddFoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodTableViewCell.swift; sourceTree = "<group>"; };
+		8AEA49DB247C8090009118D0 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		8AEA49DD247C809F009118D0 /* MyFoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFoodViewController.swift; sourceTree = "<group>"; };
+		8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChoresViewController.swift; sourceTree = "<group>"; };
+		8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChoresViewController.swift; sourceTree = "<group>"; };
+		8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
 		8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeCell.swift; sourceTree = "<group>"; };
 		8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipe.swift; sourceTree = "<group>"; };
@@ -144,15 +160,17 @@
 		8AC4E6D92459612C00A1E91E /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8AEA49E7247C8BAB009118D0 /* cell */,
 				8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */,
 				8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */,
 				8A0755D02464A05400EC96C3 /* WelcomeController.swift */,
 				8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */,
 				8A4F33ED247B26CE00F9826D /* ByNameController.swift */,
 				8A0755D22464A5B500EC96C3 /* LoginController.swift */,
-				8A4F33E7247B211B00F9826D /* CommentCell.swift */,
-				8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */,
-				8A4F33DF247B1FBB00F9826D /* RecipeCell.swift */,
+				8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */,
+				8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */,
+				8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */,
+				8AEA49DD247C809F009118D0 /* MyFoodViewController.swift */,
 				8A4F33EB247B213800F9826D /* ScrollViewController.swift */,
 				8A4F33E5247B211200F9826D /* Comment.swift */,
 				8A4F33E1247B1FC400F9826D /* Recipe.swift */,
@@ -177,6 +195,20 @@
 				8A0755CE24649D5100EC96C3 /* Constants.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		8AEA49E7247C8BAB009118D0 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */,
+				8A4F33E7247B211B00F9826D /* CommentCell.swift */,
+				8AEA49DB247C8090009118D0 /* CustomTableViewCell.swift */,
+				8AEA49D5247C807F009118D0 /* MyChoresTableViewCell.swift */,
+				8AEA49D9247C808B009118D0 /* AddFoodTableViewCell.swift */,
+				8A4F33DF247B1FBB00F9826D /* RecipeCell.swift */,
+				8AEA49D7247C8085009118D0 /* AddChoresTableViewCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,15 +345,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AEA49E0247C80A5009118D0 /* MyChoresViewController.swift in Sources */,
+				8AEA49E2247C80AA009118D0 /* AddChoresViewController.swift in Sources */,
 				8AC4E6DB245B7D3900A1E91E /* Utilities.swift in Sources */,
 				8A4F33E6247B211200F9826D /* Comment.swift in Sources */,
 				8AC4E6D82459611F00A1E91E /* RegisterViewController.swift in Sources */,
 				8AEF2E5C247932250041EAFA /* RecipeViewController.swift in Sources */,
 				8A4F33E0247B1FBB00F9826D /* RecipeCell.swift in Sources */,
 				8A0755D12464A05400EC96C3 /* WelcomeController.swift in Sources */,
+				8AEA49DC247C8090009118D0 /* CustomTableViewCell.swift in Sources */,
 				8A4F33EA247B212500F9826D /* RatingViewController.swift in Sources */,
 				8A4F33EC247B213900F9826D /* ScrollViewController.swift in Sources */,
+				8AEA49DE247C809F009118D0 /* MyFoodViewController.swift in Sources */,
+				8AEA49DA247C808B009118D0 /* AddFoodTableViewCell.swift in Sources */,
 				8AEF2E5024778E120041EAFA /* ProfilePageViewController.swift in Sources */,
+				8AEA49E4247C80AF009118D0 /* AddFoodViewController.swift in Sources */,
 				8A4F33DE247B1F6200F9826D /* RecipeListScreen.swift in Sources */,
 				8AEF2E5E2479322D0041EAFA /* ChoresViewController.swift in Sources */,
 				8AC4E6C22459600400A1E91E /* AppDelegate.swift in Sources */,
@@ -332,8 +370,10 @@
 				8AEF2E5A247932200041EAFA /* FoodViewController.swift in Sources */,
 				8AC4E6DE245B8AE800A1E91E /* ForgetPasswordViewController.swift in Sources */,
 				8AEF2E622479324B0041EAFA /* ChoresTableViewCell.swift in Sources */,
+				8AEA49D8247C8086009118D0 /* AddChoresTableViewCell.swift in Sources */,
 				8AEF2E5224778E2C0041EAFA /* FavoriteRecipeCell.swift in Sources */,
 				8A0755D32464A5B500EC96C3 /* LoginController.swift in Sources */,
+				8AEA49D6247C8080009118D0 /* MyChoresTableViewCell.swift in Sources */,
 				8A4F33EE247B26CE00F9826D /* ByNameController.swift in Sources */,
 				8A4F33FA247B3C7900F9826D /* ByIngredientController.swift in Sources */,
 				8AC4E6C42459600400A1E91E /* SceneDelegate.swift in Sources */,
