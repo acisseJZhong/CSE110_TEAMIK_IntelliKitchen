@@ -105,7 +105,7 @@ class RegisterViewController: UIViewController {
             else{
                 //created sucessfully
                 let db = Firestore.firestore()
-                db.collection("users").document(result!.user.uid).setData(["username":username, "email":email, "uid": result!.user.uid]) { (error) in
+                db.collection("users").document(result!.user.uid).setData(["username":username, "email":email, "uid": result!.user.uid, "favRecipe":[]]) { (error) in
                     if error != nil{
                         self.showError("Error saving user's data")
                     }

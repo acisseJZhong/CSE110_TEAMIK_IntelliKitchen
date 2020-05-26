@@ -13,10 +13,16 @@ import FirebaseAuth
 
 
 class ScrollViewController: UIViewController, UITextFieldDelegate {
-    
+    let db = Firestore.firestore()
+    var currentUid: String = ""
     // varaibles for steps for the first recipe
     var passid = ""
     var mylist:[String] = []
+    
+    //favourite
+    var favlist: [String] = []
+    var favornot: Bool = false;
+    
     var wholelist: String = "";
     @IBOutlet weak var stepsdisplay: UILabel!
     @IBOutlet weak var innerscroll: UIScrollView!
@@ -52,7 +58,7 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
     
     //favourite button
     @IBOutlet weak var FavouriteButton: UIButton!
-    var isFavourite:Bool = false;
+    //var isFavourite:Bool = false;
     
     //@IBOutlet weak var CommentsDisplay: UITextView!
     
@@ -70,15 +76,20 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
     
    
     @IBAction func ClickFavouriteButton(_ sender: Any) {
-        let currentUid = Auth.auth().currentUser?.uid
         
-        if(!isFavourite) {
+        
+        if(!favornot) {
             FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
-            isFavourite = true
+            self.favlist.append(passid)
+            db.collection("users").document(currentUid).updateData(["favRecipe" : self.favlist])
+            favornot = true
         }
         else{
             FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
-            isFavourite = false
+            let index = self.favlist.firstIndex(of: passid)
+            self.favlist.remove(at: index!)
+            db.collection("users").document(currentUid).updateData(["favRecipe" : self.favlist])
+            favornot = false
         }
     }
     
@@ -100,6 +111,38 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         let ingredientsdb = Database.database().reference().child("Recipe/"+passid+"/ingredients");
         var imagedb = Database.database().reference().child("Recipe/"+passid+"/img");
         print(passid)
+        
+        
+        //load favornot
+        self.currentUid = Auth.auth().currentUser!.uid
+        //print("11111111111")
+        print(currentUid)
+        db.collection("users").document(currentUid).getDocument { (document, error) in
+             if error == nil {
+                 if document != nil && document!.exists {
+                     let documentData = document?.data()
+                     self.favlist = documentData?["favRecipe"] as? [String] ?? []
+                     print(self.favlist)
+                     if self.favlist .contains(self.passid){
+                        self.favornot = true
+                     }
+                    if self.favornot{
+                        self.FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
+                     }
+                     else{
+                        self.FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
+                     }
+                 } else {
+                     print("Can read the document but the document might not exists")
+                 }
+                 
+             } else {
+                 print("Something wrong reading the document")
+             }
+         }
+        
+        
+        
         //grab steps from db
         rootRef.observe(.value, with: { snapshot in
             print(snapshot)
