@@ -31,6 +31,11 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         loadUserInfo()
+        myImageView.layer.borderWidth = 1
+        myImageView.layer.masksToBounds = false
+        myImageView.layer.borderColor = UIColor.black.cgColor
+        myImageView.layer.cornerRadius = myImageView.frame.height/2
+        myImageView.clipsToBounds = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -43,6 +48,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         //let ref = Database.database().reference()
         //var favoriteIDList:[String] = []
         let db = Firestore.firestore()
+        
         let currentUid = Auth.auth().currentUser!.uid
         db.collection("users").document(currentUid).getDocument { (document, error) in
             if error == nil {
@@ -52,7 +58,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     self.userEmail?.text = documentData?["email"] as? String
                     //favoriteIDList = documentData?["Favorite"] as! [String]
                     //self.favoriteRecipes = self.createArray(favoriteIDList)
-
+                    self.loadImageFromFirebase()
                     
                 } else {
                     print("Can read the document but the document might not exists")
@@ -116,17 +122,30 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         
         Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
                 if error == nil{
-                    self.signoutTapped((Any).self)
-                    print("an email has sent!")
-                    let loginController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginController) as? LoginController
-                    self.view.window?.rootViewController = loginController
-                    self.view.window?.makeKeyAndVisible()
+                    self.createAlertSignOut(title: "Success", message: "A link has sent to your email!")
                 }
                 else{
-                    ///
-                    print("error")
+                    self.createAlert(title: "Oops!", message: "There‘s something wrong. Please try again.")
                 }
             }
+    }
+    
+    
+    func createAlertSignOut(title:String, message:String){
+         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
+            self.signoutTapped((Any).self)
+         }))
+         self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
+    func createAlert(title:String, message:String){
+         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
+         }))
+         self.present(alert, animated: true, completion: nil)
     }
 
         
@@ -167,6 +186,23 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     
+    
+    
+    func loadImageFromFirebase(){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let storageRef = Storage.storage().reference().child("users/\(uid)")
+        storageRef.getData(maxSize: 1*65536*65536) {data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+              // Data for "images/island.jpg" is returned
+                self.myImageView.image = UIImage(data: data!)
+            }
+        }
+    }
+    
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             myImageView.image = image
@@ -184,7 +220,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         //Should we directly store this to the database and each time gain the data from the data base
         let db = Firestore.firestore()
         let currentUid = Auth.auth().currentUser!.uid
-        let updateString = self.userName.text
+        let updateString = self.userName!.text
         db.collection("users").document(currentUid).updateData(["username": updateString])
     }
     
@@ -221,11 +257,16 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
+        
+
         let loginController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginController) as? LoginController
         view.window?.rootViewController = loginController
         view.window?.makeKeyAndVisible()
           
     }
+    
+    
+
     
     
     
