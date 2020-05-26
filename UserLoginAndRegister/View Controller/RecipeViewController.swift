@@ -60,36 +60,9 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
                     self.list.append((name,date))
                 }
                 self.sortList()
-                self.getEmergencyList(){ (list) in
+                self.getRecipeList(){ (list) in
                     let list = list
                     for index in list{
-                        if(self.allRecipe.count<10){
-                        self.databaseHandle = self.ref?.child("Recipe/"+String(index)).observe(.value, with: { (snapshot) in
-                            let value = snapshot.value as? NSDictionary
-                            let recipe_name = value?.value(forKey: "recipe_name") as! String
-                            var image = UIImage(named: "Mask Group 7")
-                            if(value?.value(forKey: "img") != nil){
-                                let name = value?.value(forKey: "img") as! String
-                                let imageURL = URL(string: name)
-                                let data = try? Data(contentsOf: imageURL!)
-                                image = UIImage(data: data!)
-                                if(!self.allRecipe.contains(recipe_name)){
-                                    print(recipe_name+"1")
-                                    print(self.allRecipe)
-                                    self.AllImage.append(image!)
-                                    self.allRecipe.append(recipe_name)
-                                    self.collectionView.reloadData()
-                                    self.collectionView .layoutIfNeeded()
-                                }
-                                }
-                            })
-                        }
-                    }
-                    if(self.allRecipe.count<10){
-                        self.getAlmostList(){ (list) in
-                        let list = list
-                        for index in list{
-                            if(self.allRecipe.count<10){
                             self.databaseHandle = self.ref?.child("Recipe/"+String(index)).observe(.value, with: { (snapshot) in
                                 let value = snapshot.value as? NSDictionary
                                 let recipe_name = value?.value(forKey: "recipe_name") as! String
@@ -99,81 +72,22 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
                                     let imageURL = URL(string: name)
                                     let data = try? Data(contentsOf: imageURL!)
                                     image = UIImage(data: data!)
-                                    if(!self.allRecipe.contains(recipe_name)){
-                                        print(recipe_name+"2")
-                                        print(self.allRecipe)
                                         self.AllImage.append(image!)
                                         self.allRecipe.append(recipe_name)
                                         self.collectionView.reloadData()
                                         self.collectionView .layoutIfNeeded()
                                     }
-                                    }
                                 })
-                            }
                         }
-                        }
-                    }
-                    if(self.allRecipe.count<10){
-                        self.getSafeList(){ (list) in
-                        let list = list
-                        for index in list{
-                            if(self.allRecipe.count<10){
-                            self.databaseHandle = self.ref?.child("Recipe/"+String(index)).observe(.value, with: { (snapshot) in
-                                let value = snapshot.value as? NSDictionary
-                                let recipe_name = value?.value(forKey: "recipe_name") as! String
-                                var image = UIImage(named: "Mask Group 7")
-                                if(value?.value(forKey: "img") != nil){
-                                    let name = value?.value(forKey: "img") as! String
-                                    let imageURL = URL(string: name)
-                                    let data = try? Data(contentsOf: imageURL!)
-                                    image = UIImage(data: data!)
-                                    if(!self.allRecipe.contains(recipe_name)){
-                                        print(recipe_name+"3")
-                                        print(self.allRecipe)
-                                        self.AllImage.append(image!)
-                                        self.allRecipe.append(recipe_name)
-                                        self.collectionView.reloadData()
-                                        self.collectionView .layoutIfNeeded()
-                                    }
-                                    }
-                                })
-                            }
-                        }
-                        }
-                    }
-                    if(self.allRecipe.count<10){
-                        let mylist = self.mylist
-                        for index in mylist{
-                            if(self.allRecipe.count<10){
-                            self.databaseHandle = self.ref?.child("Recipe/"+String(index)).observe(.value, with: { (snapshot) in
-                                let value = snapshot.value as? NSDictionary
-                                let recipe_name = value?.value(forKey: "recipe_name") as! String
-                                var image = UIImage(named: "Mask Group 7")
-                                if(value?.value(forKey: "img") != nil){
-                                    let name = value?.value(forKey: "img") as! String
-                                    let imageURL = URL(string: name)
-                                    let data = try? Data(contentsOf: imageURL!)
-                                    image = UIImage(data: data!)
-                                    if(!self.allRecipe.contains(recipe_name)){
-                                        print(recipe_name+"4")
-                                        print(self.allRecipe)
-                                        self.AllImage.append(image!)
-                                        self.allRecipe.append(recipe_name)
-                                        self.collectionView.reloadData()
-                                        self.collectionView .layoutIfNeeded()
-                                    }
-                                    }
-                                })
-                            }
-                        }
-                    }
                 }
             }
         }
     }
     
-    func getSafeList(completionHandler:@escaping ([Int]) -> ()) {
-            for name in SafeFood{
+    
+    
+    func getRecipeList(completionHandler:@escaping ([Int]) -> ()) {
+            for name in sortedfoodList{
             self.databaseHandle = self.ref?.child("Ingredients/"+name).observe(.value, with: { (snapshot) in
             if(snapshot.exists()){
                 self.mylist.append(contentsOf: snapshot.value as! [Int])
@@ -186,10 +100,13 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
             var returned = [Int]()
             let counts = Dictionary(mappedItems, uniquingKeysWith: +)
                 for key in counts.keys{
-                    if(counts[key]! >= 2){
+                    if(counts[key]! >= 2 && returned.count<3){
                         returned.append(key)
                         self.mylist = self.mylist.filter{$0 != key}
                     }
+                }
+                while(self.EmergencyFood.contains(name) && returned.count<2){
+                    returned.append(counts.randomElement()!.value)
                 }
             completionHandler(returned)
             })
@@ -197,55 +114,6 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
 
-    func getAlmostList(completionHandler:@escaping ([Int]) -> ()) {
-            for name in AlmostFood{
-            self.databaseHandle = self.ref?.child("Ingredients/"+name).observe(.value, with: { (snapshot) in
-            if(snapshot.exists()){
-                self.mylist.append(contentsOf: snapshot.value as! [Int])
-            }
-            self.databaseHandle = self.ref?.child("Ingredients/"+name+"s").observe(.value, with: { (snapshot) in
-            if(snapshot.exists()){
-                self.mylist.append(contentsOf: snapshot.value as! [Int])
-            }
-            let mappedItems = self.mylist.map { ($0, 1) }
-            var returned = [Int]()
-            let counts = Dictionary(mappedItems, uniquingKeysWith: +)
-                for key in counts.keys{
-                    if(counts[key]! >= 2){
-                        returned.append(key)
-                        self.mylist = self.mylist.filter{$0 != key}
-                    }
-                }
-            completionHandler(returned)
-            })
-            })
-        }
-    }
-    
-    func getEmergencyList(completionHandler:@escaping ([Int]) -> ()) {
-            for name in EmergencyFood{
-            self.databaseHandle = self.ref?.child("Ingredients/"+name).observe(.value, with: { (snapshot) in
-            if(snapshot.exists()){
-                self.mylist.append(contentsOf: snapshot.value as! [Int])
-            }
-            self.databaseHandle = self.ref?.child("Ingredients/"+name+"s").observe(.value, with: { (snapshot) in
-            if(snapshot.exists()){
-                self.mylist.append(contentsOf: snapshot.value as! [Int])
-            }
-            let mappedItems = self.mylist.map { ($0, 1) }
-            var returned = [Int]()
-            let counts = Dictionary(mappedItems, uniquingKeysWith: +)
-                for key in counts.keys{
-                    if(counts[key]! >= 2){
-                        returned.append(key)
-                        self.mylist = self.mylist.filter{$0 != key}
-                    }
-                }
-            completionHandler(returned)
-            })
-            })
-        }
-    }
     
  
     func sortList(){
@@ -308,8 +176,10 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
         cell.imageView.translatesAutoresizingMaskIntoConstraints = true
         cell.imageView.contentMode = .scaleAspectFit
         cell.imageView.clipsToBounds = true
+        cell.imageView.layer.cornerRadius = 25
         cell.labelView.text = allRecipe[cellIndex]
-        
+        cell.labelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
+        cell.labelView.textColor = UIColor.darkGray
         return cell
     }
 

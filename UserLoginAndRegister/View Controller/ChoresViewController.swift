@@ -110,10 +110,14 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if(indexPath.row < notfinished){
             cell.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
         }
+        else{
+            cell.backgroundColor = UIColor.white
+        }
         
         cell.labelView.text = allDays[indexPath.row]
         cell.labelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
         cell.labelView.textColor = UIColor.darkGray
+        tableView.layer.cornerRadius = 20
         return cell
     }
     
