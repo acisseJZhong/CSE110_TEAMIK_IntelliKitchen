@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_UserLoginAndRegisterVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_UserLoginAndRegisterVersionString[];
+FOUNDATION_EXPORT double Pods_IntelliKitchenVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_IntelliKitchenVersionString[];
 

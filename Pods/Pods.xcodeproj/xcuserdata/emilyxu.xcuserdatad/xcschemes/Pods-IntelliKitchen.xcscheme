@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6408265F786661AE71A8D259727DC1BD"
-               BuildableName = "Pods_UserLoginAndRegister.framework"
-               BlueprintName = "Pods-UserLoginAndRegister"
+               BlueprintIdentifier = "63494AC277FE180EA4EEBF2094BEF343"
+               BuildableName = "Pods_IntelliKitchen.framework"
+               BlueprintName = "Pods-IntelliKitchen"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

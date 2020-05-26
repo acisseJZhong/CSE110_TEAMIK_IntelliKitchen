@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'UserLoginAndRegister' do
+target 'IntelliKitchen' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for UserLoginAndRegister
+  # Pods for IntelliKitchen
 
 
   # add the Firebase pod for Google Analytics

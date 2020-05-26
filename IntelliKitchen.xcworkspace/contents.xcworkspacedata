@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/emilyxu/Documents/GitHub/IntelliKitchen/IntelliKitchen.xcodeproj">
+      location = "group:IntelliKitchen.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

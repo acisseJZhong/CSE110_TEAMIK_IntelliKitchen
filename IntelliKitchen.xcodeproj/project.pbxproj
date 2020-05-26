@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		489F54C2687061C44ACDF99E /* Pods_IntelliKitchen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A40009C83E3AF9FA21B525 /* Pods_IntelliKitchen.framework */; };
 		8A0755CF24649D5100EC96C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0755CE24649D5100EC96C3 /* Constants.swift */; };
 		8A0755D12464A05400EC96C3 /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0755D02464A05400EC96C3 /* WelcomeController.swift */; };
 		8A0755D32464A5B500EC96C3 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0755D22464A5B500EC96C3 /* LoginController.swift */; };
@@ -19,7 +20,6 @@
 		8A4F33EC247B213900F9826D /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33EB247B213800F9826D /* ScrollViewController.swift */; };
 		8A4F33EE247B26CE00F9826D /* ByNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33ED247B26CE00F9826D /* ByNameController.swift */; };
 		8A4F33FA247B3C7900F9826D /* ByIngredientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */; };
-		8AC0BC7E246D17E800459411 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AC0BC7D246D17E800459411 /* GoogleService-Info.plist */; };
 		8AC4E6C22459600400A1E91E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6C12459600400A1E91E /* AppDelegate.swift */; };
 		8AC4E6C42459600400A1E91E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6C32459600400A1E91E /* SceneDelegate.swift */; };
 		8AC4E6C92459600400A1E91E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AC4E6C72459600400A1E91E /* Main.storyboard */; };
@@ -36,6 +36,8 @@
 		8AEA49E0247C80A5009118D0 /* MyChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */; };
 		8AEA49E2247C80AA009118D0 /* AddChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */; };
 		8AEA49E4247C80AF009118D0 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */; };
+		8AEB44DD247CCEA900B19E3D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */; };
+		8AEB44E1247CD06100B19E3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AEB44E0247CD06100B19E3D /* GoogleService-Info.plist */; };
 		8AEF2E5024778E120041EAFA /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */; };
 		8AEF2E5224778E2C0041EAFA /* FavoriteRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */; };
 		8AEF2E5424778E310041EAFA /* FavoriteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */; };
@@ -45,7 +47,6 @@
 		8AEF2E60247932440041EAFA /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5F247932440041EAFA /* CollectionViewCell.swift */; };
 		8AEF2E622479324B0041EAFA /* ChoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E612479324B0041EAFA /* ChoresTableViewCell.swift */; };
 		8AEF2E64247932560041EAFA /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E63247932560041EAFA /* Extentions.swift */; };
-		8DD8855AB5845CB9AA49B53D /* Pods_UserLoginAndRegister.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF6061D1D9192647F204B112 /* Pods_UserLoginAndRegister.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +63,6 @@
 		8A4F33EB247B213800F9826D /* ScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		8A4F33ED247B26CE00F9826D /* ByNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByNameController.swift; sourceTree = "<group>"; };
 		8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ByIngredientController.swift; sourceTree = "<group>"; };
-		8AC0BC7D246D17E800459411 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8AC4E6BE2459600400A1E91E /* IntelliKitchen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntelliKitchen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC4E6C12459600400A1E91E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8AC4E6C32459600400A1E91E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +81,8 @@
 		8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChoresViewController.swift; sourceTree = "<group>"; };
 		8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChoresViewController.swift; sourceTree = "<group>"; };
 		8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
+		8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8AEB44E0247CD06100B19E3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeCell.swift; sourceTree = "<group>"; };
 		8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipe.swift; sourceTree = "<group>"; };
@@ -91,7 +93,9 @@
 		8AEF2E612479324B0041EAFA /* ChoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoresTableViewCell.swift; sourceTree = "<group>"; };
 		8AEF2E63247932560041EAFA /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		9032C812FC9EA2A76E68084A /* Pods-UserLoginAndRegister.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UserLoginAndRegister.release.xcconfig"; path = "Target Support Files/Pods-UserLoginAndRegister/Pods-UserLoginAndRegister.release.xcconfig"; sourceTree = "<group>"; };
-		AF6061D1D9192647F204B112 /* Pods_UserLoginAndRegister.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UserLoginAndRegister.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C4CF6BA0FE49E2BD21B0D0C /* Pods-IntelliKitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntelliKitchen.release.xcconfig"; path = "Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen.release.xcconfig"; sourceTree = "<group>"; };
+		CB25438B6F74569006957CFC /* Pods-IntelliKitchen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntelliKitchen.debug.xcconfig"; path = "Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen.debug.xcconfig"; sourceTree = "<group>"; };
+		D8A40009C83E3AF9FA21B525 /* Pods_IntelliKitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntelliKitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD8855AB5845CB9AA49B53D /* Pods_UserLoginAndRegister.framework in Frameworks */,
+				489F54C2687061C44ACDF99E /* Pods_IntelliKitchen.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +115,8 @@
 			children = (
 				58D855E0257118C45B7247C3 /* Pods-UserLoginAndRegister.debug.xcconfig */,
 				9032C812FC9EA2A76E68084A /* Pods-UserLoginAndRegister.release.xcconfig */,
+				CB25438B6F74569006957CFC /* Pods-IntelliKitchen.debug.xcconfig */,
+				9C4CF6BA0FE49E2BD21B0D0C /* Pods-IntelliKitchen.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -118,7 +124,7 @@
 		88B4CEB4D8E9ABBD735C9209 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AF6061D1D9192647F204B112 /* Pods_UserLoginAndRegister.framework */,
+				D8A40009C83E3AF9FA21B525 /* Pods_IntelliKitchen.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -126,7 +132,8 @@
 		8AC4E6B52459600400A1E91E = {
 			isa = PBXGroup;
 			children = (
-				8AC4E6C02459600400A1E91E /* UserLoginAndRegister */,
+				8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */,
+				8AC4E6C02459600400A1E91E /* IntelliKitchen */,
 				8AC4E6BF2459600400A1E91E /* Products */,
 				1BC01C315386042AEC75BBD5 /* Pods */,
 				88B4CEB4D8E9ABBD735C9209 /* Frameworks */,
@@ -141,20 +148,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8AC4E6C02459600400A1E91E /* UserLoginAndRegister */ = {
+		8AC4E6C02459600400A1E91E /* IntelliKitchen */ = {
 			isa = PBXGroup;
 			children = (
 				8AC4E6DC245B806400A1E91E /* Helper */,
 				8AC4E6D92459612C00A1E91E /* View Controller */,
 				8AC4E6C12459600400A1E91E /* AppDelegate.swift */,
-				8AC0BC7D246D17E800459411 /* GoogleService-Info.plist */,
 				8AC4E6C32459600400A1E91E /* SceneDelegate.swift */,
 				8AC4E6C72459600400A1E91E /* Main.storyboard */,
+				8AEB44E0247CD06100B19E3D /* GoogleService-Info.plist */,
 				8AC4E6CA2459600600A1E91E /* Assets.xcassets */,
 				8AC4E6CC2459600600A1E91E /* LaunchScreen.storyboard */,
 				8AC4E6CF2459600600A1E91E /* Info.plist */,
 			);
-			path = UserLoginAndRegister;
+			path = IntelliKitchen;
 			sourceTree = "<group>";
 		};
 		8AC4E6D92459612C00A1E91E /* View Controller */ = {
@@ -274,8 +281,9 @@
 			files = (
 				8AC4E6CE2459600600A1E91E /* LaunchScreen.storyboard in Resources */,
 				8AC4E6CB2459600600A1E91E /* Assets.xcassets in Resources */,
+				8AEB44E1247CD06100B19E3D /* GoogleService-Info.plist in Resources */,
+				8AEB44DD247CCEA900B19E3D /* Default-568h@2x.png in Resources */,
 				8AC4E6C92459600400A1E91E /* Main.storyboard in Resources */,
-				8AC0BC7E246D17E800459411 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,15 +296,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UserLoginAndRegister/Pods-UserLoginAndRegister-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UserLoginAndRegister/Pods-UserLoginAndRegister-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UserLoginAndRegister/Pods-UserLoginAndRegister-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6DFAFC1CDC874E1F816EF529 /* [CP] Check Pods Manifest.lock */ = {
@@ -314,7 +322,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-UserLoginAndRegister-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-IntelliKitchen-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -327,15 +335,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UserLoginAndRegister/Pods-UserLoginAndRegister-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UserLoginAndRegister/Pods-UserLoginAndRegister-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UserLoginAndRegister/Pods-UserLoginAndRegister-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -520,17 +528,17 @@
 		};
 		8AC4E6D32459600600A1E91E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58D855E0257118C45B7247C3 /* Pods-UserLoginAndRegister.debug.xcconfig */;
+			baseConfigurationReference = CB25438B6F74569006957CFC /* Pods-IntelliKitchen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9H667RG257;
-				INFOPLIST_FILE = UserLoginAndRegister/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/IntelliKitchen/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xu.IntelliKichen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xu.IntelliKitchen;
 				PRODUCT_NAME = IntelliKitchen;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -539,17 +547,17 @@
 		};
 		8AC4E6D42459600600A1E91E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9032C812FC9EA2A76E68084A /* Pods-UserLoginAndRegister.release.xcconfig */;
+			baseConfigurationReference = 9C4CF6BA0FE49E2BD21B0D0C /* Pods-IntelliKitchen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9H667RG257;
-				INFOPLIST_FILE = UserLoginAndRegister/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/IntelliKitchen/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xu.IntelliKichen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xu.IntelliKitchen;
 				PRODUCT_NAME = IntelliKitchen;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
