@@ -116,7 +116,7 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell?.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
         }
         else if(indexPath.row < a){
-            cell?.backgroundColor = UIColor.white
+            cell?.backgroundColor = UIColor(red: 255/255, green: 196/255, blue: 196/255, alpha: 1)
         }
         else{
             cell?.backgroundColor = UIColor.white
