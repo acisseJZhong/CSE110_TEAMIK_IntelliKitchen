@@ -20,6 +20,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var userEmail: UILabel!
     @IBOutlet weak var userPassword: UITextField!
     @IBOutlet weak var saveUsername: UIButton!
+    @IBOutlet weak var favRecipeAlert: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -57,6 +58,9 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     self.userName?.text = documentData?["username"] as? String
                     self.userEmail?.text = documentData?["email"] as? String
                     favoriteIDList = documentData?["favRecipe"] as! [String]
+                    if favoriteIDList.count == 0{
+                        self.favRecipeAlert?.text = "Add Some Favorite while Searching"
+                    }
                     self.favoriteRecipes = self.createArray(favoriteIDList)
                     self.loadImageFromFirebase()
                     
