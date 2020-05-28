@@ -25,6 +25,7 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
     var allRecipe = [String]()
     var AllImage = [UIImage]()
     var mylist:[Int] = []
+     var recipeidlist:[String] = []
     
     var ExpiredFood = [String]()
     var EmergencyFood = [String]()
@@ -73,6 +74,7 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
                                     let data = try? Data(contentsOf: imageURL!)
                                     image = UIImage(data: data!)
                                         self.AllImage.append(image!)
+                                        self.recipeidlist.append(String(index))
                                         self.allRecipe.append(recipe_name)
                                         self.collectionView.reloadData()
                                         self.collectionView .layoutIfNeeded()
@@ -184,6 +186,14 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
 
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let id = self.recipeidlist[indexPath.item]
+        print(indexPath.item)
+        let storyboard = UIStoryboard(name:"Main",bundle: nil)
+        let anotherVC = storyboard.instantiateViewController(identifier: "menudetail") as! ScrollViewController
+        anotherVC.passid = id;
+        self.present(anotherVC,animated:true,completion: nil)
+        
+    }
     
 }
