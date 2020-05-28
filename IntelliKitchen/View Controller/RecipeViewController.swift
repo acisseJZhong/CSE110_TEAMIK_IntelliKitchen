@@ -63,7 +63,7 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
                 self.getRecipeList(){ (list) in
                     let list = list
                     for index in list{
-                            self.databaseHandle = self.ref?.child("Recipe/"+String(index)).observe(.value, with: { (snapshot) in
+                            self.databaseHandle = self.ref?.child("Recipe/-M8IVR-st6dljGq6M4xN/"+String(index)).observe(.value, with: { (snapshot) in
                                 let value = snapshot.value as? NSDictionary
                                 let recipe_name = value?.value(forKey: "recipe_name") as! String
                                 var image = UIImage(named: "Mask Group 7")

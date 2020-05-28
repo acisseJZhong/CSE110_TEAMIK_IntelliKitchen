@@ -84,7 +84,7 @@ class RecipeListScreen: UIViewController {
             if recipeID.count == 0 {
                 completion(tempRecipes)
             } else {
-                let recipeRef = Database.database().reference().child("Recipe")
+                let recipeRef = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN")
                 recipeRef.observe(.value, with: { snapshot in
                     for child in snapshot.children {
                         let snap = child as! DataSnapshot
