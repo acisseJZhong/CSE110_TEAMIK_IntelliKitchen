@@ -91,7 +91,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         var temp: [FavoriteRecipe] = []
 
         for recipe in favoriteIDList{
-            let currentRecipeString = "Recipe/" + recipe
+            let currentRecipeString = "Recipe/-M8IVR-st6dljGq6M4xN/" + recipe
             let recipeRef = ref.child(currentRecipeString)
             recipeRef.observe(.value, with: {snapshot in
                 let snap = snapshot as! DataSnapshot

@@ -1243,6 +1243,7 @@
                     </view>
                     <connections>
                         <outlet property="smallerView" destination="U9Z-6f-ptJ" id="Bk9-G9-DuW"/>
+                        <outlet property="submitbutton" destination="p2Z-uH-6om" id="m9n-SJ-TAf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Agd-cM-B4o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1307,7 +1308,8 @@
                                                 </constraints>
                                                 <state key="normal" title="Button" image="Path 5266"/>
                                                 <connections>
-                                                    <segue destination="8EZ-6a-c4V" kind="presentation" id="345-hs-4ek"/>
+                                                    <action selector="clickRating:" destination="kDF-ox-H9a" eventType="touchUpInside" id="rrD-Mb-uF7"/>
+                                                    <segue destination="8EZ-6a-c4V" kind="presentation" identifier="seguetest" id="345-hs-4ek"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you want to say about this recipe?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wWF-Z5-V2A">
@@ -1438,10 +1440,11 @@
                                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWY-Pz-iNA">
-                                                <rect key="frame" x="200.5" y="74" width="20" height="26"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWY-Pz-iNA">
+                                                <rect key="frame" x="185.5" y="74" width="50" height="25"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="fDU-Ar-OKX"/>
+                                                    <constraint firstAttribute="width" constant="50" id="Our-Lc-Xfs"/>
+                                                    <constraint firstAttribute="height" constant="25" id="fDU-Ar-OKX"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
@@ -1516,6 +1519,7 @@
                                             <constraint firstItem="JKd-ps-uRr" firstAttribute="top" secondItem="RwQ-1B-1z9" secondAttribute="bottom" constant="57" id="BPA-QE-fLq"/>
                                             <constraint firstAttribute="trailing" secondItem="g7h-Tm-tS7" secondAttribute="trailing" constant="16" id="Bqq-2Q-XCH"/>
                                             <constraint firstItem="3Lh-B9-jIh" firstAttribute="top" secondItem="4gl-id-gTj" secondAttribute="bottom" constant="23" id="Fba-2Y-zvb"/>
+                                            <constraint firstItem="4s3-Tu-uvv" firstAttribute="top" secondItem="qWY-Pz-iNA" secondAttribute="bottom" constant="1" id="IR9-3E-MZo"/>
                                             <constraint firstItem="3Lh-B9-jIh" firstAttribute="centerX" secondItem="OsP-b4-cEw" secondAttribute="centerX" id="IhL-R1-GyB"/>
                                             <constraint firstItem="g7h-Tm-tS7" firstAttribute="leading" secondItem="rkJ-Qb-b1d" secondAttribute="trailing" constant="7" id="M5m-KB-YiY"/>
                                             <constraint firstItem="RwQ-1B-1z9" firstAttribute="top" secondItem="Y6G-M0-M4w" secondAttribute="bottom" constant="20" id="MI8-0k-NdB"/>
@@ -1537,7 +1541,7 @@
                                             <constraint firstAttribute="trailing" secondItem="RwQ-1B-1z9" secondAttribute="trailing" constant="31" id="g31-2e-F6K"/>
                                             <constraint firstAttribute="height" constant="1254" id="gCa-7A-7ft"/>
                                             <constraint firstItem="4s3-Tu-uvv" firstAttribute="top" secondItem="r0b-Ue-yqC" secondAttribute="bottom" constant="37" id="gbx-MY-ChF"/>
-                                            <constraint firstItem="qWY-Pz-iNA" firstAttribute="top" secondItem="2Z5-B1-DzG" secondAttribute="bottom" constant="44" id="hai-Ee-uSa"/>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1600" id="gvo-7c-bRG"/>
                                             <constraint firstItem="7UT-7d-wzv" firstAttribute="leading" secondItem="YfF-kR-SaW" secondAttribute="trailing" constant="11" id="hdO-MA-cyF"/>
                                             <constraint firstItem="4gl-id-gTj" firstAttribute="top" secondItem="OsP-b4-cEw" secondAttribute="top" constant="503" id="ink-OF-xL7"/>
                                             <constraint firstAttribute="trailing" secondItem="6M4-bT-fFA" secondAttribute="trailing" constant="151" id="kn0-SI-O4z"/>
@@ -1581,13 +1585,15 @@
                         <outlet property="lefthalf" destination="tZz-i5-XpR" id="FTF-TU-xKi"/>
                         <outlet property="menupic" destination="4s3-Tu-uvv" id="DAc-9k-7X2"/>
                         <outlet property="menutitle" destination="2Z5-B1-DzG" id="6VP-Hz-Bf6"/>
+                        <outlet property="ratinglabel" destination="qWY-Pz-iNA" id="1Sc-MO-Ljh"/>
                         <outlet property="righthalf" destination="Dwu-xz-pAy" id="Bkw-Ov-wKD"/>
                         <outlet property="stepsdisplay" destination="cEP-Ox-kbp" id="Qsh-70-vEi"/>
+                        <outlet property="submitdisplay" destination="JKd-ps-uRr" id="8iV-rI-T5J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UjW-tp-Ehl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2777" y="871"/>
+            <point key="canvasLocation" x="2776.811594202899" y="870.53571428571422"/>
         </scene>
         <!--By Ingredient Controller-->
         <scene sceneID="oiZ-Z4-CST">
