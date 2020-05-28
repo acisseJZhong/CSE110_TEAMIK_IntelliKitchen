@@ -31,11 +31,11 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         loadUserInfo()
-        myImageView.layer.borderWidth = 1
-        myImageView.layer.masksToBounds = false
-        myImageView.layer.borderColor = UIColor.black.cgColor
-        myImageView.layer.cornerRadius = myImageView.frame.height/2
-        myImageView.clipsToBounds = true
+        myImageView?.layer.borderWidth = 1
+        myImageView?.layer.masksToBounds = false
+        myImageView?.layer.borderColor = UIColor.black.cgColor
+        myImageView?.layer.cornerRadius = myImageView.frame.height/2
+        myImageView?.clipsToBounds = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,7 +46,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     
     func loadUserInfo(){
         //let ref = Database.database().reference()
-        //var favoriteIDList:[String] = []
+        var favoriteIDList:[String] = []
         let db = Firestore.firestore()
         
         let currentUid = Auth.auth().currentUser!.uid
@@ -56,8 +56,8 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     let documentData = document?.data()
                     self.userName?.text = documentData?["username"] as? String
                     self.userEmail?.text = documentData?["email"] as? String
-                    //favoriteIDList = documentData?["Favorite"] as! [String]
-                    //self.favoriteRecipes = self.createArray(favoriteIDList)
+                    favoriteIDList = documentData?["favRecipe"] as! [String]
+                    self.favoriteRecipes = self.createArray(favoriteIDList)
                     self.loadImageFromFirebase()
                     
                 } else {
@@ -73,7 +73,6 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     func createArray(_ favoriteIDList: [String]) -> [FavoriteRecipe]{
         var temp: [FavoriteRecipe] = []
         
-        //var favoriteIDList:[String] = ["5344","5345","5346"]
         print("1. about to retrieve favorite recipes")
         retrieveFR(favoriteIDList, completion: {searchedRecipes in
             self.favoriteRecipes = searchedRecipes
@@ -185,9 +184,6 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         
     }
     
-    
-    
-    
     func loadImageFromFirebase(){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let storageRef = Storage.storage().reference().child("users/\(uid)")
@@ -196,7 +192,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                 print(error.localizedDescription)
             } else {
               // Data for "images/island.jpg" is returned
-                self.myImageView.image = UIImage(data: data!)
+                self.myImageView?.image = UIImage(data: data!)
             }
         }
     }

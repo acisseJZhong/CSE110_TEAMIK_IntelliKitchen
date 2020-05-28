@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="33K-NU-TPQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="33K-NU-TPQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -374,7 +374,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0Zk-zR-ETy">
-                                <rect key="frame" x="50" y="244" width="314" height="277"/>
+                                <rect key="frame" x="50" y="269" width="314" height="277"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyQ-w8-yOX" userLabel="userName">
                                         <rect key="frame" x="0.0" y="0.0" width="314" height="31"/>
@@ -465,7 +465,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileTapped" translatesAutoresizingMaskIntoConstraints="NO" id="ze8-Bv-IKd">
-                                <rect key="frame" x="153" y="118" width="108" height="100"/>
+                                <rect key="frame" x="153" y="118" width="108" height="125"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgT-69-fXf">
                                 <rect key="frame" x="30" y="680" width="354" height="60"/>
@@ -517,7 +517,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oki-S3-79q">
-                                <rect key="frame" x="140" y="562" width="146" height="34"/>
+                                <rect key="frame" x="140" y="587" width="146" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="View My Favorites">
                                     <color key="titleColor" red="0.39536336059999999" green="0.60771244759999998" blue="0.25482052560000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -526,8 +526,8 @@
                                     <segue destination="UQe-Ho-30d" kind="show" id="oJp-an-APJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQr-xU-Rv5">
-                                <rect key="frame" x="225" y="185" width="32" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQr-xU-Rv5">
+                                <rect key="frame" x="269" y="228" width="32" height="33"/>
                                 <state key="normal" backgroundImage="icon-edit"/>
                                 <connections>
                                     <action selector="importImage:" destination="bin-64-Hy2" eventType="touchUpInside" id="1lp-aY-EEW"/>
@@ -540,18 +540,18 @@
                             <constraint firstItem="0Zk-zR-ETy" firstAttribute="centerX" secondItem="mrJ-Pi-6lT" secondAttribute="centerX" id="3zk-ce-5M7"/>
                             <constraint firstItem="ze8-Bv-IKd" firstAttribute="centerX" secondItem="mrJ-Pi-6lT" secondAttribute="centerX" id="46I-53-FRy"/>
                             <constraint firstItem="0Zk-zR-ETy" firstAttribute="top" secondItem="ze8-Bv-IKd" secondAttribute="bottom" constant="26" id="BsF-Jt-HTH"/>
-                            <constraint firstItem="M5r-gz-6z4" firstAttribute="trailing" secondItem="IQr-xU-Rv5" secondAttribute="trailing" constant="157" id="ICr-Ji-XI0"/>
+                            <constraint firstItem="M5r-gz-6z4" firstAttribute="trailing" secondItem="IQr-xU-Rv5" secondAttribute="trailing" constant="113" id="ICr-Ji-XI0"/>
                             <constraint firstItem="bgT-69-fXf" firstAttribute="leading" secondItem="M5r-gz-6z4" secondAttribute="leading" constant="30" id="Iv9-XV-Tlg"/>
                             <constraint firstItem="0Zk-zR-ETy" firstAttribute="leading" secondItem="mrJ-Pi-6lT" secondAttribute="leadingMargin" constant="30" id="KtD-wj-HtY"/>
                             <constraint firstItem="bgT-69-fXf" firstAttribute="centerX" secondItem="mrJ-Pi-6lT" secondAttribute="centerX" id="Lfh-CP-6Su"/>
                             <constraint firstItem="M5r-gz-6z4" firstAttribute="bottom" secondItem="Sdt-2h-ltX" secondAttribute="bottom" constant="0.5" id="MNg-VF-hHT"/>
-                            <constraint firstItem="IQr-xU-Rv5" firstAttribute="leading" secondItem="M5r-gz-6z4" secondAttribute="leading" constant="225" id="TBO-y6-frF"/>
+                            <constraint firstItem="IQr-xU-Rv5" firstAttribute="leading" secondItem="M5r-gz-6z4" secondAttribute="leading" constant="269" id="TBO-y6-frF"/>
                             <constraint firstItem="M5r-gz-6z4" firstAttribute="trailing" secondItem="oki-S3-79q" secondAttribute="trailing" constant="128" id="TdZ-a3-shZ"/>
                             <constraint firstItem="IQr-xU-Rv5" firstAttribute="top" secondItem="ze8-Bv-IKd" secondAttribute="bottom" constant="-33" id="Tkg-gk-qhe"/>
                             <constraint firstItem="ze8-Bv-IKd" firstAttribute="top" secondItem="M5r-gz-6z4" secondAttribute="top" constant="74" id="YRK-17-rAk"/>
                             <constraint firstItem="Sdt-2h-ltX" firstAttribute="top" secondItem="bgT-69-fXf" secondAttribute="bottom" constant="83" id="bKz-ZL-4WQ"/>
                             <constraint firstItem="oki-S3-79q" firstAttribute="top" secondItem="0Zk-zR-ETy" secondAttribute="bottom" constant="41" id="dSw-Ig-snx"/>
-                            <constraint firstItem="IQr-xU-Rv5" firstAttribute="top" secondItem="M5r-gz-6z4" secondAttribute="top" constant="141" id="mGb-gK-T8G"/>
+                            <constraint firstItem="IQr-xU-Rv5" firstAttribute="top" secondItem="M5r-gz-6z4" secondAttribute="top" constant="166" id="mGb-gK-T8G"/>
                             <constraint firstItem="M5r-gz-6z4" firstAttribute="trailing" secondItem="Sdt-2h-ltX" secondAttribute="trailing" constant="44" id="n4C-iQ-zUS"/>
                             <constraint firstItem="0Zk-zR-ETy" firstAttribute="top" secondItem="IQr-xU-Rv5" secondAttribute="bottom" constant="26" id="pnr-gk-dr5"/>
                             <constraint firstItem="M5r-gz-6z4" firstAttribute="trailing" secondItem="ze8-Bv-IKd" secondAttribute="trailing" constant="153" id="tp9-Ew-5EG"/>
@@ -583,7 +583,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3fg-5T-Qj1">
-                                <rect key="frame" x="0.0" y="100" width="414" height="708"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="788"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteRecipeCell" id="NXy-S6-1TQ" customClass="FavoriteRecipeCell" customModule="IntelliKitchen" customModuleProvider="target">
@@ -633,7 +633,7 @@
                         <constraints>
                             <constraint firstItem="URy-a8-mni" firstAttribute="trailing" secondItem="3fg-5T-Qj1" secondAttribute="trailing" id="1xJ-D6-JsF"/>
                             <constraint firstItem="3fg-5T-Qj1" firstAttribute="leading" secondItem="URy-a8-mni" secondAttribute="leading" id="IJV-22-qk9"/>
-                            <constraint firstItem="3fg-5T-Qj1" firstAttribute="top" secondItem="mt9-Iz-oTN" secondAttribute="top" constant="100" id="RGq-Jv-d5a"/>
+                            <constraint firstItem="3fg-5T-Qj1" firstAttribute="top" secondItem="mt9-Iz-oTN" secondAttribute="top" constant="20" id="RGq-Jv-d5a"/>
                             <constraint firstItem="URy-a8-mni" firstAttribute="bottom" secondItem="3fg-5T-Qj1" secondAttribute="bottom" id="dKl-q7-WbE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="URy-a8-mni"/>
@@ -2687,12 +2687,12 @@ Name</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aZP-u7-NRW"/>
-        <segue reference="BL5-Dg-CjX"/>
+        <segue reference="RsX-XU-FdV"/>
+        <segue reference="xDq-tg-AmH"/>
         <segue reference="5wx-Ok-YXk"/>
-        <segue reference="Pe9-fQ-o6i"/>
+        <segue reference="UUN-V0-Nww"/>
         <segue reference="INZ-WA-o1H"/>
-        <segue reference="zQb-Z9-jAv"/>
+        <segue reference="AKR-JW-nkG"/>
         <segue reference="ra0-k0-FEd"/>
         <segue reference="kb5-LH-Iia"/>
         <segue reference="BqG-4F-cVx"/>
