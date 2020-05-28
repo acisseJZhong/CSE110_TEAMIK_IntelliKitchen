@@ -28,6 +28,7 @@
 		8AC4E6D82459611F00A1E91E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */; };
 		8AC4E6DB245B7D3900A1E91E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6DA245B7D3900A1E91E /* Utilities.swift */; };
 		8AC4E6DE245B8AE800A1E91E /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */; };
+		8AE863FD24807F43001B4585 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AE863FC24807F43001B4585 /* GoogleService-Info.plist */; };
 		8AEA49D6247C8080009118D0 /* MyChoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49D5247C807F009118D0 /* MyChoresTableViewCell.swift */; };
 		8AEA49D8247C8086009118D0 /* AddChoresTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49D7247C8085009118D0 /* AddChoresTableViewCell.swift */; };
 		8AEA49DA247C808B009118D0 /* AddFoodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49D9247C808B009118D0 /* AddFoodTableViewCell.swift */; };
@@ -36,8 +37,6 @@
 		8AEA49E0247C80A5009118D0 /* MyChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */; };
 		8AEA49E2247C80AA009118D0 /* AddChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */; };
 		8AEA49E4247C80AF009118D0 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */; };
-		8AEB44DD247CCEA900B19E3D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */; };
-		8AEB44E1247CD06100B19E3D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AEB44E0247CD06100B19E3D /* GoogleService-Info.plist */; };
 		8AEF2E5024778E120041EAFA /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */; };
 		8AEF2E5224778E2C0041EAFA /* FavoriteRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */; };
 		8AEF2E5424778E310041EAFA /* FavoriteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */; };
@@ -73,6 +72,7 @@
 		8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8AC4E6DA245B7D3900A1E91E /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		8AE863FC24807F43001B4585 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8AEA49D5247C807F009118D0 /* MyChoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChoresTableViewCell.swift; sourceTree = "<group>"; };
 		8AEA49D7247C8085009118D0 /* AddChoresTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChoresTableViewCell.swift; sourceTree = "<group>"; };
 		8AEA49D9247C808B009118D0 /* AddFoodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodTableViewCell.swift; sourceTree = "<group>"; };
@@ -81,8 +81,6 @@
 		8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChoresViewController.swift; sourceTree = "<group>"; };
 		8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChoresViewController.swift; sourceTree = "<group>"; };
 		8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
-		8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		8AEB44E0247CD06100B19E3D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeCell.swift; sourceTree = "<group>"; };
 		8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipe.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 		8AC4E6B52459600400A1E91E = {
 			isa = PBXGroup;
 			children = (
-				8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */,
 				8AC4E6C02459600400A1E91E /* IntelliKitchen */,
 				8AC4E6BF2459600400A1E91E /* Products */,
 				1BC01C315386042AEC75BBD5 /* Pods */,
@@ -156,7 +153,7 @@
 				8AC4E6C12459600400A1E91E /* AppDelegate.swift */,
 				8AC4E6C32459600400A1E91E /* SceneDelegate.swift */,
 				8AC4E6C72459600400A1E91E /* Main.storyboard */,
-				8AEB44E0247CD06100B19E3D /* GoogleService-Info.plist */,
+				8AE863FC24807F43001B4585 /* GoogleService-Info.plist */,
 				8AC4E6CA2459600600A1E91E /* Assets.xcassets */,
 				8AC4E6CC2459600600A1E91E /* LaunchScreen.storyboard */,
 				8AC4E6CF2459600600A1E91E /* Info.plist */,
@@ -281,8 +278,7 @@
 			files = (
 				8AC4E6CE2459600600A1E91E /* LaunchScreen.storyboard in Resources */,
 				8AC4E6CB2459600600A1E91E /* Assets.xcassets in Resources */,
-				8AEB44E1247CD06100B19E3D /* GoogleService-Info.plist in Resources */,
-				8AEB44DD247CCEA900B19E3D /* Default-568h@2x.png in Resources */,
+				8AE863FD24807F43001B4585 /* GoogleService-Info.plist in Resources */,
 				8AC4E6C92459600400A1E91E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
