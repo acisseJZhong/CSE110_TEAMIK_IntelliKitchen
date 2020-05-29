@@ -91,6 +91,9 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     self.favoriteIDList = documentData?["favRecipe"] as! [String]
                     if self.favoriteIDList.count == 0{
                         self.favRecipeAlert?.text = "Add Some Favorite while Searching"
+                    } else {
+                        self.favRecipeAlert?.text = "My Favorite Recipes:"
+
                     }
                     self.favoriteRecipes = self.createArray(self.favoriteIDList)
                     self.loadImageFromFirebase()
