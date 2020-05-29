@@ -62,12 +62,13 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
                 }
                 self.sortList()
                 print(self.sortedfoodList)
-                self.getRecipeList(){ (list) in
+                self.getdicList(){ (list) in
                     let list = list
                     for index in list{
                             self.databaseHandle = self.ref?.child("Recipe/-M8IVR-st6dljGq6M4xN/"+String(index)).observe(.value, with: { (snapshot) in
                                 let value = snapshot.value as? NSDictionary
                                 let recipe_name = value?.value(forKey: "recipe_name") as! String
+                                if(!self.allRecipe.contains(recipe_name)){
                                 var image = UIImage(named: "Mask Group 7")
                                 if(value?.value(forKey: "img") != nil){
                                     let name = value?.value(forKey: "img") as! String
@@ -94,15 +95,72 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
                                             self.collectionView .layoutIfNeeded()
                                     }
                                 }
+                        }
                                 })
                         }
                 }
             }
         }
     }
+
+    func getRecipeList(name: String, completionHandler:@escaping ([Int], [Int]) -> ()) {
+        var currentfood:[Int] = []
+        var transfer:[Int] = []
+        self.databaseHandle = self.ref?.child("Ingredients/"+name).observe(.value, with: { (snapshot) in
+        if(snapshot.exists()){
+            transfer.append(contentsOf: snapshot.value as! [Int])
+            currentfood = snapshot.value as! [Int]
+        }
+        self.databaseHandle = self.ref?.child("Ingredients/"+name+"s").observe(.value, with: { (snapshot) in
+        if(snapshot.exists()){
+            transfer.append(contentsOf: snapshot.value as! [Int])
+            currentfood = snapshot.value as! [Int]
+        }
+        completionHandler(transfer, currentfood)
+        })
+        })
+    }
     
+    func getdicList(completionHandler:@escaping ([Int]) -> ()) {
+        var list:[Int] = []
+        for name in sortedfoodList{
+            getRecipeList(name: name){ (translist, currlist) in
+                list.append(contentsOf: translist)
+                let currlist = currlist
+                print(name)
+                print(list)
+                print(currlist)
+                let mappedItems = list.map { ($0, 1) }
+                var returned = [Int]()
+                let counts = Dictionary(mappedItems, uniquingKeysWith: +)
+                    for key in counts.keys{
+                        if(counts[key]! >= 2 && returned.count<3){
+                            returned.append(key)
+                            list = list.filter{$0 != key}
+                        }
+                    }
+                    while(counts.count > 0 && self.EmergencyFood.contains(name) && currlist.count > 0 && returned.count<3){
+                        print(name)
+                        print(currlist)
+                        returned.append(currlist.randomElement()!)
+                    }
+                    while(counts.count > 0 && self.AlmostFood.contains(name) && currlist.count > 0 && returned.count<2){
+                        print(name)
+                        print(currlist)
+                        returned.append(currlist.randomElement()!)
+                    }
+                    while(counts.count > 0 && self.SafeFood.contains(name) && currlist.count > 0 && returned.count<1){
+                        print(name)
+                        print(currlist)
+                        returned.append(currlist.randomElement()!)
+                    }
+                    print(returned)
+                completionHandler(returned)
+        }
+    }
+    }
     
-    
+    /*
     func getRecipeList(completionHandler:@escaping ([Int]) -> ()) {
         for name in sortedfoodList{
             var currentfood:[Int] = []
@@ -119,14 +177,23 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
             let mappedItems = self.mylist.map { ($0, 1) }
             var returned = [Int]()
             let counts = Dictionary(mappedItems, uniquingKeysWith: +)
-                print(counts)
                 for key in counts.keys{
                     if(counts[key]! >= 2 && returned.count<3){
                         returned.append(key)
                         self.mylist = self.mylist.filter{$0 != key}
                     }
                 }
-                while(counts.count > 0 && self.EmergencyFood.contains(name) && currentfood.count > 0 && returned.count<2){
+                while(counts.count > 0 && self.EmergencyFood.contains(name) && currentfood.count > 0 && returned.count<3){
+                    print(name)
+                    print(currentfood)
+                    returned.append(counts.randomElement()!.key)
+                }
+                while(counts.count > 0 && self.AlmostFood.contains(name) && currentfood.count > 0 && returned.count<2){
+                    print(name)
+                    print(currentfood)
+                    returned.append(counts.randomElement()!.key)
+                }
+                while(counts.count > 0 && self.SafeFood.contains(name) && currentfood.count > 0 && returned.count<2){
                     print(name)
                     print(currentfood)
                     returned.append(counts.randomElement()!.key)
@@ -137,7 +204,7 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
             })
         }
     }
-
+*/
     func sortList(){
         for data in list{
             let expireSingle = data.1
