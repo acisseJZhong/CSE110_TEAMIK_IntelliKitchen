@@ -50,12 +50,43 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         
         let db = Firestore.firestore()
         
+        //let access = LoginController()
+        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
+        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
+        let tempGoogleIconUrl = LoginController.GlobalVariable.googleIconUrl
+        print("----------> tempGoogleIconUrl is:")
+        print(tempGoogleIconUrl)
+        print(type(of: tempGoogleIconUrl))
+        if tempGoogleUsername != "" && tempGoogleEmail != ""{
+            self.userName?.text = tempGoogleUsername
+            
+            self.userEmail?.text = tempGoogleEmail
+            
+//            var currentImage = UIImage()
+//            let imageUrl = tempGoogleIconUrl
+//            guard let imageData = try? Data(contentsOf: imageUrl!) else {return}
+//            currentImage = UIImage(data: imageData)!
+            guard let imageURL = tempGoogleIconUrl else { return  }
+
+                // just not to cause a deadlock in UI!
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: imageURL) else { return }
+
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    self.myImageView?.image = image
+                }
+            }
+        }
+
         let currentUid = Auth.auth().currentUser!.uid
         db.collection("users").document(currentUid).getDocument { (document, error) in
             if error == nil {
                 if document != nil && document!.exists {
                     let documentData = document?.data()
+
                     self.userName?.text = documentData?["username"] as? String
+ 
                     self.userEmail?.text = documentData?["email"] as? String
                     self.favoriteIDList = documentData?["favRecipe"] as! [String]
                     if self.favoriteIDList.count == 0{
