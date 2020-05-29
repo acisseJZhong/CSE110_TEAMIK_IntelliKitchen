@@ -149,6 +149,9 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         let titledb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/recipe_name");
         let ingredientsdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/ingredients");
         var imagedb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/img");
+        var imagedbnew = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/recipe_pic");
+        print("new")
+        print(imagedb)
         var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/rating");
         var commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/comments");
         //print(passid)
@@ -243,10 +246,22 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         
         // grab recipe photo
         imagedb.observeSingleEvent(of: .value) { (snapshot) in
+            if(!(snapshot.value is NSNull)){
             self.imageurl = URL(string: snapshot.value as! String);
-            print(self.imageurl);
+            print(self.imageurl!);
             self.menupic.load(url: self.imageurl);
             self.menupic.layer.cornerRadius = 10;
+            }
+            else{
+                imagedbnew.observeSingleEvent(of: .value) { (snapshot) in
+                    if(snapshot.value != nil){
+                    self.imageurl = URL(string: snapshot.value as! String);
+                    print(self.imageurl!);
+                    self.menupic.load(url: self.imageurl);
+                    self.menupic.layer.cornerRadius = 10;
+                    }
+                }
+            }
         }
         
         // grab comments
