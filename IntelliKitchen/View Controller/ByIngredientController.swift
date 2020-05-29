@@ -42,6 +42,7 @@ class ByIngredientController: UIViewController {
         clearButton.layer.cornerRadius = 5
         clearButton.backgroundColor = darkGreen
         clearButton.tintColor = .white
+        ingredientTableView.backgroundColor = lightGreen
         ingredientTableView.layer.cornerRadius = 20
     }
     
@@ -120,9 +121,9 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-        cell?.backgroundColor = lightGreen
+        cell?.contentView.backgroundColor = lightGreen
         cell?.textLabel?.textColor = .white
-        cell?.tintColor = .white
+        cell?.tintColor = lightGreen
         return cell!
     }
     
@@ -160,8 +161,67 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
             }
             ingredientTableView.reloadData()
 
+            
+            
+            // if the cell is not in selected ingredients
+//            if indexPath.row >= selectedIngredient.count {
+//                print("add")
+//                let cell = tableView.cellForRow(at: indexPath)
+//                let label = (cell?.textLabel?.text)!
+//                selectedIngredient.append(label)
+//                selectedIngredient.sort()
+//                print(label)
+//                allIngredient = allIngredient.filter{ $0 != label }
+//                searching = false
+//                ingredientSearchBar.text = ""
+//                ingredientTableView.reloadData()
+//            } else {
+//                print("remove")
+//                let cell = tableView.cellForRow(at: indexPath)
+//                let label = (cell?.textLabel?.text)!
+//                print(label)
+//                selectedIngredient = selectedIngredient.filter{ $0 != label}
+//                allIngredient.append(label)
+//                allIngredient.sort()
+//                ingredientTableView.reloadData()
+//            }
         }
     }
+    
+//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        if indexPath.row < selectedIngredient.count {
+//            print("asdlkjfdaslkfjaslfjdas")
+//            let cell = tableView.cellForRow(at: indexPath)
+//            let label = (cell?.textLabel?.text)!
+//            selectedIngredient = selectedIngredient.filter{ $0 != label}
+//            ingredientArray.append(label)
+//            ingredientArray.sort()
+//        }
+//    }
+//        tab.accessoryType = UITableViewCellAccessoryCheckmark;
+
+//        if (selectedIngredient.count >= 20) {
+//            let alert = UIAlertController(title: "Too many ingredients!", message: "Please remove ingredients before adding", preferredStyle: UIAlertController.Style.alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        } else {
+//            let index = indexPath.row
+//            var item = ""
+//            if searching {
+//                item = searchIngredient[index]
+//                ingredientArray = ingredientArray.filter{ $0 != item }
+//                print("searching removed: \(item)")
+//            } else {
+//                item = ingredientArray[index]
+//                ingredientArray.remove(at: index)
+//                print("not searching removed: \(item)")
+    //            searching = false
+//            }
+//            tagListView.addTag(item)
+//            selectedIngredient.append(item)
+//            ingredientSearchBar.text = ""
+//            ingredientTableView.reloadData()
+//        }
 }
 
 

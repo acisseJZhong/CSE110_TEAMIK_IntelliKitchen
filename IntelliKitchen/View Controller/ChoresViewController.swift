@@ -80,7 +80,7 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.allTuples.insert((data.0, inday), at: index)
             //print(self.allTuples)
             if(inday < 0){
-                self.allChores.insert("did not " + data.0 + " for ", at: index)
+                self.allChores.insert("Did not " + data.0 + " for ", at: index)
                 self.allDays.insert(String(0-inday) + " days", at: index)
                 self.notfinished+=1
             }
@@ -104,20 +104,21 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChoresCell") as! ChoresTableViewCell
-        cell.textLabel?.text = allChores[indexPath.row]
-        cell.textLabel?.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
-        cell.textLabel?.textColor = UIColor.darkGray
+        cell.orilabelView.text = allChores[indexPath.row]
+        cell.orilabelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
+        cell.orilabelView.textColor = UIColor.darkGray
         if(indexPath.row < notfinished){
             cell.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
         }
         else{
             cell.backgroundColor = UIColor.white
         }
-        
+    
         cell.labelView.text = allDays[indexPath.row]
         cell.labelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
         cell.labelView.textColor = UIColor.darkGray
         tableView.layer.cornerRadius = 20
+        cell.selectionStyle = .none
         return cell
     }
     

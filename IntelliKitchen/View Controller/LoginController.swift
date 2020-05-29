@@ -20,22 +20,21 @@ class LoginController: UIViewController, GIDSignInDelegate{
     
 
     @IBOutlet weak var emailTextField: UITextField!
+   
     @IBOutlet weak var passwordTextField: UITextField!
+   
     @IBOutlet weak var loginButton: UIButton!
    
 
    
     @IBOutlet weak var errorLabel: UILabel!
+    
     @IBOutlet weak var googleButton: GIDSignInButton!
+    
     @IBOutlet weak var facebookButton: FBLoginButton!
         
-
     
-    struct GlobalVariable{
-        static var googleUsername = ""
-        static var googleEmail = ""
-        static var googleIconUrl:URL?
-    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.presentingViewController = self
@@ -68,8 +67,7 @@ class LoginController: UIViewController, GIDSignInDelegate{
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
                 
                 if error != nil{
-                    let errorMessage = error!.localizedDescription
-                    self.errorLabel.text = String(errorMessage.split(separator: ".")[0]) + "."
+                    self.errorLabel.text = error!.localizedDescription
                     self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
                 }
                     
@@ -103,6 +101,15 @@ class LoginController: UIViewController, GIDSignInDelegate{
         errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
     }
    
+   
+    
+
+    
+    
+    
+
+    
+    
     
     //Facebook Signin
     @IBAction func facebookTapped(_ sender: Any) {
@@ -172,26 +179,8 @@ class LoginController: UIViewController, GIDSignInDelegate{
                 self.view.window?.makeKeyAndVisible()
             }
         }
-        // Perform any operations on signed in user here.
-
-        GlobalVariable.googleUsername = user.profile.name
-        
-        GlobalVariable.googleEmail = user.profile.email
-        GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
-
     }
     
-    func getGoogleUsername() -> String {
-        return GlobalVariable.googleUsername
-    }
-    
-    func getGoogleEmail() -> String {
-        return GlobalVariable.googleEmail
-    }
-    
-    func getGoogleIconUrl() -> URL? {
-        return GlobalVariable.googleIconUrl
-    }
     
 }
    
