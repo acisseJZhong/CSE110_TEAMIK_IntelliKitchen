@@ -227,12 +227,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                             </textField>
-                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Your password should have at least 6 characters and no longer than 20 characters." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lmn-35-ODP">
-                                <rect key="frame" x="72" y="408.5" width="284" height="18.5"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSc-A4-3It" userLabel="Error">
                                 <rect key="frame" x="72" y="508" width="296" height="96"/>
                                 <constraints>
@@ -258,13 +252,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your password should have at least 6 characters and no longer than 20 characters." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fU-6x-X4i">
+                                <rect key="frame" x="72" y="398" width="296" height="48"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fSc-A4-3It" firstAttribute="top" secondItem="YbS-f9-xfP" secondAttribute="bottom" constant="29" id="0gB-tr-dgU"/>
                             <constraint firstItem="YbS-f9-xfP" firstAttribute="top" secondItem="IHe-AA-9Vo" secondAttribute="top" constant="445" id="14e-G8-qCt"/>
-                            <constraint firstItem="YbS-f9-xfP" firstAttribute="top" secondItem="lmn-35-ODP" secondAttribute="bottom" constant="18" id="1t7-Dw-XQ9"/>
-                            <constraint firstItem="lmn-35-ODP" firstAttribute="leading" secondItem="Ho3-TR-7Yf" secondAttribute="leading" constant="72" id="40T-Y0-e8p"/>
                             <constraint firstItem="fSc-A4-3It" firstAttribute="leading" secondItem="YbS-f9-xfP" secondAttribute="leading" id="5Fj-FG-xS8"/>
                             <constraint firstItem="Ho3-TR-7Yf" firstAttribute="trailing" secondItem="lfU-yk-xxc" secondAttribute="trailing" constant="46" id="6j6-EB-ZdM"/>
                             <constraint firstItem="Ho3-TR-7Yf" firstAttribute="trailing" secondItem="c4E-R3-Jiz" secondAttribute="trailing" constant="46" id="DIp-Qq-mIK"/>
@@ -279,7 +278,6 @@
                             <constraint firstItem="Ho3-TR-7Yf" firstAttribute="trailing" secondItem="7GY-s0-3tt" secondAttribute="trailing" constant="327" id="Sv0-WP-Ba4"/>
                             <constraint firstItem="YbS-f9-xfP" firstAttribute="trailing" secondItem="RZo-Dl-wI4" secondAttribute="trailing" id="UrQ-hJ-Dkf"/>
                             <constraint firstItem="c4E-R3-Jiz" firstAttribute="top" secondItem="7GY-s0-3tt" secondAttribute="bottom" constant="50" id="V9d-z5-Jg9"/>
-                            <constraint firstItem="Ho3-TR-7Yf" firstAttribute="trailing" secondItem="lmn-35-ODP" secondAttribute="trailing" constant="58" id="VZw-L9-iXa"/>
                             <constraint firstItem="lfU-yk-xxc" firstAttribute="top" secondItem="IHe-AA-9Vo" secondAttribute="top" constant="305" id="WAK-jW-xOx"/>
                             <constraint firstItem="Ho3-TR-7Yf" firstAttribute="trailing" secondItem="RZo-Dl-wI4" secondAttribute="trailing" constant="46" id="XUU-wf-Qq3"/>
                             <constraint firstItem="YbS-f9-xfP" firstAttribute="leading" secondItem="lfU-yk-xxc" secondAttribute="leading" id="bCX-9t-n0q"/>
@@ -292,7 +290,6 @@
                             <constraint firstItem="lge-bA-Uug" firstAttribute="leading" secondItem="fSc-A4-3It" secondAttribute="leading" id="rda-1C-xxl"/>
                             <constraint firstItem="RZo-Dl-wI4" firstAttribute="top" secondItem="lfU-yk-xxc" secondAttribute="bottom" constant="27" id="s0R-EN-kUi"/>
                             <constraint firstItem="YbS-f9-xfP" firstAttribute="trailing" secondItem="c4E-R3-Jiz" secondAttribute="trailing" id="tpC-ZN-iFl"/>
-                            <constraint firstItem="YbS-f9-xfP" firstAttribute="leading" secondItem="lmn-35-ODP" secondAttribute="leading" id="vgk-FS-hF3"/>
                             <constraint firstItem="c4E-R3-Jiz" firstAttribute="leading" secondItem="Ho3-TR-7Yf" secondAttribute="leading" constant="72" id="zw7-oB-pix"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ho3-TR-7Yf"/>
@@ -2756,15 +2753,15 @@ Name</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lgw-xl-k8p"/>
-        <segue reference="NbS-Ft-tSJ"/>
+        <segue reference="aZP-u7-NRW"/>
+        <segue reference="BL5-Dg-CjX"/>
         <segue reference="5wx-Ok-YXk"/>
-        <segue reference="Ti0-EC-YHM"/>
+        <segue reference="Pe9-fQ-o6i"/>
         <segue reference="INZ-WA-o1H"/>
-        <segue reference="YFH-jT-jsd"/>
+        <segue reference="zQb-Z9-jAv"/>
         <segue reference="wYf-Ec-mx6"/>
         <segue reference="kb5-LH-Iia"/>
-        <segue reference="tSU-d3-8ag"/>
+        <segue reference="BqG-4F-cVx"/>
         <segue reference="sdJ-kO-e5J"/>
     </inferredMetricsTieBreakers>
     <resources>

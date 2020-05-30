@@ -64,7 +64,7 @@ class RegisterViewController: UIViewController {
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if cleanedPassword.count > 20 {
-            return "Your password is to long."
+            return "Your password is too long."
         }
         
         if Utilities.isPasswordValid(password: cleanedPassword) == false{

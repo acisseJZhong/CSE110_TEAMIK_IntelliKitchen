@@ -159,7 +159,7 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
     
     func editFoodName(textField: UITextField!) {
         editFoodName = textField
-        editFoodName?.placeholder = "Food name"
+        editFoodName?.placeholder = "Name"
     }
     func editBoughtDate(textField: UITextField!) {
         editBoughtDate = textField
@@ -169,7 +169,7 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
     func editExpireDate(textField: UITextField!) {
         editExpireDate = textField
         editExpireDate?.inputView = datePicker2
-        editExpireDate?.placeholder = "Expire Date"
+        editExpireDate?.placeholder = "Expiration Date"
     }
     
     func okHandler(alert: UIAlertAction) {

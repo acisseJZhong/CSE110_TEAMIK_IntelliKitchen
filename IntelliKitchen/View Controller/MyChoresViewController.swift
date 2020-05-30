@@ -335,7 +335,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alertController = UIAlertController(title: "Edit task", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Edit chores", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: editTaskName)
         alertController.addTextField(configurationHandler: editLastDoneDate)
         alertController.addTextField(configurationHandler: editFrequency)
@@ -352,7 +352,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
     
     func editTaskName(textField: UITextField!) {
         editTaskName = textField
-        editTaskName?.placeholder = "Task name"
+        editTaskName?.placeholder = "Name"
     }
     func editLastDoneDate(textField: UITextField!) {
         editLastDoneDate = textField
