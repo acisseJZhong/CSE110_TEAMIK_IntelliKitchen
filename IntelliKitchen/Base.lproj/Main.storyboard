@@ -1697,7 +1697,7 @@ Ingredient</string>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="dKU-yL-tE1" id="qOF-qB-Nx2"/>
+                                    <outlet property="delegate" destination="dKU-yL-tE1" id="PDJ-em-awf"/>
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oSc-ce-YUN">
@@ -1875,7 +1875,7 @@ Ingredient</string>
                                     <string>Title</string>
                                 </scopeButtonTitles>
                                 <connections>
-                                    <outlet property="delegate" destination="USg-Qc-yJD" id="af9-29-vFd"/>
+                                    <outlet property="delegate" destination="USg-Qc-yJD" id="Phb-fo-Yt0"/>
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="i7I-Qj-vIX">

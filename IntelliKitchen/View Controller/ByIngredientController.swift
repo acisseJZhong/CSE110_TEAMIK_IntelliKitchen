@@ -159,6 +159,8 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             ingredientTableView.reloadData()
+        }
+    }
 }
 
 
