@@ -2174,7 +2174,7 @@ Name</string>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a48-PI-2MD">
                                 <rect key="frame" x="127" y="802" width="154" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back to my food list" backgroundImage="AddButton">
+                                <state key="normal" title="Back to My Food" backgroundImage="AddButton">
                                     <color key="titleColor" red="0.39384877680000002" green="0.6088286638" blue="0.236522764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -2340,7 +2340,7 @@ Name</string>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdg-XR-TEa">
                                 <rect key="frame" x="127" y="802" width="160" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back to my chores list" backgroundImage="AddButton">
+                                <state key="normal" title="Back to My Chores" backgroundImage="AddButton">
                                     <color key="titleColor" red="0.39384877680000002" green="0.6088286638" blue="0.236522764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -2753,8 +2753,8 @@ Name</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aZP-u7-NRW"/>
-        <segue reference="BL5-Dg-CjX"/>
+        <segue reference="lgw-xl-k8p"/>
+        <segue reference="NbS-Ft-tSJ"/>
         <segue reference="5wx-Ok-YXk"/>
         <segue reference="Pe9-fQ-o6i"/>
         <segue reference="INZ-WA-o1H"/>
