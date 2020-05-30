@@ -43,6 +43,7 @@ class ForgetPasswordViewController: UIViewController {
                     self.message.text = "A link has sent to your email!"
                 }
                 else{
+                    self.message.alpha = 1
                     self.message.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
                     self.message.text = "Can't find the email"
                 }

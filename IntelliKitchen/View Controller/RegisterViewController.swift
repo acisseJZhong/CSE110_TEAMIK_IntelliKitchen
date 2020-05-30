@@ -63,6 +63,10 @@ class RegisterViewController: UIViewController {
         // check if the password is secure
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
+        if cleanedPassword.count > 20 {
+            return "Your password is to long."
+        }
+        
         if Utilities.isPasswordValid(password: cleanedPassword) == false{
             return "Please make sure your password is at least 6 digits."
         }
@@ -100,7 +104,8 @@ class RegisterViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             
             if error != nil{
-                self.showError(error!.localizedDescription)
+                let errorMessage = error!.localizedDescription
+                self.showError(errorMessage.split(separator: ".")[1] + ".")
             }
             else{
                 //created sucessfully

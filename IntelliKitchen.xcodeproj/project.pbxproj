@@ -36,7 +36,6 @@
 		8AEA49E0247C80A5009118D0 /* MyChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */; };
 		8AEA49E2247C80AA009118D0 /* AddChoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */; };
 		8AEA49E4247C80AF009118D0 /* AddFoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */; };
-		8AEB44DD247CCEA900B19E3D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */; };
 		8AEF2E5024778E120041EAFA /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */; };
 		8AEF2E5224778E2C0041EAFA /* FavoriteRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */; };
 		8AEF2E5424778E310041EAFA /* FavoriteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */; };
@@ -81,7 +80,6 @@
 		8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChoresViewController.swift; sourceTree = "<group>"; };
 		8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChoresViewController.swift; sourceTree = "<group>"; };
 		8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFoodViewController.swift; sourceTree = "<group>"; };
-		8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeCell.swift; sourceTree = "<group>"; };
 		8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRecipe.swift; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 		8AC4E6B52459600400A1E91E = {
 			isa = PBXGroup;
 			children = (
-				8AEB44DC247CCEA900B19E3D /* Default-568h@2x.png */,
 				8AC4E6C02459600400A1E91E /* IntelliKitchen */,
 				8AC4E6BF2459600400A1E91E /* Products */,
 				1BC01C315386042AEC75BBD5 /* Pods */,
@@ -168,24 +165,24 @@
 			isa = PBXGroup;
 			children = (
 				8AEA49E7247C8BAB009118D0 /* cell */,
+				8A0755D22464A5B500EC96C3 /* LoginController.swift */,
 				8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */,
 				8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */,
 				8A0755D02464A05400EC96C3 /* WelcomeController.swift */,
 				8A4F33F9247B3C7900F9826D /* ByIngredientController.swift */,
 				8A4F33ED247B26CE00F9826D /* ByNameController.swift */,
-				8A0755D22464A5B500EC96C3 /* LoginController.swift */,
+				8AEF2E5B247932250041EAFA /* RecipeViewController.swift */,
+				8A4F33DD247B1F6200F9826D /* RecipeListScreen.swift */,
+				8A4F33E1247B1FC400F9826D /* Recipe.swift */,
+				8A4F33E5247B211200F9826D /* Comment.swift */,
+				8AEA49DD247C809F009118D0 /* MyFoodViewController.swift */,
+				8AEF2E5D2479322D0041EAFA /* ChoresViewController.swift */,
 				8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */,
 				8AEA49DF247C80A4009118D0 /* MyChoresViewController.swift */,
-				8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */,
-				8AEA49DD247C809F009118D0 /* MyFoodViewController.swift */,
-				8A4F33EB247B213800F9826D /* ScrollViewController.swift */,
-				8A4F33E5247B211200F9826D /* Comment.swift */,
-				8A4F33E1247B1FC400F9826D /* Recipe.swift */,
-				8A4F33DD247B1F6200F9826D /* RecipeListScreen.swift */,
-				8A4F33E9247B212400F9826D /* RatingViewController.swift */,
-				8AEF2E5B247932250041EAFA /* RecipeViewController.swift */,
-				8AEF2E5D2479322D0041EAFA /* ChoresViewController.swift */,
 				8AEF2E592479321F0041EAFA /* FoodViewController.swift */,
+				8AEA49E1247C80AA009118D0 /* AddChoresViewController.swift */,
+				8A4F33E9247B212400F9826D /* RatingViewController.swift */,
+				8A4F33EB247B213800F9826D /* ScrollViewController.swift */,
 				8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */,
 				8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */,
 			);
@@ -282,7 +279,6 @@
 				8AC4E6CE2459600600A1E91E /* LaunchScreen.storyboard in Resources */,
 				8AC4E6CB2459600600A1E91E /* Assets.xcassets in Resources */,
 				AEC873752480841900BA17CE /* GoogleService-Info.plist in Resources */,
-				8AEB44DD247CCEA900B19E3D /* Default-568h@2x.png in Resources */,
 				8AC4E6C92459600400A1E91E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

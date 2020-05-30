@@ -67,7 +67,8 @@ class LoginController: UIViewController, GIDSignInDelegate{
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
                 
                 if error != nil{
-                    self.errorLabel.text = error!.localizedDescription
+                    let errorMessage = error!.localizedDescription
+                    self.errorLabel.text = errorMessage.split(separator: ".")[0] + "."
                     self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
                 }
                     
