@@ -73,7 +73,6 @@ class LoginController: UIViewController, GIDSignInDelegate{
                 }
                     
                 else{
-                    print(result!.user.uid)
                     let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
                     self.view.window?.rootViewController = homepageFoodController
                     self.view.window?.makeKeyAndVisible()
