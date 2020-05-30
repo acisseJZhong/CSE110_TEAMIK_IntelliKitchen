@@ -33,7 +33,11 @@ class LoginController: UIViewController, GIDSignInDelegate{
     
     @IBOutlet weak var facebookButton: FBLoginButton!
         
-    
+    struct GlobalVariable{
+        static var googleUsername = ""
+        static var googleEmail = ""
+        static var googleIconUrl:URL?
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,6 +183,25 @@ class LoginController: UIViewController, GIDSignInDelegate{
                 self.view.window?.makeKeyAndVisible()
             }
         }
+        // Perform any operations on signed in user here.
+
+        GlobalVariable.googleUsername = user.profile.name
+        
+        GlobalVariable.googleEmail = user.profile.email
+        GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
+
+    }
+    
+    func getGoogleUsername() -> String {
+        return GlobalVariable.googleUsername
+    }
+    
+    func getGoogleEmail() -> String {
+        return GlobalVariable.googleEmail
+    }
+    
+    func getGoogleIconUrl() -> URL? {
+        return GlobalVariable.googleIconUrl
     }
     
     
