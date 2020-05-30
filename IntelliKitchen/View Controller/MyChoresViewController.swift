@@ -178,7 +178,9 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         let lastDone = documentData?["lastDone"] as! String
                         let remindDate = documentData?["remindDate"] as! String
                         let frequency = documentData?["frequency"] as! String
-                        let newRemindDate = self.updateRemindDate(date: remindDate, freq: frequency)
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "MM/dd/yyyy"
+                        let newRemindDate = self.updateRemindDate(date: formatter.string(from: Date()), freq: frequency)
                         var newRequestID = ""
                         if remindOrNot{
                             newRequestID = self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
@@ -280,7 +282,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         // ---------------------------------
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
-                        self.remindDate = self.updateRemindDate(date: self.remindDate, freq: self.frequency[indexPath.row])
+                        self.remindDate = self.updateRemindDate(date: dateFormatter.string(from: Date()), freq: self.frequency[indexPath.row])
                         // ---------------------------------
                         let choreName = documentData?["choreName"] as! String
                         let lastDone = documentData?["lastDone"] as! String
