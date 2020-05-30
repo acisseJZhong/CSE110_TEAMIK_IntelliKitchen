@@ -33,6 +33,9 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var remindDate: String = ""
     var row: Int = 0
     var currentUid = Auth.auth().currentUser!.uid
+    let toolBar = UIToolbar()
+    var RemindRechooseTextF: UITextField?
+    var RemindRechoosePastDate = false
     
     let frequencyStr = ["Once a day", "Twice a day", "Once a week", "Twice a week", "Once a month", "Twice a month"]
     
@@ -131,7 +134,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
            let DeleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("Update action ...")
             let currentUid = Auth.auth().currentUser!.uid
-            var choreRef = self.db.collection("users").document(currentUid).collection("chores").document(self.choreName[indexPath.row])
+            let choreRef = self.db.collection("users").document(currentUid).collection("chores").document(self.choreName[indexPath.row])
             choreRef.getDocument { (document, error) in
                 if error == nil {
                     if document != nil && document!.exists {
@@ -211,12 +214,37 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         print("----------------------------------")
                         print(formatter.string(from: remindDateObj!))
                         print(formatter.string(from: date))
-                        let reChoose = remindDateObj ?? date < date
+                        let reChoose = remindDateObj ?? date < date // is true if remind date is in the past
                         if reChoose {
-                            date = date.addingTimeInterval(86400) // add a day
-                            remindDate = formatter.string(from: date)
-                            self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
-                            self.createAlert(title: "Your remind date has passed", message: "We have successfully set your remind date to tomorrow (" + remindDate + ")!")
+                            //1. Create the alert controller.
+                            let alert = UIAlertController(title: "Your remind date has passed", message: "Please reselect your remind date", preferredStyle: .alert)
+
+                            //2. Add the text field. You can configure it however you need.
+                            alert.addTextField { (textField) in
+                                self.doDatePicker()
+                                textField.inputView = self.datePicker
+                                textField.text = formatter.string(from: self.datePicker!.date)
+                                self.RemindRechooseTextF = textField
+                                self.datePicker?.addTarget(self, action: #selector(self.datePickerChanged), for: .valueChanged)
+                            }
+
+                            // 3. Grab the value from the text field, and print it when the user clicks OK.
+                            alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak alert] (_) in
+                                let formatter = DateFormatter()
+                                formatter.dateFormat = "MM/dd/yyyy"
+                                self.remindDate = formatter.string(from: self.datePicker!.date)
+                                print("in remind")
+                                print(self.remindDate)
+                                if self.RemindRechoosePastDate {
+                                    self.createAlert(title: "Remind failed", message: "You have to set the remind date to a future day")
+                                } else {
+                                    self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: self.remindDate)
+                                    self.createAlert(title: "Remind success", message: "Remind date changed successfully!")
+                                }
+                            }))
+
+                            // 4. Present the alert.
+                            self.present(alert, animated: true, completion: nil)
                             
                         } else {
                             remindDate = formatter.string(from: date)
@@ -252,53 +280,21 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         // ---------------------------------
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
-                        if(self.frequency[indexPath.row] == "Once a day" || self.frequency[indexPath.row] == "Twice a day"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(86400)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Once a week"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(604800)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Twice a week"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(302400)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Once a month"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(2592000)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                           
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Twice a month"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(1296000)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
+                        self.remindDate = self.updateRemindDate(date: self.remindDate, freq: self.frequency[indexPath.row])
                         // ---------------------------------
+                        let choreName = documentData?["choreName"] as! String
+                        let lastDone = documentData?["lastDone"] as! String
+                        let remindDate = documentData?["remindDate"] as! String
+                        let frequency = documentData?["frequency"] as! String
+                        let date = Date()
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "MM/dd/yyyy"
+                        self.lastDone[indexPath.row] = formatter.string(from: date)
                         if remindOrNot {
-                            let choreName = documentData?["choreName"] as! String
-                            let lastDone = documentData?["lastDone"] as! String
-                            let remindDate = documentData?["remindDate"] as! String
-                            let frequency = documentData?["frequency"] as! String
-                            let date = Date()
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "MM/dd/yyyy"
-                            self.lastDone[indexPath.row] = formatter.string(from: date)
                             let requestID = self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
                             self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row]).setData(["choreName":self.choreName[indexPath.row], "lastDone": self.lastDone[indexPath.row], "frequency": self.frequency[indexPath.row], "remindDate": self.remindDate, "remindOrNot": self.remindOrNot[indexPath.row], "reminderID": requestID])
+                        } else {
+                            self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row]).setData(["choreName":self.choreName[indexPath.row], "lastDone": self.lastDone[indexPath.row], "frequency": self.frequency[indexPath.row], "remindDate": self.remindDate, "remindOrNot": self.remindOrNot[indexPath.row]])
                         }
                         self.choresList.reloadData()
                     }
@@ -510,5 +506,35 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func doDatePicker(){
+        // DatePicker
+      // datePicker = UIDatePicker()
+
+        self.datePicker = UIDatePicker(frame:CGRect(x: 0, y: self.view.frame.size.height - 220, width:self.view.frame.size.width, height: 216))
+        self.datePicker?.backgroundColor = UIColor.white
+        datePicker?.datePickerMode = .date
+
+        doneClick()
+    }
+
+
+    @objc func doneClick() {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "MM/dd/yyyy"
+//        self.remindDate = formatter.string(from: self.datePicker!.date)
+    }
     
+    @objc func datePickerChanged() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        if( NSDate.init().earlierDate(self.datePicker!.date) == self.datePicker!.date){
+            self.RemindRechooseTextF?.text = "You have to choose a future date"
+            self.RemindRechoosePastDate = true
+        } else {
+            self.remindDate = formatter.string(from: self.datePicker!.date)
+            self.RemindRechooseTextF?.text = formatter.string(from: self.datePicker!.date)
+            self.RemindRechoosePastDate = false
+        }
+    }
+
 }
