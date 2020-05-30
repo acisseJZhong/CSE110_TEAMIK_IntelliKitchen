@@ -102,7 +102,7 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return sortedfoodList.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FoodCell")
@@ -122,6 +122,7 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell?.backgroundColor = UIColor.white
         }
         tableView.layer.cornerRadius = 20
+        cell?.selectionStyle = .none
         return cell!
     }
     

@@ -12,6 +12,8 @@ class ChoresTableViewCell: UITableViewCell {
 
     @IBOutlet weak var labelView: UILabel!
     
+    @IBOutlet weak var orilabelView: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

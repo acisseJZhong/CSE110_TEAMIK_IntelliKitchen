@@ -25,7 +25,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var tableView: UITableView!
     
     var favoriteRecipes:[FavoriteRecipe] = []
-    var favoriteIDList:[String] = []
+    
     var iconClick = false
     
     
@@ -47,7 +47,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     
     func loadUserInfo(){
         //let ref = Database.database().reference()
-        
+        var favoriteIDList:[String] = []
         let db = Firestore.firestore()
         
         let currentUid = Auth.auth().currentUser!.uid
@@ -57,11 +57,11 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     let documentData = document?.data()
                     self.userName?.text = documentData?["username"] as? String
                     self.userEmail?.text = documentData?["email"] as? String
-                    self.favoriteIDList = documentData?["favRecipe"] as! [String]
-                    if self.favoriteIDList.count == 0{
+                    favoriteIDList = documentData?["favRecipe"] as! [String]
+                    if favoriteIDList.count == 0{
                         self.favRecipeAlert?.text = "Add Some Favorite while Searching"
                     }
-                    self.favoriteRecipes = self.createArray(self.favoriteIDList)
+                    self.favoriteRecipes = self.createArray(favoriteIDList)
                     self.loadImageFromFirebase()
                     
                 } else {
@@ -294,13 +294,12 @@ extension ProfilePageViewController: UITableViewDataSource, UITableViewDelegate 
     
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let id = self.favoriteIDList[indexPath.row]
-          let storyboard = UIStoryboard(name: "Main", bundle: nil)
-          let secondVC = storyboard.instantiateViewController(identifier: "menudetail") as! ScrollViewController
-          secondVC.passid = id;
-          self.present(secondVC,animated:true,completion: nil)
-      }
+    
+    
+    
+    
+    
+    
 
     
     
