@@ -280,41 +280,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         // ---------------------------------
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
-                        if(self.frequency[indexPath.row] == "Once a day" || self.frequency[indexPath.row] == "Twice a day"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(86400)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Once a week"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(604800)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Twice a week"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(302400)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Once a month"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(2592000)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                           
-                        }
-                        
-                        if(self.frequency[indexPath.row] == "Twice a month"){
-                            var dateObj = dateFormatter.date(from: self.remindDates[indexPath.row])
-                            print(indexPath.row)
-                            dateObj = dateObj?.addingTimeInterval(1296000)
-                            self.remindDate = dateFormatter.string(from: dateObj!)
-                        }
+                        self.remindDate = self.updateRemindDate(date: self.remindDate, freq: self.frequency[indexPath.row])
                         // ---------------------------------
                         let choreName = documentData?["choreName"] as! String
                         let lastDone = documentData?["lastDone"] as! String
