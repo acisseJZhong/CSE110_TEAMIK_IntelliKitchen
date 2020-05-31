@@ -48,7 +48,7 @@ class RegisterViewController: UIViewController {
         confirmPasswordTextField.resignFirstResponder()
     }
     
-
+    
     // check the fields and validate the data is correct. If everything is correct, return nill. Otherwise, return error massage
     func validateFields() -> String? {
         
@@ -57,7 +57,7 @@ class RegisterViewController: UIViewController {
             emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             confirmPasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
-                return "Please fill in all fields."
+            return "Please fill in all fields."
         }
         
         // check if the password is secure
@@ -78,7 +78,7 @@ class RegisterViewController: UIViewController {
         return nil
     }
     
-
+    
     func showError(_ message:String){
         errorLabel.text = message
         errorLabel.alpha = 1
@@ -99,32 +99,57 @@ class RegisterViewController: UIViewController {
             let username = usernameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+            
             // Create the user
             Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            
-            if error != nil{
-                let errorMessage = error!.localizedDescription
-                self.showError(errorMessage.split(separator: ".")[1] + ".")
-            }
-            else{
-                //created sucessfully
-                let db = Firestore.firestore()
-                db.collection("users").document(result!.user.uid).setData(["username":username, "email":email, "uid": result!.user.uid, "favRecipe":[]]) { (error) in
-                    if error != nil{
-                        self.showError("Error saving user's data")
-                    }
+                
+                if error != nil{
+                    let errorMessage = error!.localizedDescription
+                    self.showError(errorMessage.split(separator: ".")[1] + ".")
                 }
-                // Transition to the home scree
-                self.transitionHome()
-             }
-         }
-     }
-    
+                else{
+                    //created sucessfully
+                    let db = Firestore.firestore()
+                    db.collection("users").document(result!.user.uid).setData(["username":username, "email":email, "uid": result!.user.uid, "favRecipe":[]]) { (error) in
+                        if error != nil{
+                            self.showError("Error saving user's data")
+                        }
+                    }
+                    // Transition to the home scree
+                    self.transitionHome()
+                }
+            }
+        }
+        let defaultImageString = "profileTapped"
+        guard let myUIImage = UIImage(named: defaultImageString) else { return }
+        self.uploadProfileImage(myUIImage){(url) in
+            
+        }
+        
     }
-
+    func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let storageRef = Storage.storage().reference().child("users/\(uid)")
         
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
         
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        storageRef.putData(imageData, metadata: metaData) {metaData, error in
+            if error == nil, metaData != nil {
+                //if let url = storageRef.downloadURL(completion: (URL?, Error?) -> Void){
+                completion(nil)
+                
+            } else {
+                completion(nil)
+            }
+            //success
+        }
+    }
+    
+    
+    
     
     
     func transitionHome() {
