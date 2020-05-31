@@ -186,7 +186,6 @@ class LoginController: UIViewController, GIDSignInDelegate{
         // Perform any operations on signed in user here.
 
         GlobalVariable.googleUsername = user.profile.name
-        
         GlobalVariable.googleEmail = user.profile.email
         GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
 
