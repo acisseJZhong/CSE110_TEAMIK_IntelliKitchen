@@ -326,15 +326,6 @@ extension ProfilePageViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
+ 
     
 }

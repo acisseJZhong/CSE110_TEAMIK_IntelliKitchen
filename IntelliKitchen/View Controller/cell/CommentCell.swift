@@ -18,5 +18,6 @@ class CommentCell: UITableViewCell {
         photo.image = comment.image;
         name.text = comment.name;
         comments.text = comment.description;
+        photo.layer.cornerRadius = 10;
     }
 }

@@ -15,14 +15,16 @@ import FirebaseAuth
 class ScrollViewController: UIViewController, UITextFieldDelegate {
     
     
+    @IBOutlet weak var scrollview: UIScrollView!
     // add data
-   // var allrecipes:[String] = []
+    // var allrecipes:[String] = []
     
     let db = Firestore.firestore()
     var currentUid: String = ""
     // varaibles for steps for the first recipe
     var passid = ""
     var mylist:[String] = []
+    
     
     //favourite
     var favlist: [String] = []
@@ -76,38 +78,40 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var FavouriteButton: UIButton!
     //var isFavourite:Bool = false;
     
+    
+    var tempname:[String] = []
     //@IBOutlet weak var CommentsDisplay: UITextView!
     
     @IBAction func SubmitButton(_ sender: Any) {
         
         if (!self.commentornot){
-                   let new = Comment(image: UIImage(imageLiteralResourceName: "Ellipse1"), name: self.username, description: Comments.text!);
-                   var commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/comments");
-                   commentcelllist.append(new)
-                   self.commentstableview.reloadData();
-                   commentlist.append([self.currentUid, Comments.text!]);
-                   commentdb.setValue(commentlist);
-
-
-                   commentedlist.append(passid)
-                   db.collection("users").document(currentUid).updateData(["commentedlist" : self.commentedlist])
-                   self.commentornot = true
-                   Comments.text = nil}
-                  // dismiss(animated: true, completion: nil)}
-                   
-               else {
-                     //Comments.isEnabled = false
-                   let alert = UIAlertController(title: "Already commented", message: "You have already commented this recipe~", preferredStyle: UIAlertController.Style.alert)
-                    Comments.text = nil
-                   alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                   self.present(alert, animated: true, completion: nil)
-                   self.submitdisplay.isEnabled = false
-                   self.submitdisplay.setTitleColor(.gray, for: .normal)
-               }
-        
+            let new = Comment(image: UIImage(imageLiteralResourceName: "Ellipse1"), name: self.username, description: Comments.text!);
+            var commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/comments");
+            commentcelllist.append(new)
+            self.commentstableview.reloadData();
+            commentlist.append([self.currentUid, Comments.text!]);
+            commentdb.setValue(commentlist);
+            
+            
+            commentedlist.append(passid)
+            db.collection("users").document(currentUid).updateData(["commentedlist" : self.commentedlist])
+            self.commentornot = true
+            Comments.text = nil}
+            // dismiss(animated: true, completion: nil)}
+            
+        else {
+            //Comments.isEnabled = false
+            let alert = UIAlertController(title: "Already commented", message: "You have already commented this recipe~", preferredStyle: UIAlertController.Style.alert)
+            Comments.text = nil
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            self.submitdisplay.isEnabled = false
+            self.submitdisplay.setTitleColor(.gray, for: .normal)
+        }
+        self.Comments?.resignFirstResponder()
     }
     
-   
+    
     @IBAction func ClickFavouriteButton(_ sender: Any) {
         
         if(!favornot) {
@@ -125,9 +129,18 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        Comments.resignFirstResponder()
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("asdfadf")
+//        self.Comments?.resignFirstResponder()
+//        super.touchesBegan(touches, with: event)
+//    }
+    
+//    func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
+//    {
+//        print("alsdfjadslkfjlaksdjfal")
+//        textField.resignFirstResponder()
+//        return true;
+//    }
     
     @IBAction func backbutton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -140,11 +153,123 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    // generate the commentlist that including all the comments
+    func beforeforloop(completion: @escaping (_ temptemp: [[String]]) ->Void){
+        var temptemp: [[String]] = [[""]]
+        var commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/comments");
+        commentdb.observe(.value) { (snapshot) in
+            //print("yoyoyooyoyoyoyoyoyoy")
+            //self.commentlist = snapshot.value as! NSArray;
+            temptemp = snapshot.value as! [[String]] ;
+            //self.commentlist = snapshot.value as! [[String]] ;
+            completion(temptemp)
+        }
+    }
+    
+    
+    func generateuserpic(_ currentid: String, completion: @escaping (_ picarray: Data ) -> Void){
+        //print(temptemp)
+        //self.commentlist = temptemp
+        self.generateusername(currentid, completion: { namearray in
+            //print(namearray)
+            var picarray: Data?
+            var lala: String = ""
+            self.tempname.append(namearray)
+            
+            let storageRef = Storage.storage().reference().child("users/\(currentid)")
+            storageRef.getData(maxSize: 1*65536*655366) { (data, error) in
+                print("converting to string")
+                //                if let error = error {
+                //                    print(error.localizedDescription)
+                //                }
+                //else{
+                if (data == nil) {
+                    print("hihi")
+                    picarray = try! Data(contentsOf: URL(string:"https://revleap.com/wp-content/themes/revleap/images/no-profile-image.jpg")!)
+                    print(picarray)
+                }
+                else{
+                    picarray = data
+                }
+                completion(picarray!)
+            }
+            
+        })
+        
+    }
+    
+    func generateusername(_ currentid: String, completion: @escaping (_ namearray: (String) ) -> Void){
+        
+        var namearray:String = ""
+        self.db.collection("users").document(currentid).getDocument { (document, error) in
+            if error == nil {
+                if document != nil && document!.exists {
+                    let documentData = document?.data()
+                    namearray = documentData?["username"] as? String ?? ""
+                    
+                } else {
+                    print("Can read the document but the document might not exists")
+                }
+                
+            } else {
+                print("Something wrong reading the document")
+            }
+            completion(namearray)
+        }
+    }
+    
+    
+    func forloop(){
+//        var tempcommentcelllist:[Comment] = []
+        
+        beforeforloop (completion: {temptemp in
+            self.commentlist = temptemp
+
+            //print(self.commentlist)
+            for eachstring in self.commentlist {
+                
+                let currentid = eachstring[0]
+                print(currentid)
+                self.generateuserpic(currentid, completion: { namepic in
+                    print("temptemptemptemptemp")
+                    print(namepic)
+                    print(self.tempname)
+                    let tempcomment = Comment(image: UIImage(data: namepic)!, name: self.tempname.last ?? "", description: eachstring[1]);
+//                    tempcommentcelllist.append(tempcomment)
+                    self.commentcelllist.append(tempcomment)
+                    if self.commentcelllist.count == 0{
+                        self.commentstableview.isHidden = true
+                        //self.label.isHidden = false
+                    } else {
+                        self.commentstableview.isHidden = false
+                        self.commentstableview.reloadData()
+                    }
+                })
+            }
+            
+
+            
+            //return tempcommentcelllist
+        })
+        
+        
+    }
+   
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Comments.delegate = self
-        
+        self.commentstableview.delegate = self
+        self.commentstableview.dataSource = self
         stepsdisplay.sizeToFit();
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.touch))
+               recognizer.numberOfTapsRequired = 1
+               recognizer.numberOfTouchesRequired = 1
+        self.scrollview.addGestureRecognizer(recognizer)
+                 
         let rootRef = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/steps");
         let titledb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/recipe_name");
         let ingredientsdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/ingredients");
@@ -153,45 +278,45 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         print("new")
         print(imagedb)
         var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/rating");
-        var commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/comments");
+        
         //print(passid)
         
         self.currentUid = Auth.auth().currentUser!.uid
         //print("11111111111")
         print(currentUid)
         db.collection("users").document(currentUid).getDocument { (document, error) in
-             if error == nil {
-                 if document != nil && document!.exists {
-                     let documentData = document?.data()
-                     self.favlist = documentData?["favRecipe"] as? [String] ?? []
-                     //print(self.favlist)
-                     if self.favlist .contains(self.passid){
+            if error == nil {
+                if document != nil && document!.exists {
+                    let documentData = document?.data()
+                    self.favlist = documentData?["favRecipe"] as? [String] ?? []
+                    //print(self.favlist)
+                    if self.favlist .contains(self.passid){
                         self.favornot = true
-                     }
+                    }
                     if self.favornot{
                         self.FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
-                     }
-                     else{
+                    }
+                    else{
                         self.FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
-                     }
-                 } else {
-                     print("Can read the document but the document might not exists")
-                 }
-                 
-             } else {
-                 print("Something wrong reading the document")
-             }
-         }
+                    }
+                } else {
+                    print("Can read the document but the document might not exists")
+                }
+                
+            } else {
+                print("Something wrong reading the document")
+            }
+        }
         
         //get rating
         //print("hihihihihihihihihi")
         ratingdb.observeSingleEvent(of: .value) { (snapshot) in
             var ratingtuple = snapshot.value as! [Int];
             var avrating = Double(ratingtuple[0])/Double(ratingtuple[1])
-            self.ratinglabel.text = String(format: "%.2f", avrating)
-               }
+            self.ratinglabel.text = "average rating: " + String(format: "%.1f", avrating) + "     " + String(ratingtuple[1]) + " have rated"
+        }
         
-
+        
         
         //grab steps from db
         rootRef.observe(.value, with: { snapshot in
@@ -211,7 +336,7 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
             self.stepsdisplay.text = self.wholelist;
             self.innerscroll.contentLayoutGuide.bottomAnchor.constraint(equalTo: self.stepsdisplay.bottomAnchor).isActive = true
             //print("successfully display!");
-
+            
         })
         
         // grab menutitle
@@ -247,76 +372,51 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         // grab recipe photo
         imagedb.observeSingleEvent(of: .value) { (snapshot) in
             if(!(snapshot.value is NSNull)){
-            self.imageurl = URL(string: snapshot.value as! String);
-            print(self.imageurl!);
-            self.menupic.load(url: self.imageurl);
-            self.menupic.layer.cornerRadius = 10;
+                self.imageurl = URL(string: snapshot.value as! String);
+                print(self.imageurl!);
+                self.menupic.load(url: self.imageurl);
+                self.menupic.layer.cornerRadius = 10;
             }
             else{
                 imagedbnew.observeSingleEvent(of: .value) { (snapshot) in
                     if(snapshot.value != nil){
-                    self.imageurl = URL(string: snapshot.value as! String);
-                    print(self.imageurl!);
-                    self.menupic.load(url: self.imageurl);
-                    self.menupic.layer.cornerRadius = 10;
+                        self.imageurl = URL(string: snapshot.value as! String);
+                        print(self.imageurl!);
+                        self.menupic.load(url: self.imageurl);
+                        self.menupic.layer.cornerRadius = 10;
                     }
                 }
             }
         }
         
-        // grab comments
-        commentdb.observe(.value) { (snapshot) in
-             print("yoyoyooyoyoyoyoyoyoy")
-            //self.commentlist = snapshot.value as! NSArray;
-            self.commentlist = snapshot.value as! [[String]] ;
-            
-            for eachstring in self.commentlist {
-                var userid = eachstring[0]
-                
-                
-                self.db.collection("users").document(userid).getDocument { (document, error) in
-                    if error == nil {
-                        if document != nil && document!.exists {
-                            let documentData = document?.data()
-                            self.username = documentData?["username"] as? String ?? ""
-                            let tempcomment = Comment(image: UIImage(imageLiteralResourceName: "Ellipse1"), name: self.username, description: eachstring[1]);
-                            self.commentcelllist.append(tempcomment);
-                        } else {
-                            print("Can read the document but the document might not exists")
-                        }
-                        
-                    } else {
-                        print("Something wrong reading the document")
-                    }
-                }
-                
-                }
-            
-                self.commentstableview.delegate = self
-                self.commentstableview.dataSource = self
-            //print(self.commentcelllist);
-        }
-        
+        forloop();
+
         //get comments from cloudfirestore
         db.collection("users").document(currentUid).getDocument { (document, error) in
-                    if error == nil {
-                        if document != nil && document!.exists {
-                            let documentData = document?.data()
-                            self.commentedlist = documentData?["commentedlist"] as? [String] ?? []
-                            if self.commentedlist.contains(self.passid){
-                               self.commentornot = true
-                            }
-                        } else {
-                            print("Can read the document but the document might not exists")
-                        }
-                        
-                    } else {
-                        print("Something wrong reading the document")
+            if error == nil {
+                if document != nil && document!.exists {
+                    let documentData = document?.data()
+                    self.commentedlist = documentData?["commentedlist"] as? [String] ?? []
+                    if self.commentedlist.contains(self.passid){
+                        self.commentornot = true
                     }
+                } else {
+                    print("Can read the document but the document might not exists")
                 }
-           
+                
+            } else {
+                print("Something wrong reading the document")
+            }
+        }
+        
     }
     
+}
+
+extension ScrollViewController {
+@objc func touch() {
+    self.Comments.endEditing(true)
+}
 }
 
 
@@ -336,18 +436,20 @@ extension UIImageView {
 
 
 extension ScrollViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print("I am inside extension")
         //print(commentcelllist.count)
         return commentcelllist.count
+        print("cccccccccccount")
+        print(commentcelllist.count)
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let eachcomment = commentcelllist[indexPath.row]
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell") as! CommentCell
-
+        
         //cell.setRecipe(recipe: recipe)
         cell.setComments(comment: eachcomment)
         return cell
@@ -359,7 +461,7 @@ extension String {
     func capitalizingFirstLetter() -> String {
         return prefix(1).capitalized + dropFirst()
     }
-
+    
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
@@ -368,12 +470,12 @@ extension String {
 extension Array where Element: Hashable {
     func removingDuplicates() -> [Element] {
         var addedDict = [Element: Bool]()
-
+        
         return filter {
             addedDict.updateValue(true, forKey: $0) == nil
         }
     }
-
+    
     mutating func removeDuplicates() {
         self = self.removingDuplicates()
     }
