@@ -224,32 +224,28 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         
         beforeforloop (completion: {temptemp in
             self.commentlist = temptemp
-
-            //print(self.commentlist)
+            var count = 0
             for eachstring in self.commentlist {
-                
-                let currentid = eachstring[0]
+             let currentid = eachstring[0]
                 print(currentid)
                 self.generateuserpic(currentid, completion: { namepic in
-                    print("temptemptemptemptemp")
                     print(namepic)
+                    print("temptemptemptemptemp")
                     print(self.tempname)
-                    let tempcomment = Comment(image: UIImage(data: namepic)!, name: self.tempname.last ?? "", description: eachstring[1]);
+                    print(self.tempname.last)
+                    let tempcomment = Comment(image: UIImage(data: namepic)!, name: self.tempname[count] ?? "", description: eachstring[1]);
+                    count = count + 1
 //                    tempcommentcelllist.append(tempcomment)
                     self.commentcelllist.append(tempcomment)
                     if self.commentcelllist.count == 0{
                         self.commentstableview.isHidden = true
-                        //self.label.isHidden = false
                     } else {
                         self.commentstableview.isHidden = false
                         self.commentstableview.reloadData()
                     }
                 })
             }
-            
 
-            
-            //return tempcommentcelllist
         })
         
         
@@ -313,7 +309,7 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         ratingdb.observeSingleEvent(of: .value) { (snapshot) in
             var ratingtuple = snapshot.value as! [Int];
             var avrating = Double(ratingtuple[0])/Double(ratingtuple[1])
-            self.ratinglabel.text = "average rating: " + String(format: "%.1f", avrating) + "     " + String(ratingtuple[1]) + " have rated"
+            self.ratinglabel.text = "Average Rating: " + String(format: "%.1f", avrating) + "     " + String(ratingtuple[1]) + " have rated"
         }
         
         
@@ -361,8 +357,6 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
                     self.rightstring = self.rightstring + (self.ingredientlist[j]).capitalized + "\n";
                 }
             }
-            //print(self.leftstring)
-            //print(self.rightstring)
             self.lefthalf.text = self.leftstring;
             self.righthalf.text = self.rightstring;
             self.ingrescroll.contentLayoutGuide.bottomAnchor.constraint(equalTo: self.lefthalf.bottomAnchor).isActive = true
