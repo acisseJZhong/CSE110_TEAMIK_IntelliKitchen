@@ -18,7 +18,7 @@ class RecipeCell: UITableViewCell {
     func setRecipe(recipe:Recipe) {
         recipeImage.image = recipe.image
         recipeTitle.text = recipe.title
-        recipeRating.text = "Rating: \(recipe.rating)"
+        recipeRating.text = "Average Rating: \(recipe.rating)"
     }
     
 }

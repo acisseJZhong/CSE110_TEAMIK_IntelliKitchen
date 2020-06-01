@@ -2063,8 +2063,8 @@ Name</string>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating: 5.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-3c-3pK">
-                                                    <rect key="frame" x="346" y="88.5" width="56.5" height="13.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Rating: 5.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GzF-3c-3pK">
+                                                    <rect key="frame" x="301" y="88.5" width="102" height="13.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2078,7 +2078,7 @@ Name</string>
                                                 <constraint firstItem="bHH-vP-mjG" firstAttribute="top" secondItem="nkm-Lb-zf3" secondAttribute="top" constant="8" id="H4G-22-gr6"/>
                                                 <constraint firstAttribute="trailing" secondItem="fSo-if-idO" secondAttribute="trailing" constant="10" id="SAZ-9R-UsL"/>
                                                 <constraint firstItem="fSo-if-idO" firstAttribute="top" secondItem="nkm-Lb-zf3" secondAttribute="top" constant="30" id="USe-Qo-bpf"/>
-                                                <constraint firstItem="GzF-3c-3pK" firstAttribute="leading" secondItem="bHH-vP-mjG" secondAttribute="trailing" constant="205" id="mIn-C9-kvh"/>
+                                                <constraint firstItem="GzF-3c-3pK" firstAttribute="leading" secondItem="bHH-vP-mjG" secondAttribute="trailing" constant="160" id="mIn-C9-kvh"/>
                                                 <constraint firstAttribute="bottom" secondItem="bHH-vP-mjG" secondAttribute="bottom" constant="8" id="xd5-BU-831"/>
                                             </constraints>
                                         </tableViewCellContentView>

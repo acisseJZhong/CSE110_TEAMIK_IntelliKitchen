@@ -61,6 +61,14 @@ class RecipeListScreen: UIViewController {
         tableView.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool){
+        if searchByName {
+            createArray(true, Array(searchArray[1...]))
+        } else {
+            createArray(false, searchArray)
+        }
+    }
+    
     @IBAction func backbutton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -97,7 +105,14 @@ class RecipeListScreen: UIViewController {
                             if let dict = snap.value as? [String: Any] {
                                 var image = UIImage()
                                 if dict["img"] == nil {
-                                    image = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
+                                    if dict["recipe_pic"] == nil {
+                                        image = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
+                                    } else {
+                                        print("recipe_pic")
+                                        let imageUrl = URL(string: dict["recipe_pic"] as! String)
+                                        let imageData = try! Data(contentsOf: imageUrl!)
+                                        image = UIImage(data: imageData)!
+                                    }
                                 } else {
                                     let imageUrl = URL(string: dict["img"] as! String)
                                     let imageData = try! Data(contentsOf: imageUrl!)
@@ -106,7 +121,7 @@ class RecipeListScreen: UIViewController {
                                 let ratingsArray = dict["rating"] as! [Int]
                                 print(ratingsArray)
                                 let ratingDouble = Double(ratingsArray[0])/Double(ratingsArray[1])
-                                let ratingString = String(format: "%.2f", ratingDouble)
+                                let ratingString = String(format: "%.1f", ratingDouble)
                                 
                                 let recipe = Recipe(image: image, title: dict["recipe_name"] as! String, rating: ratingString)
                                 tempRecipes.append(recipe)
