@@ -1452,6 +1452,10 @@
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="kDF-ox-H9a" id="JNW-qo-vHB"/>
+                                                    <outlet property="delegate" destination="kDF-ox-H9a" id="cbP-dD-VWo"/>
+                                                </connections>
                                             </tableView>
                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-chat" translatesAutoresizingMaskIntoConstraints="NO" id="8vF-MJ-hze">
                                                 <rect key="frame" x="12" y="1192" width="20" height="20"/>

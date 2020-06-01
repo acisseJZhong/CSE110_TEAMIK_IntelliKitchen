@@ -259,8 +259,6 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         print("loaddded view did load")
         Comments.delegate = self
-        self.commentstableview.delegate = self
-        self.commentstableview.dataSource = self
         stepsdisplay.sizeToFit();
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.touch))
@@ -399,15 +397,13 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
+}
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        Comments?.resignFirstResponder()
-        self.view.endEditing(true)
 
 extension ScrollViewController {
-@objc func touch() {
-    self.Comments.endEditing(true)
-}
+    @objc func touch() {
+        self.Comments.endEditing(true)
+    }
 }
 
 
