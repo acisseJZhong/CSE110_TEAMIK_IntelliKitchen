@@ -12,11 +12,12 @@ import Firebase
 class RecipeListScreen: UIViewController {
     
     var ref = Database.database().reference()
-    var newrecipeid:[String] = [];
+    var newrecipeid:[String] = []
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var mySearchBar: UISearchBar!
+    @IBOutlet weak var searchText: UILabel!
     
+    let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     var recipes:[Recipe] = []
     
     var searchByName = true
@@ -26,7 +27,7 @@ class RecipeListScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if searchByName {
-            mySearchBar.text = searchArray[0]
+            searchText.text = searchArray[0]
         } else {
             var text = ""
             for i in 0...(searchArray.count - 1) {
@@ -36,8 +37,9 @@ class RecipeListScreen: UIViewController {
                     text += ", \(searchArray[i])"
                 }
             }
-            mySearchBar.text = text
+            searchText.text = text
         }
+        searchText.textColor = lightGreen
         
         // UI design
         label = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height: 50))
@@ -57,10 +59,20 @@ class RecipeListScreen: UIViewController {
         }
         tableView.delegate = self
         tableView.dataSource = self
-//        getRecipeID(false, searchArray, completion: { recipeID in
-//            print(recipeID)
-//        })
     }
+    
+    override func viewWillAppear(_ animated: Bool){
+        if searchByName {
+            createArray(true, Array(searchArray[1...]))
+        } else {
+            createArray(false, searchArray)
+        }
+    }
+    
+    @IBAction func backbutton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     func createArray(_ searchByName: Bool, _ searchArray: [String]) {
         print("in create array")
@@ -93,13 +105,25 @@ class RecipeListScreen: UIViewController {
                             if let dict = snap.value as? [String: Any] {
                                 var image = UIImage()
                                 if dict["img"] == nil {
-                                    image = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
+                                    if dict["recipe_pic"] == nil {
+                                        image = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
+                                    } else {
+                                        print("recipe_pic")
+                                        let imageUrl = URL(string: dict["recipe_pic"] as! String)
+                                        let imageData = try! Data(contentsOf: imageUrl!)
+                                        image = UIImage(data: imageData)!
+                                    }
                                 } else {
                                     let imageUrl = URL(string: dict["img"] as! String)
                                     let imageData = try! Data(contentsOf: imageUrl!)
                                     image = UIImage(data: imageData)!
                                 }
-                                let recipe = Recipe(image: image, title: dict["recipe_name"] as! String)
+                                let ratingsArray = dict["rating"] as! [Int]
+                                print(ratingsArray)
+                                let ratingDouble = Double(ratingsArray[0])/Double(ratingsArray[1])
+                                let ratingString = String(format: "%.1f", ratingDouble)
+                                
+                                let recipe = Recipe(image: image, title: dict["recipe_name"] as! String, rating: ratingString)
                                 tempRecipes.append(recipe)
                             }
                         }

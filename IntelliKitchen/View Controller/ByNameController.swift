@@ -18,7 +18,7 @@ class ByNameController: UIViewController {
     @IBOutlet weak var searchByIngredient: UIButton!
     
     var searchArray: [String] = []
-    let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 0.9)
+    let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     let darkGreen = UIColor(red: 87.0/255.0, green: 132.0/255.0, blue: 56.0/255.0, alpha: 0.8)
 
     var recipeNameArray: [String] = []
@@ -96,8 +96,9 @@ extension ByNameController: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell?.textLabel?.text = recipeNameArray[indexPath.row]
         }
-        cell?.contentView.backgroundColor = lightGreen
+        cell?.backgroundColor = lightGreen
         cell?.textLabel?.textColor = .white
+        cell?.tintColor = .white
         return cell!
     }
     
@@ -109,7 +110,7 @@ extension ByNameController: UITableViewDelegate, UITableViewDataSource {
         } else {
             nameSearchBar.text = recipeNameArray[index]
         }
-        searching = false
+//        searching = false
         nameTableView.reloadData()
     }
 }
@@ -140,5 +141,10 @@ extension ByNameController: UISearchBarDelegate {
         searchRecipe = recipeNameArray.filter({$0.localizedCaseInsensitiveContains(searchText)})
         searching = true
         nameTableView.reloadData()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.nameSearchBar?.resignFirstResponder()
+        self.nameTableView?.resignFirstResponder()
     }
 }

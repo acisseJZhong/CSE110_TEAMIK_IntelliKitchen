@@ -19,7 +19,7 @@ class ByIngredientController: UIViewController {
     @IBOutlet weak var searchByName: UIButton!
     @IBOutlet weak var searchByIngredient: UIButton!
     
-    let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 0.9)
+    let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     let darkGreen = UIColor(red: 87.0/255.0, green: 132.0/255.0, blue: 56.0/255.0, alpha: 0.8)
     
     var allIngredient: [String] = []
@@ -43,6 +43,7 @@ class ByIngredientController: UIViewController {
         clearButton.backgroundColor = darkGreen
         clearButton.tintColor = .white
         ingredientTableView.layer.cornerRadius = 20
+        ingredientTableView.backgroundColor = lightGreen
     }
     
     func getIngredients() {
@@ -137,16 +138,22 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
             let label = (cell?.textLabel?.text)!
             if searching {
                 if index < searchSelectedIngredient.count {
+                    searchSelectedIngredient = searchSelectedIngredient.filter{ $0 != label }
+                    searchAllIngredient.append(label)
+                    searchAllIngredient.sort()
+                    
                     selectedIngredient = selectedIngredient.filter { $0 != label }
                     allIngredient.append(label)
                     allIngredient.sort()
                 } else {
+                    searchSelectedIngredient.append(label)
+                    searchSelectedIngredient.sort()
+                    searchAllIngredient = searchAllIngredient.filter { $0 != label }
+                    
                     selectedIngredient.append(label)
                     selectedIngredient.sort()
                     allIngredient = allIngredient.filter { $0 != label }
                 }
-                searching = false
-                ingredientSearchBar.text = ""
             } else {
                 if index < selectedIngredient.count {
                     selectedIngredient = selectedIngredient.filter { $0 != label }
@@ -176,5 +183,10 @@ extension ByIngredientController: UISearchBarDelegate {
         searchSelectedIngredient = selectedIngredient.filter({$0.localizedCaseInsensitiveContains(searchText)})
         searching = true
         ingredientTableView.reloadData()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.ingredientSearchBar?.resignFirstResponder()
+        self.ingredientTableView?.resignFirstResponder()
     }
 }
