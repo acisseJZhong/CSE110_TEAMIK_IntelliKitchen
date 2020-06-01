@@ -72,7 +72,12 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var Comments: UITextField!
     
     @IBAction func clickRating(_ sender: Any) {
-        performSegue(withIdentifier: "seguetest", sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle:nil)
+        let secondVC = storyboard.instantiateViewController(identifier: "Rating") as! RatingViewController
+        secondVC.passid = self.passid
+        self.present(secondVC, animated: true, completion: nil)
+
+//        performSegue(withIdentifier: "seguetest", sender: self)
     }
     //favourite button
     @IBOutlet weak var FavouriteButton: UIButton!
@@ -85,14 +90,15 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
     @IBAction func SubmitButton(_ sender: Any) {
         
         if (!self.commentornot){
-            let new = Comment(image: UIImage(imageLiteralResourceName: "Ellipse1"), name: self.username, description: Comments.text!);
+            print(commentcelllist.count)
+//            let new = Comment(image: UIImage(imageLiteralResourceName: "Ellipse1"), name: self.username, description: Comments.text!);
             var commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/comments");
-            commentcelllist.append(new)
-            self.commentstableview.reloadData();
+            commentcelllist.removeAll()
+            print(commentcelllist.count)
+//            self.commentstableview.reloadData();
+            
             commentlist.append([self.currentUid, Comments.text!]);
             commentdb.setValue(commentlist);
-            
-            
             commentedlist.append(passid)
             db.collection("users").document(currentUid).updateData(["commentedlist" : self.commentedlist])
             self.commentornot = true
@@ -108,7 +114,7 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
             self.submitdisplay.isEnabled = false
             self.submitdisplay.setTitleColor(.gray, for: .normal)
         }
-        self.Comments?.resignFirstResponder()
+        //self.Comments?.resignFirstResponder()
     }
     
     
@@ -129,18 +135,6 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        print("asdfadf")
-//        self.Comments?.resignFirstResponder()
-//        super.touchesBegan(touches, with: event)
-//    }
-    
-//    func textFieldShouldReturn(textField: UITextField!) -> Bool // called when 'return' key pressed. return NO to ignore.
-//    {
-//        print("alsdfjadslkfjlaksdjfal")
-//        textField.resignFirstResponder()
-//        return true;
-//    }
     
     @IBAction func backbutton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -220,8 +214,6 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
     
     
     func forloop(){
-//        var tempcommentcelllist:[Comment] = []
-        
         beforeforloop (completion: {temptemp in
             self.commentlist = temptemp
             var count = 0
@@ -247,15 +239,23 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
             }
 
         })
-        
-        
     }
    
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        print("akjdfldsjfls")
+        var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/rating");
+        ratingdb.observeSingleEvent(of: .value) { (snapshot) in
+                   var ratingtuple = snapshot.value as! [Int];
+                   var avrating = Double(ratingtuple[0])/Double(ratingtuple[1])
+                   self.ratinglabel.text = "Average Rating: " + String(format: "%.1f", avrating) + "     " + String(ratingtuple[1]) + " have rated"
+                    print(ratingtuple)
+               }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("loaddded view did load")
         Comments.delegate = self
         self.commentstableview.delegate = self
         self.commentstableview.dataSource = self
@@ -434,9 +434,9 @@ extension ScrollViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //print("I am inside extension")
         //print(commentcelllist.count)
-        return commentcelllist.count
         print("cccccccccccount")
         print(commentcelllist.count)
+        return commentcelllist.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -1238,7 +1238,7 @@
         <!--Rating View Controller-->
         <scene sceneID="PW1-Zt-UMn">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="8EZ-6a-c4V" customClass="RatingViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Rating" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="8EZ-6a-c4V" customClass="RatingViewController" customModule="IntelliKitchen" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XW0-OR-fvI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1368,7 +1368,6 @@
                                                 <state key="normal" title="Button" image="Path 5266"/>
                                                 <connections>
                                                     <action selector="clickRating:" destination="kDF-ox-H9a" eventType="touchUpInside" id="rrD-Mb-uF7"/>
-                                                    <segue destination="8EZ-6a-c4V" kind="presentation" identifier="seguetest" id="345-hs-4ek"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you want to say about this recipe?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wWF-Z5-V2A">

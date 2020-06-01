@@ -33,7 +33,7 @@ class RatingViewController: UIViewController {
     @IBOutlet weak var smallerView: UIView!
     
     @IBAction func clickCancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func clickSubmit(_ sender: Any) {
