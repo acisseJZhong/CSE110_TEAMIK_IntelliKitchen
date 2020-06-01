@@ -40,7 +40,7 @@ class ForgetPasswordViewController: UIViewController {
                 if error == nil{
                     self.message.alpha = 1
                     self.message.textColor = UIColor.init(red: 146/255, green: 170/255, blue: 68/255, alpha: 1)
-                    self.message.text = "A link has sent to your email!"
+                    self.message.text = "A link has been sent to your email!"
                 }
                 else{
                     self.message.alpha = 1
