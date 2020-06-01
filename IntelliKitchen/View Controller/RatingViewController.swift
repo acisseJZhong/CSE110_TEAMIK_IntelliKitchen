@@ -19,7 +19,7 @@ class RatingViewController: UIViewController {
    // var ref: DatabaseReference!
     let db = Firestore.firestore()
     var ref = Database.database().reference().child("recipetest1")
-    var ratingarray = [Int]()
+    var ratingarray: [Int] = [3]
     var passid:String = ""
     var currentUid: String = ""
     var ratedlist:[String] = []
@@ -33,7 +33,7 @@ class RatingViewController: UIViewController {
     @IBOutlet weak var smallerView: UIView!
     
     @IBAction func clickCancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func clickSubmit(_ sender: Any) {
