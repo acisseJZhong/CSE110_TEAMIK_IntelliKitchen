@@ -123,14 +123,16 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         if(!favornot) {
             FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
             self.favlist.append(passid)
-            db.collection("users").document(currentUid).updateData(["favRecipe" : self.favlist])
+            //db.collection("users").document(currentUid).updateData(["favRecipe" : self.favlist])
+            db.collection("users").document(currentUid).collection("favoriteRecipe").document("favRecipeList").setData(["favRecipe": self.favlist])
             favornot = true
         }
         else{
             FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
             let index = self.favlist.firstIndex(of: passid)
             self.favlist.remove(at: index!)
-            db.collection("users").document(currentUid).updateData(["favRecipe" : self.favlist])
+            //db.collection("users").document(currentUid).updateData(["favRecipe" : self.favlist])
+            db.collection("users").document(currentUid).collection("favoriteRecipe").document("favRecipeList").setData(["favRecipe": self.favlist])
             favornot = false
         }
     }
@@ -280,27 +282,20 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         self.currentUid = Auth.auth().currentUser!.uid
         //print("11111111111")
         print(currentUid)
-        db.collection("users").document(currentUid).getDocument { (document, error) in
-            if error == nil {
-                if document != nil && document!.exists {
-                    let documentData = document?.data()
-                    self.favlist = documentData?["favRecipe"] as? [String] ?? []
-                    //print(self.favlist)
-                    if self.favlist .contains(self.passid){
-                        self.favornot = true
-                    }
-                    if self.favornot{
-                        self.FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
-                    }
-                    else{
-                        self.FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
-                    }
-                } else {
-                    print("Can read the document but the document might not exists")
+        db.collection("users").document(currentUid).collection("favoriteRecipe").getDocuments { (snapshot, error) in
+            for document in snapshot!.documents{
+                let documentData = document.data()
+                self.favlist = documentData["favRecipe"] as? [String] ?? []
+                //print(self.favlist)
+                if self.favlist.contains(self.passid){
+                    self.favornot = true
                 }
-                
-            } else {
-                print("Something wrong reading the document")
+                if self.favornot{
+                    self.FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
+                }
+                else{
+                    self.FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
+                }
             }
         }
         
@@ -405,7 +400,9 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-}
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        Comments?.resignFirstResponder()
+        self.view.endEditing(true)
 
 extension ScrollViewController {
 @objc func touch() {

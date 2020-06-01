@@ -21,13 +21,13 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     @IBOutlet weak var userPassword: UITextField!
     @IBOutlet weak var saveUsername: UIButton!
     @IBOutlet weak var favRecipeAlert: UILabel!
-    
     @IBOutlet weak var tableView: UITableView!
     
     var favoriteRecipes:[FavoriteRecipe] = []
     var favoriteIDList:[String] = []
-    var iconClick = false
     
+    static var systemNotification = false
+    var databaseNotification = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,62 +40,60 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        userName?.resignFirstResponder()
-        userEmail?.resignFirstResponder()
-        userPassword?.resignFirstResponder()
+        self.view.endEditing(true)
     }
     
-        func loadUserInfo(){
-            //let ref = Database.database().reference()
+    
+    func loadUserInfo(){
+        let db = Firestore.firestore()
+        
+        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
+        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
+        let tempGoogleIconUrl = LoginController.GlobalVariable.googleIconUrl
+        
+        //handle google log in
+        if tempGoogleUsername != "" && tempGoogleEmail != ""{
+            self.userName?.text = tempGoogleUsername
             
-            let db = Firestore.firestore()
+            self.userEmail?.text = tempGoogleEmail
             
-            //let access = LoginController()
-            let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
-            let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
-            let tempGoogleIconUrl = LoginController.GlobalVariable.googleIconUrl
-            print("----------> tempGoogleIconUrl is:")
-            print(tempGoogleIconUrl)
-            print(type(of: tempGoogleIconUrl))
-            if tempGoogleUsername != "" && tempGoogleEmail != ""{
-                self.userName?.text = tempGoogleUsername
+            guard let imageURL = tempGoogleIconUrl else { return  }
+            
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: imageURL) else { return }
                 
-                self.userEmail?.text = tempGoogleEmail
-                
-    //            var currentImage = UIImage()
-    //            let imageUrl = tempGoogleIconUrl
-    //            guard let imageData = try? Data(contentsOf: imageUrl!) else {return}
-    //            currentImage = UIImage(data: imageData)!
-                guard let imageURL = tempGoogleIconUrl else { return  }
-
-                    // just not to cause a deadlock in UI!
-                DispatchQueue.global().async {
-                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
-
-                    let image = UIImage(data: imageData)
-                    DispatchQueue.main.async {
-                        self.myImageView?.image = image
-                    }
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    self.myImageView?.image = image
                 }
             }
-
             let currentUid = Auth.auth().currentUser!.uid
+            
+            db.collection("users").document(currentUid).collection("favoriteRecipe").getDocuments{ (snapshot, error) in
+                for document in snapshot!.documents{
+                    let documentData = document.data()
+                    self.favoriteIDList = documentData["favRecipe"] as! [String]
+                    if self.favoriteIDList.count == 0{
+                        self.favRecipeAlert?.text = "Add Some Favorite while Searching"
+                    } else {
+                        self.favRecipeAlert?.text = "My Favorite Recipes:"
+                        
+                    }
+                    self.favoriteRecipes = self.createArray(self.favoriteIDList)
+                }
+            }
+            //handle normal login
+        } else {
+            let currentUid = Auth.auth().currentUser!.uid
+            print("currentUid is: ")
+            print(currentUid)
             db.collection("users").document(currentUid).getDocument { (document, error) in
                 if error == nil {
                     if document != nil && document!.exists {
                         let documentData = document?.data()
-
+                        
                         self.userName?.text = documentData?["username"] as? String
-     
                         self.userEmail?.text = documentData?["email"] as? String
-                        self.favoriteIDList = documentData?["favRecipe"] as! [String]
-                        if self.favoriteIDList.count == 0{
-                            self.favRecipeAlert?.text = "Add Some Favorite while Searching"
-                        } else {
-                            self.favRecipeAlert?.text = "My Favorite Recipes:"
-
-                        }
-                        self.favoriteRecipes = self.createArray(self.favoriteIDList)
                         self.loadImageFromFirebase()
                         
                     } else {
@@ -106,27 +104,36 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     print("Something wrong reading the document")
                 }
             }
+            db.collection("users").document(currentUid).collection("favoriteRecipe").getDocuments{ (snapshot, error) in
+                for document in snapshot!.documents{
+                    let documentData = document.data()
+                    self.favoriteIDList = documentData["favRecipe"] as! [String]
+                    if self.favoriteIDList.count == 0{
+                        self.favRecipeAlert?.text = "Add Some Favorite while Searching"
+                    } else {
+                        self.favRecipeAlert?.text = "My Favorite Recipes:"
+                    }
+                    self.favoriteRecipes = self.createArray(self.favoriteIDList)
+                }
+            }
         }
+    }
     
     func createArray(_ favoriteIDList: [String]) -> [FavoriteRecipe]{
         var temp: [FavoriteRecipe] = []
         
-        print("1. about to retrieve favorite recipes")
         retrieveFR(favoriteIDList, completion: {searchedRecipes in
             self.favoriteRecipes = searchedRecipes
             self.tableView?.reloadData()
         })
                 
-        print("5. finish retrieve favorite recipes and about to return")
-        
         return temp
     }
     
     func retrieveFR(_ favoriteIDList: [String], completion: @escaping (_ searchedRecipes: [FavoriteRecipe]) -> Void){
-        print("2. Retrieving favorite recipes: ====")
         let ref = Database.database().reference()
         var temp: [FavoriteRecipe] = []
-
+        
         for recipe in favoriteIDList{
             let currentRecipeString = "Recipe/-M8IVR-st6dljGq6M4xN/" + recipe
             let recipeRef = ref.child(currentRecipeString)
@@ -134,70 +141,81 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                 let snap = snapshot as! DataSnapshot
                 if let dict = snap.value as? [String: Any]{
                     var currentImage = UIImage()
-                    let imageUrl = URL(string: dict["img"] as! String)
-                    let imageData = try! Data(contentsOf: imageUrl!)
-                    currentImage = UIImage(data: imageData)!
+                    var urlString = try! dict["img"] as? String
+                    if urlString == nil {
+                        urlString = try! dict["recipe_pic"] as! String
+                    }
+                    if urlString == nil {
+                        currentImage = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
+                    } else {
+                        var imageUrl = URL(string: urlString!)
+                        let imageData = try! Data(contentsOf: imageUrl!)
+                        currentImage = UIImage(data: imageData)!
+                    }
                     var currentTitle = dict["recipe_name"] as! String
                     let tempFR = FavoriteRecipe(image: currentImage, title: currentTitle)
-                    print("3. construct one tempFR")
                     temp.append(tempFR)
-                    print("4. Finish append current tempFR to the list")
                 }
                 completion(temp)
             })
         }
     }
     
-    
-
-    
-    
-    
     @IBAction func showOrHidePassword(_ sender: Any) {
+        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
+        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
         
-        let email = Auth.auth().currentUser?.email
-        
-        Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
+        if tempGoogleUsername != "" && tempGoogleEmail != ""{
+            self.createAlert(title: "Notice", message: "You may not change your password by logging in with Google")
+        }
+        else{
+            let email = Auth.auth().currentUser?.email
+            
+            Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
                 if error == nil{
-                    self.createAlertSignOut(title: "Success", message: "A link has sent to your email!")
+                    self.createAlertSignOut(title: "Success", message: "A link has been sent to your email!")
                 }
                 else{
                     self.createAlert(title: "Oops!", message: "There‘s something wrong. Please try again.")
                 }
             }
-    }
-    
-    
-    func createAlertSignOut(title:String, message:String){
-         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
-            self.signoutTapped((Any).self)
-         }))
-         self.present(alert, animated: true, completion: nil)
-    }
-    
-    
-    
-    func createAlert(title:String, message:String){
-         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
-         }))
-         self.present(alert, animated: true, completion: nil)
-    }
-
-        
-    @IBAction func importImage(_ sender: Any) {
-        //Given the user the opportunity to pick a picture.
-        let image = UIImagePickerController()
-        image.delegate = self
-        image.sourceType = UIImagePickerController.SourceType.photoLibrary
-        image.allowsEditing = false
-        
-        self.present(image, animated: true){
-            //After it is complete.
         }
     }
     
+    func createAlertSignOut(title:String, message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
+            self.signoutTapped((Any).self)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func createAlert(title:String, message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func importImage(_ sender: Any) {
+        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
+        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
+        
+        if tempGoogleUsername != "" && tempGoogleEmail != ""{
+            self.createAlert(title: "Notice", message: "You may not change your profile photo by logging in with Google")
+        }
+        else{
+            //Given the user the opportunity to pick a picture.
+            let image = UIImagePickerController()
+            image.delegate = self
+            image.sourceType = UIImagePickerController.SourceType.photoLibrary
+            image.allowsEditing = false
+            
+            self.present(image, animated: true){
+                //After it is complete.
+            }
+        }
+    }
     
     func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())){
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -211,15 +229,13 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         storageRef.putData(imageData, metadata: metaData) {metaData, error in
             if error == nil, metaData != nil {
                 //if let url = storageRef.downloadURL(completion: (URL?, Error?) -> Void){
-                    completion(nil)
-                    
-                } else {
-                    completion(nil)
-                }
-                //success
+                completion(nil)
+                
+            } else {
+                completion(nil)
+            }
+            //success
         }
-        
-        
     }
     
     func loadImageFromFirebase(){
@@ -229,14 +245,12 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
             if let error = error {
                 print(error.localizedDescription)
             } else {
-              // Data for "images/island.jpg" is returned
+                // Data for "images/island.jpg" is returned
                 self.myImageView?.image = UIImage(data: data!)
             }
         }
     }
-    
-    
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             myImageView.image = image
@@ -251,14 +265,24 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     @IBAction func saveUsernameAction(_ sender: Any) {
-        //Should we directly store this to the database and each time gain the data from the data base
-        let db = Firestore.firestore()
-        let currentUid = Auth.auth().currentUser!.uid
-        let updateString = self.userName!.text
-        db.collection("users").document(currentUid).updateData(["username": updateString])
+        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
+        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
+        
+        if tempGoogleUsername != "" && tempGoogleEmail != ""{
+            self.createAlert(title: "Notice", message: "You may not change your username by logging in with Google")
+        }
+        else{
+            let db = Firestore.firestore()
+            let currentUid = Auth.auth().currentUser!.uid
+            let updateString = self.userName!.text
+            db.collection("users").document(currentUid).updateData(["username": updateString])
+        }
+        self.createAlert(title: "Notice", message: "Sucessfully save the username")
     }
     
     @IBAction func switchNotificationControl(_ sender: Any) {
+        let currentUid = Auth.auth().currentUser!.uid
+        let db = Firestore.firestore()
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
         let content = UNMutableNotificationContent()
@@ -269,10 +293,14 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         if((sender as AnyObject).isOn == true){
             content.title = "I'm the notification"
             content.body = "Your food is about to expire!"
+            ProfilePageViewController.systemNotification = true
+            db.collection("users").document(currentUid).collection("notificationCollection").document("notificationDocument").setData(["commentedlist": "true"])
         }
         else{
             content.title = "I'm the notification"
             content.body = "you closed the notification!"
+            ProfilePageViewController.systemNotification = false
+            db.collection("users").document(currentUid).collection("notificationCollection").document("notificationDocument").setData(["commentedlist": "false"])
         }
         
         let uuidString = UUID().uuidString
@@ -281,7 +309,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     
-
+    
     
     @IBAction func signoutTapped(_ sender: Any) {
         
@@ -292,18 +320,14 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
             print ("Error signing out: %@", signOutError)
         }
         
-
         let loginController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginController) as? LoginController
         view.window?.rootViewController = loginController
         view.window?.makeKeyAndVisible()
-          
+        
+        LoginController.GlobalVariable.googleUsername = ""
+        LoginController.GlobalVariable.googleEmail = ""
+        LoginController.GlobalVariable.googleIconUrl = URL(string: "")
     }
-    
-    
-
-    
-    
-    
 }
 
 extension ProfilePageViewController : UITextFieldDelegate{
@@ -326,6 +350,11 @@ extension ProfilePageViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
     
- 
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let id = self.favoriteIDList[indexPath.row]
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(identifier: "menudetail") as! ScrollViewController
+        secondVC.passid = id;
+        self.present(secondVC,animated:true,completion: nil)
+    }
 }
