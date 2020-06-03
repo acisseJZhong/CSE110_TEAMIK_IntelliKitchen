@@ -18,5 +18,6 @@ class Comment{
         self.image = image
         self.description = description
         self.name = name
+        //self.image.layer.cornerRadius = 10;
     }
 }
