@@ -17,35 +17,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" background="username" translatesAutoresizingMaskIntoConstraints="NO" id="ftI-Sl-8yZ">
-                                <rect key="frame" x="54" y="323" width="319" height="54"/>
+                                <rect key="frame" x="46.5" y="322" width="321" height="54"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="1OK-1G-rvl"/>
+                                    <constraint firstAttribute="width" secondItem="ftI-Sl-8yZ" secondAttribute="height" multiplier="107:18" id="v6H-WZ-dkh"/>
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartQuotesType="no"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" background="password" translatesAutoresizingMaskIntoConstraints="NO" id="6nr-Zc-uQb">
-                                <rect key="frame" x="54" y="399" width="321" height="54"/>
+                                <rect key="frame" x="46.5" y="399" width="321" height="54"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="54" id="hjn-Ze-z6J"/>
+                                    <constraint firstAttribute="width" constant="321" id="XYL-h6-Tej"/>
+                                    <constraint firstAttribute="width" secondItem="6nr-Zc-uQb" secondAttribute="height" multiplier="107:18" id="xP2-X2-Ubp"/>
                                 </constraints>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue" secureTextEntry="YES" smartQuotesType="no"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBp-ez-Kg5" userLabel="SignIn">
-                                <rect key="frame" x="0.0" y="497" width="421" height="216"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="U0X-rd-ni4"/>
-                                </constraints>
-                                <state key="normal" image="SigninButton"/>
-                                <connections>
-                                    <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EUT-YG-FLb"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivL-FL-OPB">
-                                <rect key="frame" x="153" y="471" width="123" height="30"/>
+                                <rect key="frame" x="145.5" y="471" width="123" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="123" id="2ih-mL-uds"/>
+                                    <constraint firstAttribute="width" secondItem="ivL-FL-OPB" secondAttribute="height" multiplier="41:10" id="sOh-2k-ndJ"/>
+                                </constraints>
                                 <state key="normal" title="Forgot password?">
                                     <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -54,7 +49,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wkm-4E-hUQ">
-                                <rect key="frame" x="140.5" y="786" width="148" height="33"/>
+                                <rect key="frame" x="133" y="786" width="148" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="148" id="6LD-YK-bnZ"/>
+                                    <constraint firstAttribute="width" secondItem="Wkm-4E-hUQ" secondAttribute="height" multiplier="148:33" id="Tuu-XJ-lmP"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                 <state key="normal" title="CREATE ACCOUNT">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,59 +63,74 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hbH-Pa-2Pw" userLabel="Google">
-                                <rect key="frame" x="54" y="704" width="321" height="55"/>
+                                <rect key="frame" x="46.5" y="704" width="321" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="321" id="E7p-mi-28I"/>
+                                    <constraint firstAttribute="width" secondItem="hbH-Pa-2Pw" secondAttribute="height" multiplier="321:55" id="UV6-f4-e7i"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="Google"/>
                                 <connections>
                                     <action selector="googleTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rrF-cQ-XhQ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lum-Ef-scD">
-                                <rect key="frame" x="214.5" y="497" width="0.0" height="92"/>
+                                <rect key="frame" x="56" y="518" width="302" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lum-Ef-scD" secondAttribute="height" multiplier="151:20" id="FO2-1T-vp0"/>
+                                    <constraint firstAttribute="width" constant="302" id="cgi-pM-imM"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="OR" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M9y-WG-e5K">
-                                <rect key="frame" x="166" y="662" width="97" height="34"/>
+                                <rect key="frame" x="195" y="662" width="24" height="34"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="elX-5k-mER"/>
+                                    <constraint firstAttribute="height" constant="34" id="38B-eo-3Xl"/>
+                                    <constraint firstAttribute="width" secondItem="M9y-WG-e5K" secondAttribute="height" multiplier="12:17" id="eKc-bK-ghY"/>
                                 </constraints>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="lXm-UA-4Xv">
-                                <rect key="frame" x="59.5" y="44" width="302" height="256"/>
+                                <rect key="frame" x="56" y="44" width="302" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lXm-UA-4Xv" secondAttribute="height" multiplier="151:128" id="TkL-8y-11T"/>
+                                </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBp-ez-Kg5" userLabel="SignIn">
+                                <rect key="frame" x="0.0" y="509" width="414" height="219"/>
+                                <state key="normal" image="SigninButton"/>
+                                <connections>
+                                    <action selector="loginTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EUT-YG-FLb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="TBp-ez-Kg5" firstAttribute="top" secondItem="6nr-Zc-uQb" secondAttribute="bottom" constant="44" id="0m3-kK-19x"/>
-                            <constraint firstItem="lXm-UA-4Xv" firstAttribute="width" secondItem="ftI-Sl-8yZ" secondAttribute="width" multiplier="0.946708" id="3wr-8y-G93"/>
-                            <constraint firstItem="ivL-FL-OPB" firstAttribute="centerX" secondItem="hbH-Pa-2Pw" secondAttribute="centerX" id="84p-pm-uyE"/>
-                            <constraint firstItem="hbH-Pa-2Pw" firstAttribute="height" secondItem="6nr-Zc-uQb" secondAttribute="height" multiplier="1.01852" id="8Kd-7u-Jnl"/>
-                            <constraint firstItem="hbH-Pa-2Pw" firstAttribute="top" secondItem="M9y-WG-e5K" secondAttribute="bottom" constant="8" id="Aut-Ce-Bna"/>
-                            <constraint firstItem="6nr-Zc-uQb" firstAttribute="height" secondItem="ftI-Sl-8yZ" secondAttribute="height" id="Cf3-As-Hpl"/>
-                            <constraint firstAttribute="bottom" secondItem="M9y-WG-e5K" secondAttribute="bottom" constant="200" id="Jry-tU-VGH"/>
-                            <constraint firstItem="6nr-Zc-uQb" firstAttribute="width" secondItem="hbH-Pa-2Pw" secondAttribute="width" id="NHp-nf-zGw"/>
-                            <constraint firstItem="lXm-UA-4Xv" firstAttribute="centerX" secondItem="TBp-ez-Kg5" secondAttribute="centerX" id="NpG-wd-Unt"/>
-                            <constraint firstItem="ivL-FL-OPB" firstAttribute="top" secondItem="6nr-Zc-uQb" secondAttribute="bottom" constant="18" id="O7U-EJ-SwJ"/>
-                            <constraint firstItem="6nr-Zc-uQb" firstAttribute="top" secondItem="ftI-Sl-8yZ" secondAttribute="bottom" constant="22" id="PD3-1C-EEM"/>
-                            <constraint firstItem="ftI-Sl-8yZ" firstAttribute="leading" secondItem="hbH-Pa-2Pw" secondAttribute="leading" id="XRu-dm-FxT"/>
-                            <constraint firstItem="TBp-ez-Kg5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YxK-ic-Ix9"/>
-                            <constraint firstItem="ivL-FL-OPB" firstAttribute="centerX" secondItem="lum-Ef-scD" secondAttribute="centerX" id="cN8-VT-z15"/>
-                            <constraint firstItem="ftI-Sl-8yZ" firstAttribute="top" secondItem="lXm-UA-4Xv" secondAttribute="bottom" constant="23" id="g1h-rq-FMB"/>
-                            <constraint firstItem="TBp-ez-Kg5" firstAttribute="top" secondItem="lum-Ef-scD" secondAttribute="top" id="gHF-Ux-69n"/>
-                            <constraint firstItem="M9y-WG-e5K" firstAttribute="centerX" secondItem="lum-Ef-scD" secondAttribute="centerX" id="hIV-U6-Csw"/>
-                            <constraint firstItem="M9y-WG-e5K" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="166" id="kOv-7z-EtF"/>
-                            <constraint firstItem="M9y-WG-e5K" firstAttribute="top" secondItem="lum-Ef-scD" secondAttribute="bottom" constant="73" id="m2M-x0-NbO"/>
-                            <constraint firstItem="ftI-Sl-8yZ" firstAttribute="width" secondItem="hbH-Pa-2Pw" secondAttribute="width" multiplier="0.993769" id="mvr-AO-s4t"/>
-                            <constraint firstItem="Wkm-4E-hUQ" firstAttribute="top" secondItem="TBp-ez-Kg5" secondAttribute="bottom" constant="73" id="sDp-hH-jAD"/>
-                            <constraint firstItem="Wkm-4E-hUQ" firstAttribute="top" secondItem="hbH-Pa-2Pw" secondAttribute="bottom" constant="27" id="w9t-i3-al4"/>
-                            <constraint firstItem="6nr-Zc-uQb" firstAttribute="leading" secondItem="ftI-Sl-8yZ" secondAttribute="leading" id="x83-Ta-BKY"/>
-                            <constraint firstItem="ivL-FL-OPB" firstAttribute="centerX" secondItem="Wkm-4E-hUQ" secondAttribute="centerX" id="xkS-75-vn4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="M9y-WG-e5K" secondAttribute="trailing" constant="151" id="zzF-kx-A6G"/>
+                            <constraint firstItem="Wkm-4E-hUQ" firstAttribute="top" secondItem="hbH-Pa-2Pw" secondAttribute="bottom" constant="27" id="1mL-Vn-u8g"/>
+                            <constraint firstItem="6nr-Zc-uQb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Bez-Q6-u5J"/>
+                            <constraint firstItem="lum-Ef-scD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BkF-De-w2K"/>
+                            <constraint firstItem="lXm-UA-4Xv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C4F-V7-nf9"/>
+                            <constraint firstItem="ftI-Sl-8yZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FOj-4S-Krc"/>
+                            <constraint firstItem="TBp-ez-Kg5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NRf-7c-qTM"/>
+                            <constraint firstItem="hbH-Pa-2Pw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P7W-zc-cwq"/>
+                            <constraint firstItem="TBp-ez-Kg5" firstAttribute="top" secondItem="ivL-FL-OPB" secondAttribute="bottom" constant="8" id="RBs-2S-XF2"/>
+                            <constraint firstItem="lum-Ef-scD" firstAttribute="top" secondItem="ivL-FL-OPB" secondAttribute="bottom" constant="17" id="Wej-T0-MOp"/>
+                            <constraint firstAttribute="trailing" secondItem="TBp-ez-Kg5" secondAttribute="trailing" id="YEv-bo-UEX"/>
+                            <constraint firstItem="ivL-FL-OPB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c4s-Dk-ikI"/>
+                            <constraint firstItem="M9y-WG-e5K" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cd6-MP-cPt"/>
+                            <constraint firstItem="lXm-UA-4Xv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e0Y-ta-MRl"/>
+                            <constraint firstItem="M9y-WG-e5K" firstAttribute="top" secondItem="ivL-FL-OPB" secondAttribute="bottom" constant="161" id="ezg-FJ-sY6"/>
+                            <constraint firstItem="TBp-ez-Kg5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="k9F-mc-JFC"/>
+                            <constraint firstItem="6nr-Zc-uQb" firstAttribute="top" secondItem="ftI-Sl-8yZ" secondAttribute="bottom" constant="23" id="myC-jj-OLC"/>
+                            <constraint firstItem="ftI-Sl-8yZ" firstAttribute="width" secondItem="lXm-UA-4Xv" secondAttribute="width" multiplier="1.06291" id="n5l-Ae-nng"/>
+                            <constraint firstItem="hbH-Pa-2Pw" firstAttribute="top" secondItem="M9y-WG-e5K" secondAttribute="bottom" constant="8" id="rck-2J-ERq"/>
+                            <constraint firstItem="Wkm-4E-hUQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sKD-ig-hha"/>
+                            <constraint firstItem="ftI-Sl-8yZ" firstAttribute="top" secondItem="lXm-UA-4Xv" secondAttribute="bottom" constant="22" id="v7I-Fo-6Kx"/>
+                            <constraint firstItem="ivL-FL-OPB" firstAttribute="top" secondItem="6nr-Zc-uQb" secondAttribute="bottom" constant="18" id="wWb-2r-69m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -666,32 +680,32 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="w0R-Lt-awd">
                                 <rect key="frame" x="51" y="823" width="319" height="38.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pae-ge-Jmj">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pae-ge-Jmj">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="38.5"/>
                                         <state key="normal" image="homeTapped"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6j-Vd-czm">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6j-Vd-czm">
                                         <rect key="frame" x="68" y="0.0" width="31" height="38.5"/>
                                         <state key="normal" image="search"/>
                                         <connections>
                                             <segue destination="USg-Qc-yJD" kind="presentation" id="Ti0-EC-YHM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3r-Il-G7k">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3r-Il-G7k">
                                         <rect key="frame" x="139" y="0.0" width="26" height="38.5"/>
                                         <state key="normal" image="fridge"/>
                                         <connections>
                                             <segue destination="MIq-cK-lJW" kind="presentation" id="Wrq-ex-4Yj"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="bottom" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77w-Wz-X1d">
+                                    <button opaque="NO" contentMode="bottom" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77w-Wz-X1d">
                                         <rect key="frame" x="205" y="0.0" width="40.5" height="38.5"/>
                                         <state key="normal" backgroundImage="chores"/>
                                         <connections>
                                             <segue destination="Z2J-bS-RUH" kind="presentation" id="uOu-pR-esn"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfh-xD-cO7">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfh-xD-cO7">
                                         <rect key="frame" x="285.5" y="0.0" width="33.5" height="38.5"/>
                                         <state key="normal" image="profile"/>
                                         <connections>
@@ -1059,32 +1073,32 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="vR8-Hy-cwJ">
                                 <rect key="frame" x="51" y="823" width="319" height="38.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5T-xW-654">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5T-xW-654">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="38.5"/>
                                         <state key="normal" image="homeTapped"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFw-hJ-Pmi">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFw-hJ-Pmi">
                                         <rect key="frame" x="68" y="0.0" width="31" height="38.5"/>
                                         <state key="normal" image="search"/>
                                         <connections>
                                             <segue destination="USg-Qc-yJD" kind="presentation" id="6a3-b0-ic6"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMO-DP-tKu">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMO-DP-tKu">
                                         <rect key="frame" x="139" y="0.0" width="26" height="38.5"/>
                                         <state key="normal" image="fridge"/>
                                         <connections>
                                             <segue destination="MIq-cK-lJW" kind="presentation" id="gPA-WO-rHU"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neO-QP-k4D">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neO-QP-k4D">
                                         <rect key="frame" x="205" y="0.0" width="40.5" height="38.5"/>
                                         <state key="normal" backgroundImage="chores"/>
                                         <connections>
                                             <segue destination="Z2J-bS-RUH" kind="presentation" id="VSC-2e-lcP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rh3-A7-P7t">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rh3-A7-P7t">
                                         <rect key="frame" x="285.5" y="0.0" width="33.5" height="38.5"/>
                                         <state key="normal" image="profile"/>
                                         <connections>
@@ -1757,32 +1771,32 @@ Ingredient</string>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="6SF-LU-tHj">
                                 <rect key="frame" x="51" y="823" width="319" height="38.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBs-sp-Cfn">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBs-sp-Cfn">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="38.5"/>
                                         <state key="normal" image="home"/>
                                         <connections>
                                             <segue destination="nM8-sp-pj9" kind="show" id="yim-sK-fex"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhI-8g-oqW">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QhI-8g-oqW">
                                         <rect key="frame" x="68" y="0.0" width="31" height="38.5"/>
                                         <state key="normal" image="searchTapped"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgP-92-Pxf">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgP-92-Pxf">
                                         <rect key="frame" x="139" y="0.0" width="26" height="38.5"/>
                                         <state key="normal" image="fridge"/>
                                         <connections>
                                             <segue destination="MIq-cK-lJW" kind="presentation" id="8L6-8Y-iMN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqc-zJ-TfB">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqc-zJ-TfB">
                                         <rect key="frame" x="205" y="0.0" width="40.5" height="38.5"/>
                                         <state key="normal" backgroundImage="chores"/>
                                         <connections>
                                             <segue destination="Z2J-bS-RUH" kind="presentation" id="Pwo-SL-J0I"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzT-3l-4Lv">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzT-3l-4Lv">
                                         <rect key="frame" x="285.5" y="0.0" width="33.5" height="38.5"/>
                                         <state key="normal" image="profile"/>
                                         <connections>
@@ -1964,32 +1978,32 @@ Name</string>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ri8-eQ-Wr6">
                                 <rect key="frame" x="51" y="823" width="319" height="38.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-eL-KlB">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sW-eL-KlB">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="38.5"/>
                                         <state key="normal" image="home"/>
                                         <connections>
                                             <segue destination="nM8-sp-pj9" kind="presentation" id="qzg-9a-GhY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwb-Y5-8aW">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwb-Y5-8aW">
                                         <rect key="frame" x="68" y="0.0" width="31" height="38.5"/>
                                         <state key="normal" image="searchTapped"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDQ-LP-vGk">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDQ-LP-vGk">
                                         <rect key="frame" x="139" y="0.0" width="26" height="38.5"/>
                                         <state key="normal" image="fridge"/>
                                         <connections>
                                             <segue destination="MIq-cK-lJW" kind="presentation" id="uzp-yc-7l0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="il6-Ad-Nif">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="il6-Ad-Nif">
                                         <rect key="frame" x="205" y="0.0" width="40.5" height="38.5"/>
                                         <state key="normal" backgroundImage="chores"/>
                                         <connections>
                                             <segue destination="Z2J-bS-RUH" kind="presentation" id="mTJ-KH-bHN"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhS-sO-1Ml">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhS-sO-1Ml">
                                         <rect key="frame" x="285.5" y="0.0" width="33.5" height="38.5"/>
                                         <state key="normal" image="profile"/>
                                         <connections>
@@ -2573,32 +2587,32 @@ Name</string>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="afp-xZ-tZ8">
                                 <rect key="frame" x="51" y="823" width="319" height="38.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Al-LV-pwh">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Al-LV-pwh">
                                         <rect key="frame" x="0.0" y="0.0" width="28" height="38.5"/>
                                         <state key="normal" image="home"/>
                                         <connections>
                                             <segue destination="nM8-sp-pj9" kind="presentation" id="KVd-js-MXM"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3b8-NN-X4H">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3b8-NN-X4H">
                                         <rect key="frame" x="68" y="0.0" width="31" height="38.5"/>
                                         <state key="normal" image="search"/>
                                         <connections>
                                             <segue destination="dKU-yL-tE1" kind="presentation" id="Jk9-u3-0Hk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjh-4M-TQ7">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjh-4M-TQ7">
                                         <rect key="frame" x="139" y="0.0" width="26" height="38.5"/>
                                         <state key="normal" image="fridge"/>
                                         <connections>
                                             <segue destination="MIq-cK-lJW" kind="presentation" id="V7N-Zr-LKv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dse-3L-NyR">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dse-3L-NyR">
                                         <rect key="frame" x="205" y="0.0" width="40.5" height="38.5"/>
                                         <state key="normal" backgroundImage="choresTapped"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92j-8j-dGa">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92j-8j-dGa">
                                         <rect key="frame" x="285.5" y="0.0" width="33.5" height="38.5"/>
                                         <state key="normal" image="profile"/>
                                         <connections>
@@ -2796,17 +2810,17 @@ Name</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9gP-MT-WLI"/>
-        <segue reference="aZP-u7-NRW"/>
-        <segue reference="BL5-Dg-CjX"/>
+        <segue reference="oAT-Ct-mTq"/>
+        <segue reference="RsX-XU-FdV"/>
+        <segue reference="xDq-tg-AmH"/>
         <segue reference="5wx-Ok-YXk"/>
-        <segue reference="Pe9-fQ-o6i"/>
+        <segue reference="UUN-V0-Nww"/>
         <segue reference="INZ-WA-o1H"/>
-        <segue reference="zQb-Z9-jAv"/>
+        <segue reference="AKR-JW-nkG"/>
         <segue reference="wYf-Ec-mx6"/>
         <segue reference="kb5-LH-Iia"/>
-        <segue reference="BqG-4F-cVx"/>
-        <segue reference="sdJ-kO-e5J"/>
+        <segue reference="gQe-gm-S3n"/>
+        <segue reference="2ok-6K-t3I"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Add photo" width="26.5" height="27.5"/>
