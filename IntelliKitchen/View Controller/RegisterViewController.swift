@@ -105,7 +105,7 @@ class RegisterViewController: UIViewController {
                 
                 if error != nil{
                     let errorMessage = error!.localizedDescription
-                    self.showError(errorMessage.split(separator: ".")[1] + ".")
+                    self.showError(errorMessage.split(separator: ".")[0] + ".")
                 }
                 else{
                     //created sucessfully
@@ -125,8 +125,8 @@ class RegisterViewController: UIViewController {
         self.uploadProfileImage(myUIImage){(url) in
             
         }
-        
     }
+    
     func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let storageRef = Storage.storage().reference().child("users/\(uid)")
@@ -148,17 +148,9 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    
-    
-    
-    
     func transitionHome() {
         let welcomeController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.welcomeController) as? WelcomeController
         view.window?.rootViewController = welcomeController
         view.window?.makeKeyAndVisible()
     }
-    
-    
-    
-    
 }

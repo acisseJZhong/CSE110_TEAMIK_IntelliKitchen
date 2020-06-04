@@ -9,7 +9,7 @@
 import UIKit
 
 class AddFoodTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var foodNameLabel: UILabel!
     @IBOutlet weak var bDateLabel: UILabel!
     @IBOutlet weak var eDateLabel: UILabel!
@@ -17,11 +17,11 @@ class AddFoodTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

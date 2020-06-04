@@ -148,13 +148,13 @@
 		8AC4E6C02459600400A1E91E /* IntelliKitchen */ = {
 			isa = PBXGroup;
 			children = (
-				AEC873742480841900BA17CE /* GoogleService-Info.plist */,
 				8AC4E6DC245B806400A1E91E /* Helper */,
 				8AC4E6D92459612C00A1E91E /* View Controller */,
 				8AC4E6C12459600400A1E91E /* AppDelegate.swift */,
 				8AC4E6C32459600400A1E91E /* SceneDelegate.swift */,
 				8AC4E6C72459600400A1E91E /* Main.storyboard */,
 				8AC4E6CA2459600600A1E91E /* Assets.xcassets */,
+				AEC873742480841900BA17CE /* GoogleService-Info.plist */,
 				8AC4E6CC2459600600A1E91E /* LaunchScreen.storyboard */,
 				8AC4E6CF2459600600A1E91E /* Info.plist */,
 			);

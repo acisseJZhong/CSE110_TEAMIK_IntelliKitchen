@@ -65,6 +65,9 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                 let image = UIImage(data: imageData)
                 DispatchQueue.main.async {
                     self.myImageView?.image = image
+                    self.uploadProfileImage(image!){(url) in
+                        
+                    }
                 }
             }
             let currentUid = Auth.auth().currentUser!.uid
@@ -82,11 +85,15 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     self.favoriteRecipes = self.createArray(self.favoriteIDList)
                 }
             }
+            
+            db.collection("users").document(currentUid).setData(["username":tempGoogleUsername, "email":tempGoogleEmail, "uid": currentUid]) { (error) in
+                if error != nil{
+                    print(" error when saving google sign in information")
+                }
+            }
             //handle normal login
         } else {
             let currentUid = Auth.auth().currentUser!.uid
-            print("currentUid is: ")
-            print(currentUid)
             db.collection("users").document(currentUid).getDocument { (document, error) in
                 if error == nil {
                     if document != nil && document!.exists {
@@ -126,7 +133,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
             self.favoriteRecipes = searchedRecipes
             self.tableView?.reloadData()
         })
-                
+        
         return temp
     }
     
@@ -250,7 +257,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
             }
         }
     }
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             myImageView.image = image

@@ -11,10 +11,7 @@ import UIKit
 class AddChoresTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var ldLabel: UILabel!
-    
-    
     @IBOutlet weak var fLabel: UILabel!
     
     override func awakeFromNib() {
