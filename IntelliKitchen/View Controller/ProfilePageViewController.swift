@@ -65,6 +65,9 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                 let image = UIImage(data: imageData)
                 DispatchQueue.main.async {
                     self.myImageView?.image = image
+                    self.uploadProfileImage(image!){(url) in
+                        
+                    }
                 }
             }
             let currentUid = Auth.auth().currentUser!.uid
