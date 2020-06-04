@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 
 class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-
+    
     @IBOutlet weak var taskField: UITextField!
     @IBOutlet weak var choresList: UITableView!
     @IBOutlet weak var lastDoneField: UITextField!
@@ -48,14 +48,14 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         // Do any additional setup after loading the view.
     }
     
-
+    
     @IBAction func addTapped(_ sender: Any) {
         if(taskField.text == "" || lastDoneField.text == "" || timePeriodField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
             /*ref?.child("Chores").child(taskField.text ?? "").child("ChoreName").setValue(taskField.text);
-            ref?.child("Chores").child(taskField.text ?? "").child("LastDone").setValue(lastDoneField.text);
-            ref?.child("Chores").child(taskField.text ?? "").child("Frequency").setValue(timePeriodField.text);*/
+             ref?.child("Chores").child(taskField.text ?? "").child("LastDone").setValue(lastDoneField.text);
+             ref?.child("Chores").child(taskField.text ?? "").child("Frequency").setValue(timePeriodField.text);*/
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             if(timePeriodField.text == "Once a day" || timePeriodField.text == "Twice a day") {
@@ -166,9 +166,4 @@ extension AddChoresViewController: UITableViewDataSource {
         //cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
-
-    
-    
 }
-
-

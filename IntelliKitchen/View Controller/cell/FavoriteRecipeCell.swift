@@ -9,7 +9,7 @@
 import UIKit
 
 class FavoriteRecipeCell: UITableViewCell {
-
+    
     @IBOutlet weak var favoriteRecipeImage: UIImageView!
     @IBOutlet weak var favoriteRecipeLabel: UILabel!
     

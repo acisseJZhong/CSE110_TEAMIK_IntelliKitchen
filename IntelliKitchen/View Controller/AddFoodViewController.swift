@@ -46,20 +46,20 @@ class AddFoodViewController: UIViewController {
         
         boughtDateField.inputView = datePicker
         expirationDateField.inputView = datePicker2
-
+        
     }
     
-
+    
     @IBAction func addTapped(_ sender: Any) {
         if(foodNameField.text == "" || boughtDateField.text == "" || expirationDateField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
             /*ref?.child("Food").child(foodNameField.text ?? "").child("FoodName").setValue(foodNameField.text);
-            ref?.child("Food").child(foodNameField.text ?? "").child("BoughtDate").setValue(boughtDateField.text);
-            ref?.child("Food").child(foodNameField.text ?? "").child("ExpireDate").setValue(expirationDateField.text);*/
+             ref?.child("Food").child(foodNameField.text ?? "").child("BoughtDate").setValue(boughtDateField.text);
+             ref?.child("Food").child(foodNameField.text ?? "").child("ExpireDate").setValue(expirationDateField.text);*/
             let currentUid = Auth.auth().currentUser!.uid
             db.collection("users").document(currentUid).collection("foods").document(foodNameField.text ?? "").setData(["foodName":foodNameField.text ?? "", "boughtDate":boughtDateField.text ?? "", "expireDate":expirationDateField.text ?? ""])
-                /*.addDocument(data: ["foodName":foodNameField.text ?? "", "boughtDate": boughtDateField.text ?? "", "expireDate": expirationDateField.text ?? ""])*/
+            /*.addDocument(data: ["foodName":foodNameField.text ?? "", "boughtDate": boughtDateField.text ?? "", "expireDate": expirationDateField.text ?? ""])*/
             createAlert(title: "Success!", message: "Successfully added food!")
             insertNewFood()
         }
@@ -81,7 +81,7 @@ class AddFoodViewController: UIViewController {
     }
     
     
-
+    
     // prompt error message
     func createAlert(title:String, message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -107,14 +107,14 @@ class AddFoodViewController: UIViewController {
     }
     
     @objc func dateChanged2(datePicker2: UIDatePicker) {
-          let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "MM/dd/yyyy"
-          if( NSDate.init().earlierDate(datePicker2.date) == datePicker2.date){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        if( NSDate.init().earlierDate(datePicker2.date) == datePicker2.date){
             createAlert(title: "Oops", message: "Your food has already expired!")
             view.endEditing(true)
-          } else {
+        } else {
             expirationDateField.text = dateFormatter.string(from: datePicker2.date)
-      }
+        }
     }
 }
 
@@ -138,7 +138,7 @@ extension AddFoodViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     
-
+    
     
     
 }

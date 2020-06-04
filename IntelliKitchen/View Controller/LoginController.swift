@@ -15,50 +15,35 @@ import FBSDKCoreKit
 import FirebaseDatabase
 
 class LoginController: UIViewController, GIDSignInDelegate{
-
     
-
-    
-
     @IBOutlet weak var emailTextField: UITextField!
-   
     @IBOutlet weak var passwordTextField: UITextField!
-   
     @IBOutlet weak var loginButton: UIButton!
-   
-
-   
     @IBOutlet weak var errorLabel: UILabel!
-    
     @IBOutlet weak var googleButton: GIDSignInButton!
-    
     @IBOutlet weak var facebookButton: FBLoginButton!
-        
+    
     struct GlobalVariable{
         static var googleUsername = ""
         static var googleEmail = ""
         static var googleIconUrl:URL?
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         GIDSignIn.sharedInstance()?.presentingViewController = self
         GIDSignIn.sharedInstance().delegate = self
         //facebookButton.delegate = self
-
+        
         // Do any additional setup after loading the view.
-   }
-
-    
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
     }
     
-    
-    
-   @IBAction func loginTapped(_ sender: Any) {
+    @IBAction func loginTapped(_ sender: Any) {
         //validate Text Fields
         let error = validateFields()
         //There's something is wrong
@@ -76,7 +61,6 @@ class LoginController: UIViewController, GIDSignInDelegate{
                     self.errorLabel.text = errorMessage.split(separator: ".")[0] + "."
                     self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
                 }
-                    
                 else{
                     let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
                     self.view.window?.rootViewController = homepageFoodController
@@ -84,10 +68,7 @@ class LoginController: UIViewController, GIDSignInDelegate{
                 }
             }
         }
-        
-   }
-    
-
+    }
     
     // check the fields and validate the data is correct. If everything is correct, return nill. Otherwise, return error massage
     func validateFields() -> String? {
@@ -100,21 +81,10 @@ class LoginController: UIViewController, GIDSignInDelegate{
         return nil
     }
     
-    
     func showError(_ message:String){
         errorLabel.text = message
         errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
     }
-   
-   
-    
-
-    
-    
-    
-
-    
-    
     
     //Facebook Signin
     @IBAction func facebookTapped(_ sender: Any) {
@@ -128,39 +98,31 @@ class LoginController: UIViewController, GIDSignInDelegate{
                 self.errorLabel.text = error.localizedDescription
                 self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
             case .success(granted: _, declined: _, token: _):
-            //case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                //case .success(let grantedPermissions, let declinedPermissions, let accessToken):
                 self.facebookwithFirebase()
             }
         }
     }
     
-    
     func facebookwithFirebase(){
         let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-            Auth.auth().signIn(with: credential) { (user, error) in
-                if let error = error {
-                    self.errorLabel.text = error.localizedDescription
-                    self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
-                }
-                else {
-                    let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
-                    self.view.window?.rootViewController = homepageFoodController
-                    self.view.window?.makeKeyAndVisible()
-                }
+        Auth.auth().signIn(with: credential) { (user, error) in
+            if let error = error {
+                self.errorLabel.text = error.localizedDescription
+                self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
             }
+            else {
+                let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
+                self.view.window?.rootViewController = homepageFoodController
+                self.view.window?.makeKeyAndVisible()
+            }
+        }
     }
     
-    
-
-
-    
-    
-
     //Google Signin
     @IBAction func googleTapped(_ sender: Any) {
         GIDSignIn.sharedInstance().signIn()
     }
-    
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
@@ -184,15 +146,14 @@ class LoginController: UIViewController, GIDSignInDelegate{
                 self.view.window?.makeKeyAndVisible()
             }
         }
-
+        
         // Perform any operations on signed in user here.
-
+        
         GlobalVariable.googleUsername = user.profile.name
         GlobalVariable.googleEmail = user.profile.email
         GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
-
+        
     }
-    
     func getGoogleUsername() -> String {
         return GlobalVariable.googleUsername
     }
@@ -204,7 +165,4 @@ class LoginController: UIViewController, GIDSignInDelegate{
     func getGoogleIconUrl() -> URL? {
         return GlobalVariable.googleIconUrl
     }
-    
-    
 }
-   
