@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import GoogleSignIn
 import FBSDKLoginKit
@@ -178,11 +179,12 @@ class LoginController: UIViewController, GIDSignInDelegate{
             else {
                 //This is where you should add the functionality of successful login
                 //i.e. dismissing this view or push the home view controller etc
-                let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
-                self.view.window?.rootViewController = homepageFoodController
+                let ProfileController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
+                self.view.window?.rootViewController = ProfileController
                 self.view.window?.makeKeyAndVisible()
             }
         }
+
         // Perform any operations on signed in user here.
 
         GlobalVariable.googleUsername = user.profile.name

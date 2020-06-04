@@ -85,6 +85,12 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
                     self.favoriteRecipes = self.createArray(self.favoriteIDList)
                 }
             }
+            
+            db.collection("users").document(currentUid).setData(["username":tempGoogleUsername, "email":tempGoogleEmail, "uid": currentUid]) { (error) in
+                if error != nil{
+                    print("-----------> error when saving google sign in information")
+                }
+            }
             //handle normal login
         } else {
             let currentUid = Auth.auth().currentUser!.uid
