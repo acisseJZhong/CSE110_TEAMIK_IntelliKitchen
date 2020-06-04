@@ -38,11 +38,13 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         pickerView?.delegate = self
         datePicker?.datePickerMode = .date
         datePicker?.addTarget(self, action: #selector(AddChoresViewController.dateChanged(datePicker:)), for: .valueChanged)
+        lastDoneField?.addTarget(self, action: #selector(self.tapLastDone), for: .touchDown)
+        timePeriodField?.addTarget(self, action: #selector(self.tapPeriod), for: .touchDown)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddChoresViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
-        
+
         lastDoneField.inputView = datePicker
         timePeriodField.inputView = pickerView
         // Do any additional setup after loading the view.
@@ -144,6 +146,18 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         } else {
             lastDoneField.text = dateFormatter.string(from: datePicker.date)
         }
+    }
+    
+    @objc func tapLastDone() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        lastDoneField.text = dateFormatter.string(from: datePicker!.date)
+        view.endEditing(true)
+    }
+    
+    @objc func tapPeriod() {
+        timePeriodField.text = frequency[0]
+        view.endEditing(true)
     }
     
 }

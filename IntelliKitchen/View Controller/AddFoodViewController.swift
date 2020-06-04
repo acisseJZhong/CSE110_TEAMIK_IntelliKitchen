@@ -43,6 +43,8 @@ class AddFoodViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddFoodViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
+        boughtDateField?.addTarget(self, action: #selector(self.tapBoughtDate), for: .touchDown)
+        expirationDateField?.addTarget(self, action: #selector(self.tapExpDate), for: .touchDown)
         
         boughtDateField.inputView = datePicker
         expirationDateField.inputView = datePicker2
@@ -115,6 +117,20 @@ class AddFoodViewController: UIViewController {
         } else {
             expirationDateField.text = dateFormatter.string(from: datePicker2.date)
         }
+    }
+    
+    @objc func tapBoughtDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        boughtDateField.text = dateFormatter.string(from: datePicker!.date)
+        view.endEditing(true)
+    }
+    
+    @objc func tapExpDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        expirationDateField.text = dateFormatter.string(from: datePicker2!.date)
+        view.endEditing(true)
     }
 }
 
