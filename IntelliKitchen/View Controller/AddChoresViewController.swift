@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 
 class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-
+    
     @IBOutlet weak var taskField: UITextField!
     @IBOutlet weak var choresList: UITableView!
     @IBOutlet weak var lastDoneField: UITextField!
@@ -38,6 +38,8 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         pickerView?.delegate = self
         datePicker?.datePickerMode = .date
         datePicker?.addTarget(self, action: #selector(AddChoresViewController.dateChanged(datePicker:)), for: .valueChanged)
+        lastDoneField?.addTarget(self, action: #selector(self.tapLastDone), for: .touchDown)
+        timePeriodField?.addTarget(self, action: #selector(self.tapPeriod), for: .touchDown)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddChoresViewController.viewTapped(gestureRecognizer:)))
         
@@ -45,17 +47,13 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         
         lastDoneField.inputView = datePicker
         timePeriodField.inputView = pickerView
-        // Do any additional setup after loading the view.
     }
     
-
+    
     @IBAction func addTapped(_ sender: Any) {
         if(taskField.text == "" || lastDoneField.text == "" || timePeriodField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
-            /*ref?.child("Chores").child(taskField.text ?? "").child("ChoreName").setValue(taskField.text);
-            ref?.child("Chores").child(taskField.text ?? "").child("LastDone").setValue(lastDoneField.text);
-            ref?.child("Chores").child(taskField.text ?? "").child("Frequency").setValue(timePeriodField.text);*/
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             if(timePeriodField.text == "Once a day" || timePeriodField.text == "Twice a day") {
@@ -111,7 +109,6 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
-        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -146,6 +143,18 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         }
     }
     
+    @objc func tapLastDone() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        lastDoneField.text = dateFormatter.string(from: datePicker!.date)
+        view.endEditing(true)
+    }
+    
+    @objc func tapPeriod() {
+        timePeriodField.text = frequency[0]
+        view.endEditing(true)
+    }
+    
 }
 
 extension AddChoresViewController: UITableViewDataSource {
@@ -155,20 +164,12 @@ extension AddChoresViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = choresList.dequeueReusableCell(withIdentifier: "choresCell") as! AddChoresTableViewCell
-        //let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
         cell.nameLabel.text = choreNames[indexPath.row]
         cell.fLabel.text = frequencyChoice[indexPath.row]
         cell.ldLabel.text = lastDoneDates[indexPath.row]
         cell.nameLabel.adjustsFontSizeToFitWidth = true
         cell.fLabel.adjustsFontSizeToFitWidth = true
         cell.ldLabel.adjustsFontSizeToFitWidth = true
-        //cell.textLabel?.text = chores[indexPath.row]
-        //cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
-
-    
-    
 }
-
-

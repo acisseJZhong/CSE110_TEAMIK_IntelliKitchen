@@ -15,7 +15,6 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     @IBOutlet weak var choresList: UITableView!
     
-    
     var ref: DatabaseReference?
     var databaseHandle: DatabaseHandle?
     var choreName = [String]()
@@ -40,14 +39,6 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     let frequencyStr = ["Once a day", "Twice a day", "Once a week", "Twice a week", "Once a month", "Twice a month"]
     
     override func viewDidLoad() {
-        /*ref = Database.database().reference()
-        databaseHandle = ref?.child("Chores").observe(.childAdded, with: { (snapshot) in
-            let value = snapshot.value as? NSDictionary
-            self.choreName.append(value?.value(forKey: "ChoreName") as! String)
-            self.lastDone.append(value?.value(forKey: "LastDone") as? String ?? "")
-            self.frequency.append(value?.value(forKey: "Frequency") as? String ?? "")
-        })*/
-
         db.collection("users").document(currentUid).collection("chores").getDocuments { (snapshot, error) in
             for document in snapshot!.documents{
                 let data = document.data()
@@ -63,7 +54,6 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 self.remindOrNot.append(rOrNot)
             }
             self.choresList.reloadData()
-            print(self.remindDates)
         }
         
         pickerView = UIPickerView()
@@ -75,16 +65,13 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MyChoresViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
-        
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
-              view.endEditing(true)
+        view.endEditing(true)
     }
-       
+    
     @objc func dateChanged(datePicker: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -110,29 +97,14 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         editFrequency?.text = frequencyStr[row]
     }
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView,
-                      trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
-       {
-           // Write action code for the trash
-           let DeleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("Update action ...")
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        // Write action code for the trash
+        let DeleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let currentUid = Auth.auth().currentUser!.uid
             let choreRef = self.db.collection("users").document(currentUid).collection("chores").document(self.choreName[indexPath.row])
             choreRef.getDocument { (document, error) in
@@ -153,15 +125,13 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             }
-
             self.createAlert(title: "Delete success!", message: "Successfully delete the task")
-               success(true)
-           })
+            success(true)
+        })
         DeleteAction.backgroundColor = UIColor.init(red: 253/255, green: 131/255, blue: 131/255, alpha: 0.9)
-
-           // Write action code for the Flag
-           let SkipAction = UIContextualAction(style: .normal, title:  "Skip", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            print("Update action ...")
+        
+        // Write action code for the Flag
+        let SkipAction = UIContextualAction(style: .normal, title:  "Skip", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
             var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row])
             choreRef.getDocument { (document, error) in
@@ -191,15 +161,13 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             }
             
-        
             self.createAlert(title: "Skip success!", message: "Successfully skip the task")
-                success(true)
-           })
+            success(true)
+        })
         SkipAction.backgroundColor = UIColor.init(red: 255/255, green: 139/255, blue: 23/255, alpha: 0.75)
-
-           // Write action code for the More
-           let RemindAction = UIContextualAction(style: .normal, title:  "Remind", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-               print("Update action ...")
+        
+        // Write action code for the More
+        let RemindAction = UIContextualAction(style: .normal, title:  "Remind", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row])
             choreRef.getDocument { (document, error) in
                 if error == nil {
@@ -213,14 +181,11 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         let formatter = DateFormatter()
                         formatter.dateFormat = "MM/dd/yyyy"
                         let remindDateObj = formatter.date(from: remindDate)
-                        print("----------------------------------")
-                        print(formatter.string(from: remindDateObj!))
-                        print(formatter.string(from: date))
                         let reChoose = remindDateObj ?? date < date // is true if remind date is in the past
                         if reChoose {
                             //1. Create the alert controller.
                             let alert = UIAlertController(title: "Your remind date has passed", message: "Please reselect your remind date", preferredStyle: .alert)
-
+                            
                             //2. Add the text field. You can configure it however you need.
                             alert.addTextField { (textField) in
                                 self.doDatePicker()
@@ -229,14 +194,13 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                                 self.RemindRechooseTextF = textField
                                 self.datePicker?.addTarget(self, action: #selector(self.datePickerChanged), for: .valueChanged)
                             }
-
+                            
                             // 3. Grab the value from the text field, and print it when the user clicks OK.
                             alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak alert] (_) in
                                 let formatter = DateFormatter()
                                 formatter.dateFormat = "MM/dd/yyyy"
                                 self.remindDate = formatter.string(from: self.datePicker!.date)
-                                print("in remind")
-                                print(self.remindDate)
+                                
                                 if self.RemindRechoosePastDate {
                                     self.createAlert(title: "Remind failed", message: "You have to set the remind date to a future day")
                                 } else {
@@ -244,7 +208,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                                     self.createAlert(title: "Remind success", message: "Remind date changed successfully!")
                                 }
                             }))
-
                             // 4. Present the alert.
                             self.present(alert, animated: true, completion: nil)
                             
@@ -252,21 +215,16 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                             remindDate = formatter.string(from: date)
                             self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
                             self.createAlert(title: "Remind success!", message: "Successfully set the reminder")
-//                               success(true)
+                            //                               success(true)
                         }
                         
                     }
                 }
             }
-//            print(choreName)
-//            self.pushNotification(chore: thisChore)
-//            print(indexPath.row)
-
-           })
+        })
         RemindAction.backgroundColor = UIColor.init(red: 255/255, green: 211/255, blue: 0/255, alpha: 0.85)
         
-           let FinishAction = UIContextualAction(style: .normal, title:  "Finish", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-               print("Update action ...")
+        let FinishAction = UIContextualAction(style: .normal, title:  "Finish", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row])
             choreRef.getDocument { (document, error) in
                 if error == nil {
@@ -274,16 +232,14 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         let documentData = document?.data()
                         let remindOrNot = documentData?["remindOrNot"] as! Bool
                         if remindOrNot{
-                             let reminderID = documentData?["reminderID"] as! String
-                             let center = UNUserNotificationCenter.current()
-                             center.removePendingNotificationRequests(withIdentifiers: [reminderID])
-                         }
+                            let reminderID = documentData?["reminderID"] as! String
+                            let center = UNUserNotificationCenter.current()
+                            center.removePendingNotificationRequests(withIdentifiers: [reminderID])
+                        }
                         
-                        // ---------------------------------
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
                         self.remindDate = self.updateRemindDate(date: dateFormatter.string(from: Date()), freq: self.frequency[indexPath.row])
-                        // ---------------------------------
                         let choreName = documentData?["choreName"] as! String
                         let lastDone = documentData?["lastDone"] as! String
                         let remindDate = documentData?["remindDate"] as! String
@@ -304,25 +260,20 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             
-                self.createAlert(title: "Finish success!", message: "Successfully finish the task")
-                success(true)
-           })
+            self.createAlert(title: "Finish success!", message: "Successfully finish the task")
+            success(true)
+        })
         FinishAction.backgroundColor =  UIColor.init(red: 101/255, green: 154/255, blue: 65/255, alpha: 0.75)
-
-
-           return UISwipeActionsConfiguration(actions: [DeleteAction,SkipAction,RemindAction,FinishAction])
-       }
-    
+        
+        return UISwipeActionsConfiguration(actions: [DeleteAction,SkipAction,RemindAction,FinishAction])
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return choreName.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = choresList.dequeueReusableCell(withIdentifier: "cell") as! MyChoresTableViewCell
-        //let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
-        /*chores.append(choreName[indexPath.row] + "       " + lastDone[indexPath.row] + "       " + frequency[indexPath.row])*/
-        
         cell.taskNameLabel.text = choreName[indexPath.row]
         cell.frequencyLabel.text = frequency[indexPath.row]
         cell.lastDoneLabel.text = lastDone[indexPath.row]
@@ -345,7 +296,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
         self.present(alertController, animated: true)
-        print(indexPath.row)
     }
     
     func editTaskName(textField: UITextField!) {
@@ -410,7 +360,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
             remindOrNot.append(false)
             remindDates.append(remindDate)
             choresList.reloadData()
-        
+            
         }
     }
     
@@ -432,16 +382,16 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         // Notification
         // Step 1: Ask for permission
         let center = UNUserNotificationCenter.current()
-
+        
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
         }
-
+        
         
         // Step 2: Create the notification content
         let content = UNMutableNotificationContent()
         content.title = "Chores Reminder from IntelliKitchen"
         content.body = "You have to do " + choreName + " on " + remindDate
-
+        
         // Step 3: Create the notification trigger
         var dateComponents = DateComponents()
         dateComponents.year = year
@@ -450,17 +400,16 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         dateComponents.timeZone = TimeZone(abbreviation: "PST")
         dateComponents.hour = 15
         dateComponents.minute = 27
-
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-
+        
         // Step 4: Create the request
-
+        
         let uuidString = UUID().uuidString
-
+        
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         let requestID = request.identifier // Need to save to Firebase
-        print("after request")
-
+        
         // Step 5: Register the request
         center.add(request) { (error) in
             // Check the error parameter and handle any errors
@@ -481,8 +430,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
             return remindDate
         }
         else if(freq == "Once a week"){
-            print(date)
-            print(freq)
             var dateObj = dateFormatter.date(from: date)
             dateObj = dateObj?.addingTimeInterval(604800)
             let remindDate = dateFormatter.string(from: dateObj!)
@@ -509,21 +456,15 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func doDatePicker(){
-        // DatePicker
-      // datePicker = UIDatePicker()
-
         self.datePicker = UIDatePicker(frame:CGRect(x: 0, y: self.view.frame.size.height - 220, width:self.view.frame.size.width, height: 216))
         self.datePicker?.backgroundColor = UIColor.white
         datePicker?.datePickerMode = .date
-
         doneClick()
     }
-
-
+    
+    
     @objc func doneClick() {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "MM/dd/yyyy"
-//        self.remindDate = formatter.string(from: self.datePicker!.date)
+
     }
     
     @objc func datePickerChanged() {
@@ -538,5 +479,4 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
             self.RemindRechoosePastDate = false
         }
     }
-
 }

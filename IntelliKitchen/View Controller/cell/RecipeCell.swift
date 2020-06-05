@@ -9,11 +9,10 @@
 import UIKit
 
 class RecipeCell: UITableViewCell {
-
+    
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var recipeTitle: UILabel!
     @IBOutlet weak var recipeRating: UILabel!
-    
     
     func setRecipe(recipe:Recipe) {
         recipeImage.image = recipe.image

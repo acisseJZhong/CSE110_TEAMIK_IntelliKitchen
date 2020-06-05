@@ -12,12 +12,11 @@ import FirebaseDatabase
 import FirebaseFirestore
 
 class FoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     var ref : DatabaseReference?
     var databaseHandle : DatabaseHandle?
-    
     
     var list = [(String, String)]()
     var sortedfoodList = [String]()
@@ -30,7 +29,6 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -51,7 +49,7 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tableView.reloadData()
             }
         }
- 
+        
     }
     
     func sortList(){
@@ -67,7 +65,7 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // Replace the hour (time) of both dates with 00:00
                 let date1 = calendar.startOfDay(for: today)
                 let date2 = calendar.startOfDay(for: d)
-
+                
                 let components = calendar.dateComponents([.day], from: date1, to: date2)
                 let inday = components.day!
                 var index = 0
@@ -75,7 +73,6 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                     index+=1
                 }
                 self.allTuples.insert((data.0, inday), at: index)
-                //print(self.allTuples)
                 if(inday < 0){
                     self.sortedfoodList.insert(data.0, at: index)
                     self.no+=1
@@ -125,8 +122,5 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell?.selectionStyle = .none
         return cell!
     }
-    
- 
-    
 }
 

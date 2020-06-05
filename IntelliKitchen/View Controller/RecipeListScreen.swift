@@ -11,11 +11,11 @@ import Firebase
 
 class RecipeListScreen: UIViewController {
     
-    var ref = Database.database().reference()
-    var newrecipeid:[String] = []
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UILabel!
+    
+    var ref = Database.database().reference()
+    var newrecipeid:[String] = []
     
     let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     var recipes:[Recipe] = []
@@ -75,7 +75,6 @@ class RecipeListScreen: UIViewController {
     
     
     func createArray(_ searchByName: Bool, _ searchArray: [String]) {
-        print("in create array")
         retrieveRecipes(searchByName, searchArray, completion: { searchedRecipes in
             if searchedRecipes.count == 0 {
                 self.tableView.isHidden = true
@@ -108,7 +107,6 @@ class RecipeListScreen: UIViewController {
                                     if dict["recipe_pic"] == nil {
                                         image = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
                                     } else {
-                                        print("recipe_pic")
                                         let imageUrl = URL(string: dict["recipe_pic"] as! String)
                                         let imageData = try! Data(contentsOf: imageUrl!)
                                         image = UIImage(data: imageData)!
@@ -119,7 +117,6 @@ class RecipeListScreen: UIViewController {
                                     image = UIImage(data: imageData)!
                                 }
                                 let ratingsArray = dict["rating"] as! [Int]
-                                print(ratingsArray)
                                 let ratingDouble = Double(ratingsArray[0])/Double(ratingsArray[1])
                                 let ratingString = String(format: "%.1f", ratingDouble)
                                 
@@ -128,16 +125,13 @@ class RecipeListScreen: UIViewController {
                             }
                         }
                     }
-                    //print("xjnnnnnnnnn")
-                    //print(self.newrecipeid)
                     completion(tempRecipes)
-                   // print(self.newrecipeid)
-
+                    
                 })
             }
         })
     }
-
+    
     func getRecipeID(_ searchByName: Bool, _ searchArray: [String], completion: @escaping (_ recipeID: [Int]) -> Void) {
         if searchByName {
             var recipeID: [Int] = []
@@ -193,7 +187,6 @@ extension RecipeListScreen: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        print("3. recipe count is: \(recipes.count)")
         if recipes.count == 0 {
             return CGFloat(0.0)
         } else {

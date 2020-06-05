@@ -14,9 +14,10 @@ import Firebase
 import FirebaseAuth
 
 class RatingViewController: UIViewController {
-    //var wordlabel: UILabel!
+
+    @IBOutlet weak var submitbutton: UIButton!
+    @IBOutlet weak var smallerView: UIView!
     
-   // var ref: DatabaseReference!
     let db = Firestore.firestore()
     var ref = Database.database().reference().child("recipetest1")
     var ratingarray: [Int] = [3]
@@ -26,11 +27,6 @@ class RatingViewController: UIViewController {
     var ratedornot:Bool = false
     var numofpeople:Int = 0;
     var ratingsum:Int = 0;
-    
-   
-    @IBOutlet weak var submitbutton: UIButton!
-    
-    @IBOutlet weak var smallerView: UIView!
     
     @IBAction func clickCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -42,17 +38,14 @@ class RatingViewController: UIViewController {
             db.collection("users").document(currentUid).updateData(["ratedlist" : self.ratedlist])
             self.numofpeople = self.numofpeople + 1
             self.ratingsum = self.ratingsum + ratingarray.last!
-            print(self.numofpeople)
-            print(self.ratingsum)
             var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/rating");
             ratingdb.setValue([ratingsum,numofpeople])
             ratedornot = true
             dismiss(animated: true, completion: nil)}
             //ref.setValue(ratingarray.last)}
-            //print("Successfully stored into firebase!")}
         else {
             let alert = UIAlertController(title: "Already rated", message: "You have already rated this recipe~", preferredStyle: UIAlertController.Style.alert)
-           alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             submitbutton.isEnabled = false
             submitbutton.setTitleColor(.gray, for: .normal)
@@ -68,53 +61,44 @@ class RatingViewController: UIViewController {
         
         return view
     }()
-
     
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         smallerView.layer.cornerRadius=10
         self.currentUid = Auth.auth().currentUser!.uid
         var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/rating");
         
-        print(self.passid)
-        print(self.currentUid)
         view.addSubview(smallerView)
-        //smallerView.addSubview(wordlabel)
         smallerView.addSubview(cosmosView)
         cosmosView.centerInSuperview()
         cosmosView.didTouchCosmos = {rating in
             self.ratingarray.append(Int(rating))
-            print("Rated: \(rating)")
-            print(self.ratingarray)
+            
         }
         
         //get ratingnumber
         ratingdb.observeSingleEvent(of: .value) { (snapshot) in
-        var ratingtuple = snapshot.value as! [Int];
+            var ratingtuple = snapshot.value as! [Int];
             self.numofpeople = ratingtuple[1]
             self.ratingsum = ratingtuple[0]
-           }
-
+        }
+        
         //get ratedlist
         db.collection("users").document(currentUid).getDocument { (document, error) in
-                if error == nil {
-                    if document != nil && document!.exists {
-                        let documentData = document?.data()
-                        self.ratedlist = documentData?["ratedlist"] as? [String] ?? []
-                        //print(self.favlist)
-                        if self.ratedlist.contains(self.passid){
-                           self.ratedornot = true
-                        }
-                    } else {
-                        print("Can read the document but the document might not exists")
+            if error == nil {
+                if document != nil && document!.exists {
+                    let documentData = document?.data()
+                    self.ratedlist = documentData?["ratedlist"] as? [String] ?? []
+                    if self.ratedlist.contains(self.passid){
+                        self.ratedornot = true
                     }
-                    
                 } else {
-                    print("Something wrong reading the document")
+                    print("Can read the document but the document might not exists")
                 }
+                
+            } else {
+                print("Something wrong reading the document")
             }
+        }
     }
-
 }
-

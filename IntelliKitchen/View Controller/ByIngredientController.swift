@@ -11,7 +11,7 @@ import Firebase
 
 
 class ByIngredientController: UIViewController {
-
+    
     @IBOutlet weak var ingredientSearchBar: UISearchBar!
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var searchButton: UIButton!
@@ -24,18 +24,18 @@ class ByIngredientController: UIViewController {
     
     var allIngredient: [String] = []
     var selectedIngredient: [String] = []
-
+    
     var searchAllIngredient = [String]()
     var searchSelectedIngredient = [String]()
-
+    
     var searching = false
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getIngredients()
         searchByName.titleLabel?.textAlignment = .center
         searchByIngredient.titleLabel?.textAlignment = .center
-
+        
         searchButton.layer.cornerRadius = 5
         searchButton.backgroundColor = darkGreen
         searchButton.tintColor = .white
@@ -56,14 +56,13 @@ class ByIngredientController: UIViewController {
             }
         }
     }
-
+    
     @IBAction func search(_ sender: Any) {
         if selectedIngredient.count == 0 {
             let alert = UIAlertController(title: "No ingredients!", message: "Please add ingredients before searching", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            print("searched")
             performSegue(withIdentifier: "searchResult", sender: self)
         }
     }
@@ -87,8 +86,6 @@ class ByIngredientController: UIViewController {
         ingredientTableView.reloadData()
     }
 }
-
-
 
 extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
     
@@ -169,8 +166,6 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-
 
 extension ByIngredientController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

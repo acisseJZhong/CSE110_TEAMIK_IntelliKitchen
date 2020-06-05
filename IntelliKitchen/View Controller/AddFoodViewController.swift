@@ -16,7 +16,6 @@ class AddFoodViewController: UIViewController {
     @IBOutlet weak var foodNameField: UITextField!
     @IBOutlet weak var boughtDateField: UITextField!
     @IBOutlet weak var expirationDateField: UITextField!
-    
     @IBOutlet weak var foodListTableView: UITableView!
     
     private var datePicker: UIDatePicker?
@@ -27,12 +26,10 @@ class AddFoodViewController: UIViewController {
     var bDate = [String]()
     var eDate = [String]()
     
-    //var ref: DatabaseReference!
     let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //ref = Database.database().reference()
         datePicker = UIDatePicker()
         datePicker2 = UIDatePicker()
         datePicker?.datePickerMode = .date
@@ -43,27 +40,23 @@ class AddFoodViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddFoodViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
+        boughtDateField?.addTarget(self, action: #selector(self.tapBoughtDate), for: .touchDown)
+        expirationDateField?.addTarget(self, action: #selector(self.tapExpDate), for: .touchDown)
         
         boughtDateField.inputView = datePicker
         expirationDateField.inputView = datePicker2
-
+        
     }
     
-
     @IBAction func addTapped(_ sender: Any) {
         if(foodNameField.text == "" || boughtDateField.text == "" || expirationDateField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
-            /*ref?.child("Food").child(foodNameField.text ?? "").child("FoodName").setValue(foodNameField.text);
-            ref?.child("Food").child(foodNameField.text ?? "").child("BoughtDate").setValue(boughtDateField.text);
-            ref?.child("Food").child(foodNameField.text ?? "").child("ExpireDate").setValue(expirationDateField.text);*/
             let currentUid = Auth.auth().currentUser!.uid
             db.collection("users").document(currentUid).collection("foods").document(foodNameField.text ?? "").setData(["foodName":foodNameField.text ?? "", "boughtDate":boughtDateField.text ?? "", "expireDate":expirationDateField.text ?? ""])
-                /*.addDocument(data: ["foodName":foodNameField.text ?? "", "boughtDate": boughtDateField.text ?? "", "expireDate": expirationDateField.text ?? ""])*/
             createAlert(title: "Success!", message: "Successfully added food!")
             insertNewFood()
         }
-        
     }
     
     func insertNewFood(){
@@ -80,8 +73,6 @@ class AddFoodViewController: UIViewController {
         expirationDateField.text = ""
     }
     
-    
-
     // prompt error message
     func createAlert(title:String, message:String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
@@ -107,14 +98,28 @@ class AddFoodViewController: UIViewController {
     }
     
     @objc func dateChanged2(datePicker2: UIDatePicker) {
-          let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = "MM/dd/yyyy"
-          if( NSDate.init().earlierDate(datePicker2.date) == datePicker2.date){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        if( NSDate.init().earlierDate(datePicker2.date) == datePicker2.date){
             createAlert(title: "Oops", message: "Your food has already expired!")
             view.endEditing(true)
-          } else {
+        } else {
             expirationDateField.text = dateFormatter.string(from: datePicker2.date)
-      }
+        }
+    }
+    
+    @objc func tapBoughtDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        boughtDateField.text = dateFormatter.string(from: datePicker!.date)
+        view.endEditing(true)
+    }
+    
+    @objc func tapExpDate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        expirationDateField.text = dateFormatter.string(from: datePicker2!.date)
+        view.endEditing(true)
     }
 }
 
@@ -125,20 +130,12 @@ extension AddFoodViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = foodListTableView.dequeueReusableCell(withIdentifier: "foodCell") as! AddFoodTableViewCell
-        //let cell = AddFoodTableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "foodCell")
         cell.bDateLabel.text = bDate[indexPath.row]
         cell.eDateLabel.text = eDate[indexPath.row]
         cell.foodNameLabel.text = foodNames[indexPath.row]
         cell.bDateLabel.adjustsFontSizeToFitWidth = true
         cell.eDateLabel.adjustsFontSizeToFitWidth = true
         cell.foodNameLabel.adjustsFontSizeToFitWidth = true
-        //cell.textLabel?.text = foods[indexPath.row]
-        //cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
-    
-    
-
-    
-    
 }

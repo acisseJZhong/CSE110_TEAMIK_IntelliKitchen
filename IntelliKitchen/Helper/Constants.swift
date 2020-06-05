@@ -8,10 +8,7 @@
 
 import Foundation
 
-
-
 struct Constants {
-    
     struct Storyboard {
         static let welcomeController = "welcome"
         static let profileController = "Profile"

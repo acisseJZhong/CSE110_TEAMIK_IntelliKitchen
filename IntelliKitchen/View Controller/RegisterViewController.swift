@@ -13,17 +13,11 @@ import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
-    
     @IBOutlet weak var usernameTextField: UITextField!
-    
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    
     @IBOutlet weak var registerButton: UIButton!
-    
     @IBOutlet weak var errorLabel: UILabel!
     
     override func viewDidLoad() {
@@ -40,14 +34,12 @@ class RegisterViewController: UIViewController {
         Utilities.styleTextField(textfield: confirmPasswordTextField)
     }
     
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         usernameTextField.resignFirstResponder()
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         confirmPasswordTextField.resignFirstResponder()
     }
-    
     
     // check the fields and validate the data is correct. If everything is correct, return nill. Otherwise, return error massage
     func validateFields() -> String? {
@@ -74,17 +66,13 @@ class RegisterViewController: UIViewController {
         if confirmPasswordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) != cleanedPassword {
             return "Passwords don't match."
         }
-        
         return nil
     }
-    
     
     func showError(_ message:String){
         errorLabel.text = message
         errorLabel.alpha = 1
     }
-    
-    
     
     @IBAction func registerTapped(_ sender: Any) {
         //Validate the fields
@@ -105,7 +93,7 @@ class RegisterViewController: UIViewController {
                 
                 if error != nil{
                     let errorMessage = error!.localizedDescription
-                    self.showError(errorMessage.split(separator: ".")[1] + ".")
+                    self.showError(errorMessage.split(separator: ".")[0] + ".")
                 }
                 else{
                     //created sucessfully
@@ -125,8 +113,8 @@ class RegisterViewController: UIViewController {
         self.uploadProfileImage(myUIImage){(url) in
             
         }
-        
     }
+    
     func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())){
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let storageRef = Storage.storage().reference().child("users/\(uid)")
@@ -138,7 +126,6 @@ class RegisterViewController: UIViewController {
         
         storageRef.putData(imageData, metadata: metaData) {metaData, error in
             if error == nil, metaData != nil {
-                //if let url = storageRef.downloadURL(completion: (URL?, Error?) -> Void){
                 completion(nil)
                 
             } else {
@@ -148,17 +135,9 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    
-    
-    
-    
     func transitionHome() {
         let welcomeController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.welcomeController) as? WelcomeController
         view.window?.rootViewController = welcomeController
         view.window?.makeKeyAndVisible()
     }
-    
-    
-    
-    
 }

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class ByNameController: UIViewController {
-
+    
     @IBOutlet weak var nameSearchBar: UISearchBar!
     @IBOutlet weak var nameTableView: UITableView!
     @IBOutlet weak var searchButton: UIButton!
@@ -20,7 +20,7 @@ class ByNameController: UIViewController {
     var searchArray: [String] = []
     let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     let darkGreen = UIColor(red: 87.0/255.0, green: 132.0/255.0, blue: 56.0/255.0, alpha: 0.8)
-
+    
     var recipeNameArray: [String] = []
     var searchRecipe = [String]()
     var searching = false
@@ -47,7 +47,7 @@ class ByNameController: UIViewController {
             }
         }
     }
-
+    
     @IBAction func search(_ sender: Any) {
         if nameSearchBar.text == "" {
             let alert = UIAlertController(title: "No entry!", message: "Please add some text before searching", preferredStyle: UIAlertController.Style.alert)
@@ -55,9 +55,6 @@ class ByNameController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         } else {
             if searching {
-                print("searching")
-                print(searchRecipe.count)
-                print(nameSearchBar.text!)
                 searchArray = searchRecipe
                 searchArray.insert(nameSearchBar.text!, at: 0)
             } else {
@@ -65,14 +62,12 @@ class ByNameController: UIViewController {
                 searchArray.append(nameSearchBar.text!)
                 searchArray.append(nameSearchBar.text!)
             }
-            print("searchCount: \(searchArray.count)")
             performSegue(withIdentifier: "searchResult", sender: self)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchResult" {
-            print(searchArray)
             let vc = segue.destination as! RecipeListScreen
             vc.searchArray = self.searchArray
             vc.searchByName = true
@@ -110,12 +105,9 @@ extension ByNameController: UITableViewDelegate, UITableViewDataSource {
         } else {
             nameSearchBar.text = recipeNameArray[index]
         }
-//        searching = false
         nameTableView.reloadData()
     }
 }
-
-
 
 extension ByNameController: UISearchBarDelegate {
     
@@ -128,7 +120,6 @@ extension ByNameController: UISearchBarDelegate {
             searchArray.append(nameSearchBar.text!)
             searchArray.append(nameSearchBar.text!)
         }
-        print("searchCount: \(searchArray.count)")
         performSegue(withIdentifier: "searchResult", sender: self)
     }
     
