@@ -18,7 +18,6 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     var ref : DatabaseReference?
     var databaseHandle : DatabaseHandle?
     
-    
     var list = [(String, String)]()
     var sortedfoodList = [String]()
     var allTuples = [(String, Int)]()
@@ -30,7 +29,6 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -124,8 +122,5 @@ class FoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell?.selectionStyle = .none
         return cell!
     }
-    
-    
-    
 }
 

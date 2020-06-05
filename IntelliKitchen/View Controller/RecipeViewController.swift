@@ -148,44 +148,6 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    /*
-     func getRecipeList(completionHandler:@escaping ([Int]) -> ()) {
-     for name in sortedfoodList{
-     var currentfood:[Int] = []
-     self.databaseHandle = self.ref?.child("Ingredients/"+name).observe(.value, with: { (snapshot) in
-     if(snapshot.exists()){
-     self.mylist.append(contentsOf: snapshot.value as! [Int])
-     currentfood = snapshot.value as! [Int]
-     }
-     self.databaseHandle = self.ref?.child("Ingredients/"+name+"s").observe(.value, with: { (snapshot) in
-     if(snapshot.exists()){
-     self.mylist.append(contentsOf: snapshot.value as! [Int])
-     currentfood = snapshot.value as! [Int]
-     }
-     let mappedItems = self.mylist.map { ($0, 1) }
-     var returned = [Int]()
-     let counts = Dictionary(mappedItems, uniquingKeysWith: +)
-     for key in counts.keys{
-     if(counts[key]! >= 2 && returned.count<3){
-     returned.append(key)
-     self.mylist = self.mylist.filter{$0 != key}
-     }
-     }
-     while(counts.count > 0 && self.EmergencyFood.contains(name) && currentfood.count > 0 && returned.count<3){
-     returned.append(counts.randomElement()!.key)
-     }
-     while(counts.count > 0 && self.AlmostFood.contains(name) && currentfood.count > 0 && returned.count<2){
-     returned.append(counts.randomElement()!.key)
-     }
-     while(counts.count > 0 && self.SafeFood.contains(name) && currentfood.count > 0 && returned.count<2){
-     returned.append(counts.randomElement()!.key)
-     }
-     completionHandler(returned)
-     })
-     })
-     }
-     }
-     */
     func sortList(){
         for data in list{
             let expireSingle = data.1
@@ -241,7 +203,6 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
-        
         let cellIndex = indexPath.item
         
         cell.imageView.image = AllImage[cellIndex]
@@ -255,14 +216,11 @@ class RecipeViewController: UIViewController, UICollectionViewDelegate, UICollec
         return cell
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let id = self.recipeidlist[indexPath.item]
         let storyboard = UIStoryboard(name:"Main",bundle: nil)
         let anotherVC = storyboard.instantiateViewController(identifier: "menudetail") as! ScrollViewController
         anotherVC.passid = id;
         self.present(anotherVC,animated:true,completion: nil)
-        
     }
-    
 }

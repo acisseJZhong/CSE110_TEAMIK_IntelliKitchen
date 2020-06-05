@@ -105,12 +105,9 @@ extension ByNameController: UITableViewDelegate, UITableViewDataSource {
         } else {
             nameSearchBar.text = recipeNameArray[index]
         }
-        //        searching = false
         nameTableView.reloadData()
     }
 }
-
-
 
 extension ByNameController: UISearchBarDelegate {
     

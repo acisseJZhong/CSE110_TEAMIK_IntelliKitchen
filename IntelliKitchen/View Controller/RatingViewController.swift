@@ -14,9 +14,10 @@ import Firebase
 import FirebaseAuth
 
 class RatingViewController: UIViewController {
-    //var wordlabel: UILabel!
+
+    @IBOutlet weak var submitbutton: UIButton!
+    @IBOutlet weak var smallerView: UIView!
     
-    // var ref: DatabaseReference!
     let db = Firestore.firestore()
     var ref = Database.database().reference().child("recipetest1")
     var ratingarray: [Int] = [3]
@@ -26,11 +27,6 @@ class RatingViewController: UIViewController {
     var ratedornot:Bool = false
     var numofpeople:Int = 0;
     var ratingsum:Int = 0;
-    
-    
-    @IBOutlet weak var submitbutton: UIButton!
-    
-    @IBOutlet weak var smallerView: UIView!
     
     @IBAction func clickCancel(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -66,17 +62,13 @@ class RatingViewController: UIViewController {
         return view
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         smallerView.layer.cornerRadius=10
         self.currentUid = Auth.auth().currentUser!.uid
         var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/rating");
         
-        
         view.addSubview(smallerView)
-        //smallerView.addSubview(wordlabel)
         smallerView.addSubview(cosmosView)
         cosmosView.centerInSuperview()
         cosmosView.didTouchCosmos = {rating in
@@ -110,4 +102,3 @@ class RatingViewController: UIViewController {
         }
     }
 }
-

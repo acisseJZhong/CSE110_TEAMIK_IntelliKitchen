@@ -11,11 +11,11 @@ import Firebase
 
 class RecipeListScreen: UIViewController {
     
-    var ref = Database.database().reference()
-    var newrecipeid:[String] = []
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UILabel!
+    
+    var ref = Database.database().reference()
+    var newrecipeid:[String] = []
     
     let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     var recipes:[Recipe] = []
