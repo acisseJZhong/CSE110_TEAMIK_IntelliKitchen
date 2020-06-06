@@ -72,7 +72,8 @@ extension ByNameController: UITableViewDelegate, UITableViewDataSource {
         } else {
             nameSearchBar.text = recipeNameArray[index]
         }
-        //        searching = false
+        searchRecipe = recipeNameArray.filter({$0.localizedCaseInsensitiveContains(nameSearchBar.text!)})
+        searching = true
         nameTableView.reloadData()
     }
 }
