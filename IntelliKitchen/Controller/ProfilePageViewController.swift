@@ -173,7 +173,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
-            self.createAlert(title: "Notice", message: "You may not change your password by logging in with Google")
+            self.createAlert(title: "Notice", message: "You may not change your password by signing in with Google")
         }
         else{
             let email = Auth.auth().currentUser?.email
@@ -209,7 +209,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
-            self.createAlert(title: "Notice", message: "You may not change your profile photo by logging in with Google")
+            self.createAlert(title: "Notice", message: "You may not change your profile photo by signing in with Google")
         }
         else{
             //Given the user the opportunity to pick a picture.
@@ -276,7 +276,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
-            self.createAlert(title: "Notice", message: "You may not change your username by logging in with Google")
+            self.createAlert(title: "Notice", message: "You may not change your username by signing in with Google")
         }
         else{
             let db = Firestore.firestore()
@@ -337,31 +337,3 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
 }
 
-extension ProfilePageViewController : UITextFieldDelegate{
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
-    }
-}
-
-extension ProfilePageViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteRecipes.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let favoriteRecipe = favoriteRecipes[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteRecipeCell") as! FavoriteRecipeCell
-        
-        cell.setFavoriteRecipe(favoriteRecipe: favoriteRecipe)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let id = self.favoriteIDList[indexPath.row]
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(identifier: "menudetail") as! ScrollViewController
-        secondVC.passid = id;
-        self.present(secondVC,animated:true,completion: nil)
-    }
-}

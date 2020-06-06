@@ -11,11 +11,11 @@ import Firebase
 
 class RecipeListScreen: UIViewController {
     
-    var ref = Database.database().reference()
-    var newrecipeid:[String] = []
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UILabel!
+    
+    var ref = Database.database().reference()
+    var newrecipeid:[String] = []
     
     let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     var recipes:[Recipe] = []
@@ -174,31 +174,3 @@ class RecipeListScreen: UIViewController {
     
 }
 
-extension RecipeListScreen: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipes.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let recipe = recipes[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell") as! RecipeCell
-        cell.setRecipe(recipe: recipe)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if recipes.count == 0 {
-            return CGFloat(0.0)
-        } else {
-            return CGFloat(110.0)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let id = newrecipeid[indexPath.row]
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(identifier: "menudetail") as! ScrollViewController
-        secondVC.passid = id;
-        self.present(secondVC,animated:true,completion: nil)
-    }
-}

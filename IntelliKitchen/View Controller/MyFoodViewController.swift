@@ -10,13 +10,10 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
-
 class MyFoodViewController: UIViewController{
-    
     
     @IBOutlet weak var foodListTable: UITableView!
     
-    //var ref: DatabaseReference?
     var databaseHandle: DatabaseHandle?
     var foodName = [String]()
     var boughtDate = [String]()
@@ -31,19 +28,9 @@ class MyFoodViewController: UIViewController{
     
     private var datePicker: UIDatePicker?
     private var datePicker2: UIDatePicker?
-    //var contents = ""
-    
     
     override func viewDidLoad() {
         //read data from database
-        
-        /*ref = Database.database().reference()
-         databaseHandle = ref?.child("Food").observe(.childAdded, with: { (snapshot) in
-         let value = snapshot.value as? NSDictionary
-         self.foodName.append(value?.value(forKey: "FoodName") as! String)
-         self.expireDate.append(value?.value(forKey: "ExpireDate") as? String ?? "")
-         self.boughtDate.append(value?.value(forKey: "BoughtDate") as? String ?? "")
-         })*/
         db.collection("users").document(self.currentUid).collection("foods").getDocuments { (snapshot, error) in
             for document in snapshot!.documents{
                 let data = document.data()
@@ -102,9 +89,7 @@ class MyFoodViewController: UIViewController{
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
-        
     }
-    
 }
 
 extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
@@ -184,8 +169,6 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
             boughtDate.append(editBoughtDate?.text ?? "")
             expireDate.append(editExpireDate?.text ?? "")
             self.foodListTable.reloadData()
-            
         }
     }
-    
 }

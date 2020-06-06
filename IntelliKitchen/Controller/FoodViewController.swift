@@ -1,69 +1,65 @@
 //
-//  ChoresViewController.swift
+//  FoodViewController.swift
 //  homepage-Food Reminder
 //
-//  Created by Ricky Zhang on 5/7/20.
+//  Created by Ricky Zhang on 4/29/20.
 //  Copyright © 2020 Yilun Hao. All rights reserved.
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseDatabase
 import FirebaseFirestore
-import FirebaseAuth
 
-
-
-class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FoodViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var ref:DatabaseReference?
-    var databaseHandle:DatabaseHandle?
+    var ref : DatabaseReference?
+    var databaseHandle : DatabaseHandle?
     
-    var allChores = [String]()
-    var allTuples = [(String, Int)]()
-    var notfinished = 0
-    
-    var allDays = [String]()
     var list = [(String, String)]()
-    var sortedchoreList = [String]()
+    var sortedfoodList = [String]()
+    var allTuples = [(String, Int)]()
+    
+    var no = 0
+    var e = 0
+    var a = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
-        
         tableView.delegate = self
         tableView.dataSource = self
         
         
         let db = Firestore.firestore()
         let currentUid = Auth.auth().currentUser!.uid
-        db.collection("users").document(currentUid).collection("chores").getDocuments { (snapshot,error) in
+        db.collection("users").document(currentUid).collection("foods").getDocuments { (snapshot,error) in
             if(error != nil){
                 print(error!)
             }else{
                 for document in (snapshot!.documents){
-                    let name = document.data()["choreName"] as! String
+                    let name = document.data()["foodName"] as! String
                     //self.foodList.append(name)
-                    let date = document.data()["remindDate"] as! String
+                    let date = document.data()["expireDate"] as! String
                     self.list.append((name,date))
                 }
                 self.sortList()
                 self.tableView.reloadData()
             }
         }
+        
     }
-    
     
     func sortList(){
         for data in list{
-            let remind = data.1
+            let expireSingle = data.1
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             dateFormatter.locale = Locale.init(identifier: "en_GB")
-            if(remind != ""){
-                let d = dateFormatter.date(from: remind)!
+            if(expireSingle != ""){
+                let d = dateFormatter.date(from: expireSingle)!
                 let today = Date()
                 let calendar = Calendar.current
                 // Replace the hour (time) of both dates with 00:00
@@ -72,24 +68,28 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 let components = calendar.dateComponents([.day], from: date1, to: date2)
                 let inday = components.day!
-                
                 var index = 0
                 while(index < self.allTuples.count && self.allTuples[index].1 < inday ){
                     index+=1
                 }
                 self.allTuples.insert((data.0, inday), at: index)
                 if(inday < 0){
-                    self.allChores.insert("Did not " + data.0 + " for ", at: index)
-                    self.allDays.insert(String(0-inday) + " days", at: index)
-                    self.notfinished+=1
+                    self.sortedfoodList.insert(data.0, at: index)
+                    self.no+=1
+                    self.e+=1
+                    self.a+=1
                 }
-                else if(inday == 0){
-                    self.allChores.insert(data.0, at: index)
-                    self.allDays.insert("today", at: index)
+                else if(inday <= 3){
+                    self.sortedfoodList.insert(data.0, at: index)
+                    self.e+=1
+                    self.a+=1
                 }
-                else if(inday > 0){
-                    self.allChores.insert(data.0 + " in ", at: index)
-                    self.allDays.insert(String(inday) + " days", at: index)
+                else if(inday <= 5){
+                    self.sortedfoodList.insert(data.0, at: index)
+                    self.a+=1
+                }
+                else{
+                    self.sortedfoodList.insert(data.0, at: index)
                 }
             }
         }
@@ -97,31 +97,30 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return allChores.count
+        return sortedfoodList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChoresCell") as! ChoresTableViewCell
-        cell.orilabelView.text = allChores[indexPath.row]
-        cell.orilabelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
-        cell.orilabelView.textColor = UIColor.darkGray
-        if(indexPath.row < notfinished){
-            cell.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FoodCell")
+        cell?.textLabel?.text = sortedfoodList[indexPath.row]
+        cell?.textLabel?.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
+        cell?.textLabel?.textColor = UIColor.darkGray
+        if(indexPath.row < no){
+            cell?.backgroundColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
+        }
+        else if(indexPath.row < e){
+            cell?.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
+        }
+        else if(indexPath.row < a){
+            cell?.backgroundColor = UIColor(red: 255/255, green: 196/255, blue: 196/255, alpha: 1)
         }
         else{
-            cell.backgroundColor = UIColor.white
+            cell?.backgroundColor = UIColor.white
         }
-        
-        cell.labelView.text = allDays[indexPath.row]
-        cell.labelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
-        cell.labelView.textColor = UIColor.darkGray
         tableView.layer.cornerRadius = 20
-        cell.selectionStyle = .none
-        return cell
+        cell?.selectionStyle = .none
+        return cell!
     }
-    
-    
-    
-    
 }
+

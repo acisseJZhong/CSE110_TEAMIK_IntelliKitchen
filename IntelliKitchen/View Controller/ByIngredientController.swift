@@ -87,8 +87,6 @@ class ByIngredientController: UIViewController {
     }
 }
 
-
-
 extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -168,8 +166,6 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
-
-
 
 extension ByIngredientController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

@@ -15,7 +15,6 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     @IBOutlet weak var choresList: UITableView!
     
-    
     var ref: DatabaseReference?
     var databaseHandle: DatabaseHandle?
     var choreName = [String]()
@@ -40,14 +39,6 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     let frequencyStr = ["Once a day", "Twice a day", "Once a week", "Twice a week", "Once a month", "Twice a month"]
     
     override func viewDidLoad() {
-        /*ref = Database.database().reference()
-         databaseHandle = ref?.child("Chores").observe(.childAdded, with: { (snapshot) in
-         let value = snapshot.value as? NSDictionary
-         self.choreName.append(value?.value(forKey: "ChoreName") as! String)
-         self.lastDone.append(value?.value(forKey: "LastDone") as? String ?? "")
-         self.frequency.append(value?.value(forKey: "Frequency") as? String ?? "")
-         })*/
-        
         db.collection("users").document(currentUid).collection("chores").getDocuments { (snapshot, error) in
             for document in snapshot!.documents{
                 let data = document.data()
@@ -74,10 +65,7 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MyChoresViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
-        
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
@@ -109,20 +97,6 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         editFrequency?.text = frequencyStr[row]
     }
-    
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
 extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
@@ -151,7 +125,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             }
-            
             self.createAlert(title: "Delete success!", message: "Successfully delete the task")
             success(true)
         })
@@ -187,7 +160,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             }
-            
             
             self.createAlert(title: "Skip success!", message: "Successfully skip the task")
             success(true)
@@ -236,7 +208,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                                     self.createAlert(title: "Remind success", message: "Remind date changed successfully!")
                                 }
                             }))
-                            
                             // 4. Present the alert.
                             self.present(alert, animated: true, completion: nil)
                             
@@ -250,8 +221,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             }
-            //            self.pushNotification(chore: thisChore)
-            
         })
         RemindAction.backgroundColor = UIColor.init(red: 255/255, green: 211/255, blue: 0/255, alpha: 0.85)
         
@@ -268,11 +237,9 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                             center.removePendingNotificationRequests(withIdentifiers: [reminderID])
                         }
                         
-                        // ---------------------------------
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
                         self.remindDate = self.updateRemindDate(date: dateFormatter.string(from: Date()), freq: self.frequency[indexPath.row])
-                        // ---------------------------------
                         let choreName = documentData?["choreName"] as! String
                         let lastDone = documentData?["lastDone"] as! String
                         let remindDate = documentData?["remindDate"] as! String
@@ -298,10 +265,8 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         })
         FinishAction.backgroundColor =  UIColor.init(red: 101/255, green: 154/255, blue: 65/255, alpha: 0.75)
         
-        
         return UISwipeActionsConfiguration(actions: [DeleteAction,SkipAction,RemindAction,FinishAction])
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return choreName.count
@@ -309,9 +274,6 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = choresList.dequeueReusableCell(withIdentifier: "cell") as! MyChoresTableViewCell
-        //let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
-        /*chores.append(choreName[indexPath.row] + "       " + lastDone[indexPath.row] + "       " + frequency[indexPath.row])*/
-        
         cell.taskNameLabel.text = choreName[indexPath.row]
         cell.frequencyLabel.text = frequency[indexPath.row]
         cell.lastDoneLabel.text = lastDone[indexPath.row]
@@ -494,21 +456,15 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func doDatePicker(){
-        // DatePicker
-        // datePicker = UIDatePicker()
-        
         self.datePicker = UIDatePicker(frame:CGRect(x: 0, y: self.view.frame.size.height - 220, width:self.view.frame.size.width, height: 216))
         self.datePicker?.backgroundColor = UIColor.white
         datePicker?.datePickerMode = .date
-        
         doneClick()
     }
     
     
     @objc func doneClick() {
-        //        let formatter = DateFormatter()
-        //        formatter.dateFormat = "MM/dd/yyyy"
-        //        self.remindDate = formatter.string(from: self.datePicker!.date)
+
     }
     
     @objc func datePickerChanged() {
@@ -523,5 +479,4 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
             self.RemindRechoosePastDate = false
         }
     }
-    
 }
