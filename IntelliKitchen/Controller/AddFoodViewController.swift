@@ -123,19 +123,3 @@ class AddFoodViewController: UIViewController {
     }
 }
 
-extension AddFoodViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return foodNames.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = foodListTableView.dequeueReusableCell(withIdentifier: "foodCell") as! AddFoodTableViewCell
-        cell.bDateLabel.text = bDate[indexPath.row]
-        cell.eDateLabel.text = eDate[indexPath.row]
-        cell.foodNameLabel.text = foodNames[indexPath.row]
-        cell.bDateLabel.adjustsFontSizeToFitWidth = true
-        cell.eDateLabel.adjustsFontSizeToFitWidth = true
-        cell.foodNameLabel.adjustsFontSizeToFitWidth = true
-        return cell
-    }
-}

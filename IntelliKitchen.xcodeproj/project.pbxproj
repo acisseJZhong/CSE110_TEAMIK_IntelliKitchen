@@ -148,8 +148,10 @@
 		8AC4E6C02459600400A1E91E /* IntelliKitchen */ = {
 			isa = PBXGroup;
 			children = (
+				9C1D0AA2248B737100FB428C /* View */,
+				9C1D0AA1248B735E00FB428C /* Model */,
 				8AC4E6DC245B806400A1E91E /* Helper */,
-				8AC4E6D92459612C00A1E91E /* View Controller */,
+				8AC4E6D92459612C00A1E91E /* Controller */,
 				8AC4E6C12459600400A1E91E /* AppDelegate.swift */,
 				8AC4E6C32459600400A1E91E /* SceneDelegate.swift */,
 				8AC4E6C72459600400A1E91E /* Main.storyboard */,
@@ -161,10 +163,9 @@
 			path = IntelliKitchen;
 			sourceTree = "<group>";
 		};
-		8AC4E6D92459612C00A1E91E /* View Controller */ = {
+		8AC4E6D92459612C00A1E91E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8AEA49E7247C8BAB009118D0 /* cell */,
 				8A0755D22464A5B500EC96C3 /* LoginController.swift */,
 				8AC4E6DD245B8AE800A1E91E /* ForgetPasswordViewController.swift */,
 				8AC4E6D72459611F00A1E91E /* RegisterViewController.swift */,
@@ -173,8 +174,6 @@
 				8A4F33ED247B26CE00F9826D /* ByNameController.swift */,
 				8AEF2E5B247932250041EAFA /* RecipeViewController.swift */,
 				8A4F33DD247B1F6200F9826D /* RecipeListScreen.swift */,
-				8A4F33E1247B1FC400F9826D /* Recipe.swift */,
-				8A4F33E5247B211200F9826D /* Comment.swift */,
 				8AEA49DD247C809F009118D0 /* MyFoodViewController.swift */,
 				8AEF2E5D2479322D0041EAFA /* ChoresViewController.swift */,
 				8AEA49E3247C80AF009118D0 /* AddFoodViewController.swift */,
@@ -186,22 +185,27 @@
 				8AEF2E4F24778E120041EAFA /* ProfilePageViewController.swift */,
 				8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */,
 			);
-			path = "View Controller";
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		8AC4E6DC245B806400A1E91E /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				8AEF2E5F247932440041EAFA /* CollectionViewCell.swift */,
 				8AEF2E63247932560041EAFA /* Extentions.swift */,
-				8AEF2E612479324B0041EAFA /* ChoresTableViewCell.swift */,
 				8AC4E6DA245B7D3900A1E91E /* Utilities.swift */,
 				8A0755CE24649D5100EC96C3 /* Constants.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		8AEA49E7247C8BAB009118D0 /* cell */ = {
+		9C1D0AA1248B735E00FB428C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9C1D0AA2248B737100FB428C /* View */ = {
 			isa = PBXGroup;
 			children = (
 				8AEF2E5124778E2C0041EAFA /* FavoriteRecipeCell.swift */,
@@ -211,8 +215,12 @@
 				8AEA49D9247C808B009118D0 /* AddFoodTableViewCell.swift */,
 				8A4F33DF247B1FBB00F9826D /* RecipeCell.swift */,
 				8AEA49D7247C8085009118D0 /* AddChoresTableViewCell.swift */,
+				8A4F33E5247B211200F9826D /* Comment.swift */,
+				8AEF2E612479324B0041EAFA /* ChoresTableViewCell.swift */,
+				8A4F33E1247B1FC400F9826D /* Recipe.swift */,
+				8AEF2E5F247932440041EAFA /* CollectionViewCell.swift */,
 			);
-			path = cell;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
