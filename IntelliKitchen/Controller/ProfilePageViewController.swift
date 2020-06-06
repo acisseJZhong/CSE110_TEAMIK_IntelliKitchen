@@ -173,7 +173,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
-            self.createAlert(title: "Notice", message: "You may not change your password by logging in with Google")
+            self.createAlert(title: "Notice", message: "You may not change your password by signing in with Google")
         }
         else{
             let email = Auth.auth().currentUser?.email
@@ -209,7 +209,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
-            self.createAlert(title: "Notice", message: "You may not change your profile photo by logging in with Google")
+            self.createAlert(title: "Notice", message: "You may not change your profile photo by signing in with Google")
         }
         else{
             //Given the user the opportunity to pick a picture.
@@ -276,7 +276,7 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
-            self.createAlert(title: "Notice", message: "You may not change your username by logging in with Google")
+            self.createAlert(title: "Notice", message: "You may not change your username by signing in with Google")
         }
         else{
             let db = Firestore.firestore()

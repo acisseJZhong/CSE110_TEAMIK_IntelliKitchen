@@ -11,8 +11,6 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseAuth
 
-
-
 class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -32,10 +30,8 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
         tableView.delegate = self
         tableView.dataSource = self
-        
         
         let db = Firestore.firestore()
         let currentUid = Auth.auth().currentUser!.uid
@@ -54,7 +50,6 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
-    
     
     func sortList(){
         for data in list{
@@ -96,7 +91,6 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return allChores.count
     }
     
@@ -120,8 +114,4 @@ class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.selectionStyle = .none
         return cell
     }
-    
-    
-    
-    
 }

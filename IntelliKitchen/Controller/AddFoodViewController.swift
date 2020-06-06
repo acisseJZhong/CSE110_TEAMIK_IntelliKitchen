@@ -16,7 +16,6 @@ class AddFoodViewController: UIViewController {
     @IBOutlet weak var foodNameField: UITextField!
     @IBOutlet weak var boughtDateField: UITextField!
     @IBOutlet weak var expirationDateField: UITextField!
-    
     @IBOutlet weak var foodListTableView: UITableView!
     
     private var datePicker: UIDatePicker?
@@ -27,12 +26,10 @@ class AddFoodViewController: UIViewController {
     var bDate = [String]()
     var eDate = [String]()
     
-    //var ref: DatabaseReference!
     let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //ref = Database.database().reference()
         datePicker = UIDatePicker()
         datePicker2 = UIDatePicker()
         datePicker?.datePickerMode = .date
@@ -51,21 +48,15 @@ class AddFoodViewController: UIViewController {
         
     }
     
-    
     @IBAction func addTapped(_ sender: Any) {
         if(foodNameField.text == "" || boughtDateField.text == "" || expirationDateField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
-            /*ref?.child("Food").child(foodNameField.text ?? "").child("FoodName").setValue(foodNameField.text);
-             ref?.child("Food").child(foodNameField.text ?? "").child("BoughtDate").setValue(boughtDateField.text);
-             ref?.child("Food").child(foodNameField.text ?? "").child("ExpireDate").setValue(expirationDateField.text);*/
             let currentUid = Auth.auth().currentUser!.uid
             db.collection("users").document(currentUid).collection("foods").document(foodNameField.text ?? "").setData(["foodName":foodNameField.text ?? "", "boughtDate":boughtDateField.text ?? "", "expireDate":expirationDateField.text ?? ""])
-            /*.addDocument(data: ["foodName":foodNameField.text ?? "", "boughtDate": boughtDateField.text ?? "", "expireDate": expirationDateField.text ?? ""])*/
             createAlert(title: "Success!", message: "Successfully added food!")
             insertNewFood()
         }
-        
     }
     
     func insertNewFood(){
@@ -81,8 +72,6 @@ class AddFoodViewController: UIViewController {
         boughtDateField.text = ""
         expirationDateField.text = ""
     }
-    
-    
     
     // prompt error message
     func createAlert(title:String, message:String){

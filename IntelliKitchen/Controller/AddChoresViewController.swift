@@ -44,10 +44,9 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddChoresViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
-
+        
         lastDoneField.inputView = datePicker
         timePeriodField.inputView = pickerView
-        // Do any additional setup after loading the view.
     }
     
     
@@ -55,9 +54,6 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         if(taskField.text == "" || lastDoneField.text == "" || timePeriodField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
-            /*ref?.child("Chores").child(taskField.text ?? "").child("ChoreName").setValue(taskField.text);
-             ref?.child("Chores").child(taskField.text ?? "").child("LastDone").setValue(lastDoneField.text);
-             ref?.child("Chores").child(taskField.text ?? "").child("Frequency").setValue(timePeriodField.text);*/
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             if(timePeriodField.text == "Once a day" || timePeriodField.text == "Twice a day") {
@@ -113,7 +109,6 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)
-        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -161,5 +156,4 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
     }
     
 }
-
 
