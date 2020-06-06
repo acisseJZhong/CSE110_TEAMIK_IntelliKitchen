@@ -162,22 +162,4 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
 }
 
-extension AddChoresViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chores.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = choresList.dequeueReusableCell(withIdentifier: "choresCell") as! AddChoresTableViewCell
-        //let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell")
-        cell.nameLabel.text = choreNames[indexPath.row]
-        cell.fLabel.text = frequencyChoice[indexPath.row]
-        cell.ldLabel.text = lastDoneDates[indexPath.row]
-        cell.nameLabel.adjustsFontSizeToFitWidth = true
-        cell.fLabel.adjustsFontSizeToFitWidth = true
-        cell.ldLabel.adjustsFontSizeToFitWidth = true
-        //cell.textLabel?.text = chores[indexPath.row]
-        //cell.textLabel?.adjustsFontSizeToFitWidth = true
-        return cell
-    }
-}
+
