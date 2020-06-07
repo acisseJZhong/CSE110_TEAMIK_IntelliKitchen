@@ -12,7 +12,7 @@
 | [Dawei Wang](https://github.com/wdwei9717)                    | Algorithm Specialist      |
 | [Jialu Xu](https://github.com/machaeese)                      | Quality Assurance Lead    |
 | [Jiaming Zhang](https://github.com/FanTasZZhang)              | Software Architect        |
-| [Kaixun Zhang](https://github.com/Lucas610)                   | Database Specialist       |
+| [Kaixun Zhang](https://github.com/Lucas610)                   | Algorithm Specialist      |
 
 ### Introduction
 As busy students who focus on studying, we always forget to use our food in the fridge and lead to waste, which is very environmentally unfriendly. Sometimes we also forget to do the chores, 
@@ -68,7 +68,58 @@ In this project, we incorporate MVC(Model View Controller) architecture to ensur
 - Controllers are used to connect View and Model.
 
 ### Code samples
+This is an example of a Recipe Model, which is a simple struct to hold all the properties of Recipe.
+```
+class Recipe {
+    var image: UIImage
+    var title: String
+    var rating: String
+    
+    init(image: UIImage, title: String, rating: String) {
+        self.image = image
+        self.title = title
+        self.rating = rating
+    }
+}
+```
+This is an example of RecipeCell View in which we set up the visualization of a recipe cell. When we load all TableView cells using the following function.
+```
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let recipe = recipes[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell") as! RecipeCell
+        cell.setRecipe(recipe: recipe)
+        return cell
+    }
 
+The setRecipe() method will take a Recipe struct and unwrap its information and set up each cell’s visualization on the user interface.
+    
+    func setRecipe(recipe:Recipe) {
+        recipeImage.image = recipe.image
+        recipeTitle.text = recipe.title
+        recipeRating.text = "Average Rating: \(recipe.rating)"
+    }
+```
+
+The following is an example of Controller. The code is from ByNameController.swift, where it defines the searching activity initiated by the user. The event handler will take the user’s searching keyword(s) and perform queries in the database for all matching results.
+```
+@IBAction func search(_ sender: Any) {
+        if nameSearchBar.text == "" {
+            let alert = UIAlertController(title: "No entry!", message: "Please add some text before searching", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            if searching {
+                searchArray = searchRecipe
+                searchArray.insert(nameSearchBar.text!, at: 0)
+            } else {
+                searchArray = []
+                searchArray.append(nameSearchBar.text!)
+                searchArray.append(nameSearchBar.text!)
+            }
+            performSegue(withIdentifier: "searchResult", sender: self)
+        }
+    }
+```
 
 ### Known bugs
 1. 
@@ -104,7 +155,7 @@ recipe title may overflow and cover the recipe rating or/and the recipe image.
 and the recipe details don't match for a few certain recipes. (It’s because our database store the wrong information)
 
 7. 
-Sometimes when the user clicks on a certain recipe, the whole app freezes and has a runtime exception. In this case, please re-run the whole app. 
+- Sometimes when the user clicks on a certain recipe, the whole app freezes and has a runtime exception. In this case, please re-run the whole app. 
 
 ### Notes
 After the user enters the recipe name/ingredients they want to search and click the “search” button, a recipe list will pop up. There might be repetitive recipe pictures. However, even if they have the same recipe picture shown, the recipes are actually different. They have either different ingredients or different instructions.
