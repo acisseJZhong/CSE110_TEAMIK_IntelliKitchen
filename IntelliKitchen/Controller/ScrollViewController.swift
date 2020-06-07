@@ -87,8 +87,9 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
             commentedlist.append(passid)
             db.collection("users").document(currentUid).updateData(["commentedlist" : self.commentedlist])
             self.commentornot = true
-            Comments.text = nil}
-        else {
+            Comments.text = nil
+//            Comments.resignFirstResponder()
+        } else {
             //Comments.isEnabled = false
             let alert = UIAlertController(title: "Already commented", message: "You have already commented this recipe~", preferredStyle: UIAlertController.Style.alert)
             Comments.text = nil
@@ -210,6 +211,19 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @objc func keyboardWillChange(notification: Notification) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 300
+        } else {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Comments.delegate = self
@@ -226,6 +240,9 @@ class ScrollViewController: UIViewController, UITextFieldDelegate {
         var imagedb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/img");
         var imagedbnew = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/recipe_pic");
         var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+passid+"/rating");
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         self.currentUid = Auth.auth().currentUser!.uid
         db.collection("users").document(currentUid).collection("favoriteRecipe").getDocuments { (snapshot, error) in
