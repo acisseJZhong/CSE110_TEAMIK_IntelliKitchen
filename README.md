@@ -188,8 +188,8 @@ After the user enters the recipe name/ingredients they want to search and click 
 https://www.youtube.com/watch?v=T_g3GKa9lXc
 
 ### Contacts for Technical Support
-| Name                                                          | Contact                   |
-| ---                                                           | ---                       |
-| Jiaming Zhang - Software Architect                            | (858)263-5398             |
-| Jessica Zhong - Project Manager                               | (858)900-5337             |
-| David Cheung - Software Development Lead                      | (415)269-4604             |
+| Name                                                          | Contact                          |
+| ---                                                           | ---                              |
+| Jiaming Zhang - Software Architect                            | (858)263-5398 jiz614@ucsd.edu    |
+| Jessica Zhong - Project Manager                               | (858)900-5337 zhz386@ucsd.edu    |
+| David Cheung - Software Development Lead                      | (415)269-4604 d6cheung@ucsd.edu  |
