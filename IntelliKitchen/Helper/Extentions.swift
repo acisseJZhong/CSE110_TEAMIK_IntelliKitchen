@@ -17,8 +17,6 @@ extension RecipeViewController : UICollectionViewDelegateFlowLayout{
         let widthVal = self.view.frame.width
         let cellsize = (heightVal < widthVal) ? bounds.height/2 : bounds.width/2
         return CGSize(width: cellsize, height: cellsize)
-        //return CGSize(width: (widthVal)/2, height: (heightVal)/2)
-        //return CGSize(width: 50, height: 50)
     }
 }
 
