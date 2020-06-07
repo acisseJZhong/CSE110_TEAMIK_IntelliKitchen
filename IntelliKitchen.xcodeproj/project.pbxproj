@@ -206,12 +206,9 @@
 				AECFCED9248C911D006DB1E8 /* Food.swift */,
 				435CF205248CA51500092860 /* Chore.swift */,
 				6417F7FB248CA9A800F88F33 /* Foods.swift */,
-<<<<<<< HEAD
 				435CF209248CC04E00092860 /* Choreshomepage.swift */,
 				435CF20B248CC3A700092860 /* Db.swift */,
-=======
 				AECFCEDD248CC3D0006DB1E8 /* recipehomepage.swift */,
->>>>>>> 0156b72811c3c029e56beff4e31f8a9a5add00ef
 			);
 			path = Model;
 			sourceTree = "<group>";
