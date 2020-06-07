@@ -22,7 +22,8 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
     private var pickerView: UIPickerView?
     let frequency = ["Once a day", "Twice a day", "Once a week", "Twice a week", "Once a month", "Twice a month"]
     
-    var chores = [String]()
+//    var chores = [String]()
+    var chores = [Chore]()
     var choreNames = [String]()
     var lastDoneDates = [String]()
     var frequencyChoice = [String]()
@@ -57,31 +58,21 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
         } else {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
+            var dateObj = dateFormatter.date(from: lastDoneField.text ?? "")
+            
             if(timePeriodField.text == "Once a day" || timePeriodField.text == "Twice a day") {
-                var dateObj = dateFormatter.date(from: lastDoneField.text ?? "")
                 dateObj = dateObj?.addingTimeInterval(86400)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(timePeriodField.text == "Once a week") {
-                var dateObj = dateFormatter.date(from: lastDoneField.text ?? "")
+            } else if (timePeriodField.text == "Once a week") {
                 dateObj = dateObj?.addingTimeInterval(604800)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(timePeriodField.text == "Twice a week") {
-                var dateObj = dateFormatter.date(from: lastDoneField.text ?? "")
+            } else if (timePeriodField.text == "Twice a week") {
                 dateObj = dateObj?.addingTimeInterval(302400)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(timePeriodField.text == "Once a month") {
-                var dateObj = dateFormatter.date(from: lastDoneField.text ?? "")
+            } else if (timePeriodField.text == "Once a month") {
                 dateObj = dateObj?.addingTimeInterval(2592000)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(timePeriodField.text == "Twice a month") {
-                var dateObj = dateFormatter.date(from: lastDoneField.text ?? "")
+            } else if (timePeriodField.text == "Twice a month") {
                 dateObj = dateObj?.addingTimeInterval(1296000)
-                remindDate = dateFormatter.string(from: dateObj!)
             }
+            
+            remindDate = dateFormatter.string(from: dateObj!)
             let currentUid = Auth.auth().currentUser!.uid
             db.collection("users").document(currentUid).collection("chores").document(taskField.text ?? "").setData(["choreName":taskField.text ?? "", "lastDone":lastDoneField.text ?? "", "frequency":timePeriodField.text ?? "", "remindDate":remindDate, "remindOrNot": false])
             createAlert(title: "Success!", message: "Successfully added chore!")
@@ -90,14 +81,17 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
     }
     
     func insertNewChore(){
-        chores.append("\(taskField.text!)       \(lastDoneField.text!)       \(timePeriodField.text!)")
-        let indexPath = IndexPath(row: chores.count - 1, section: 0)
-        choreNames.append(taskField.text ?? "")
-        lastDoneDates.append(lastDoneField.text ?? "")
-        frequencyChoice.append(timePeriodField.text ?? "")
-        choresList.beginUpdates()
-        choresList.insertRows(at: [indexPath], with: .automatic)
-        choresList.endUpdates()
+//        chores.append("\(taskField.text!)       \(lastDoneField.text!)       \(timePeriodField.text!)")
+//        let indexPath = IndexPath(row: chores.count - 1, section: 0)
+//        choreNames.append(taskField.text ?? "")
+//        lastDoneDates.append(lastDoneField.text ?? "")
+//        frequencyChoice.append(timePeriodField.text ?? "")
+        let chore = Chore(task: taskField.text!, lastDone: lastDoneField.text!, timePeriod: timePeriodField.text!)
+        chores.append(chore)
+        choresList.reloadData()
+//        choresList.beginUpdates()
+//        choresList.insertRows(at: [indexPath], with: .automatic)
+//        choresList.endUpdates()
         taskField.text = ""
         timePeriodField.text = ""
         lastDoneField.text = ""

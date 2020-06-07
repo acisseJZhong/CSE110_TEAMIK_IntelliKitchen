@@ -105,6 +105,14 @@ class AddChoresTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func setChore(chore: Chore) {
+        nameLabel.text = chore.task
+        ldLabel.text = chore.lastDone
+        fLabel.text = chore.timePeriod
+    }
+    
+    
 }
 
 
