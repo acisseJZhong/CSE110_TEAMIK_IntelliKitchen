@@ -306,7 +306,8 @@ class Db {
                         mcvc.present(alert, animated: true, completion: nil)
                         
                     } else {
-                        remindDate = formatter.string(from: date)
+//                        remindDate = formatter.string(from: date)
+                        
                         self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
                         mcvc.createAlert(title: "Remind success!", message: "Successfully set the reminder")
                     }
