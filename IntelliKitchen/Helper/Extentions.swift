@@ -239,10 +239,6 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
         cell.foodLabel.adjustsFontSizeToFitWidth = true
         cell.bdLabel.adjustsFontSizeToFitWidth = true
         cell.edLabel.adjustsFontSizeToFitWidth = true
-        //cell.foodLabel.text = foodName[indexPath.row]
-        //cell.bdLabel.text = boughtDate[indexPath.row]
-        //cell.edLabel.text = expireDate[indexPath.row]
-        //cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
     
@@ -251,12 +247,8 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
             
             data.deleteFood(mfvc: self, index: indexPath.row)
             self.foods.remove(at: indexPath.row)
-            //self.foodName.remove(at: indexPath.row)
-            //self.boughtDate.remove(at: indexPath.row)
-            //self.expireDate.remove(at: indexPath.row)
             self.foodListTable.reloadData()
             self.createAlert(title: "Delete success!", message: "Successfully delete the food!")
-            //Delete data in database
         }
     }
     
@@ -297,13 +289,6 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
             //deal with data change here
             data.editFood(mfvc: self, index: row)
             
-//            foodName.remove(at: row)
-//            boughtDate.remove(at: row)
-//            expireDate.remove(at: row)
-//            foods.remove(at: row)
-//            foodName.append(editFoodName?.text ?? "")
-//            boughtDate.append(editBoughtDate?.text ?? "")
-//            expireDate.append(editExpireDate?.text ?? "")
             let food = self.foods[row]
             food.expireDate = editExpireDate?.text as! String
             food.boughtDate = editBoughtDate?.text as! String
