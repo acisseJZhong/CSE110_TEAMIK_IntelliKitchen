@@ -266,7 +266,8 @@ class Db {
     
     // Function from MyFoodViewController
     func loadMyFood (mfvc: MyFoodViewController) {
-        self.db.collection("users").document(mfvc.currentUid).collection("foods").getDocuments { (snapshot, error) in
+        let currentUid = Auth.auth().currentUser!.uid
+        self.db.collection("users").document(currentUid).collection("foods").getDocuments { (snapshot, error) in
             for document in snapshot!.documents{
                 let data = document.data()
                 let name = data["foodName"] as? String ?? ""
@@ -277,6 +278,17 @@ class Db {
             }
             mfvc.foodListTable.reloadData()
         }
+    }
+    
+    func deleteFood(mfvc: MyFoodViewController, index: Int) {
+        let currentUid = Auth.auth().currentUser!.uid
+        self.db.collection("users").document(currentUid).collection("foods").document(mfvc.foods[index].foodName).delete()
+    }
+    
+    func editFood(mfvc: MyFoodViewController, index: Int) {
+        let currentUid = Auth.auth().currentUser!.uid
+        db.collection("users").document(currentUid).collection("foods").document(mfvc.foodName[index]).delete()
+        db.collection("users").document(currentUid).collection("foods").document(mfvc.editFoodName?.text ?? "").setData(["foodName":mfvc.editFoodName?.text ?? "", "boughtDate":mfvc.editBoughtDate?.text ?? "", "expireDate":mfvc.editExpireDate?.text ?? ""])
     }
     
     // Function from FoodViewController
