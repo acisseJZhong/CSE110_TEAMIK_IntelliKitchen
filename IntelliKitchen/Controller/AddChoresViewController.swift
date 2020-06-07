@@ -22,11 +22,7 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
     private var pickerView: UIPickerView?
     let frequency = ["Once a day", "Twice a day", "Once a week", "Twice a week", "Once a month", "Twice a month"]
     
-//    var chores = [String]()
     var chores = [Chore]()
-//    var choreNames = [String]()
-//    var lastDoneDates = [String]()
-//   var frequencyChoice = [String]()
     var ref: DatabaseReference!
     let db = Firestore.firestore()
     var remindDate: String = ""
@@ -81,7 +77,7 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
     }
     
     func insertNewChore(){
-        let chore = Chore(task: taskField.text!, lastDone: lastDoneField.text!, timePeriod: timePeriodField.text!)
+        let chore = Chore(task: taskField.text!, lastDone: lastDoneField.text!, timePeriod: timePeriodField.text!, remindDate: "", remindOrNot: false)
         chores.append(chore)
         choresList.reloadData()
         taskField.text = ""

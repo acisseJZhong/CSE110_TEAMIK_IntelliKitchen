@@ -13,10 +13,14 @@ class Chore {
     var task: String
     var lastDone: String
     var timePeriod: String
+    var remindDate: String
+    var remindOrNot: Bool
     
-    init(task: String, lastDone: String, timePeriod: String) {
+    init(task: String, lastDone: String, timePeriod: String, remindDate: String, remindOrNot: Bool) {
         self.task = task
         self.lastDone = lastDone
         self.timePeriod = timePeriod
+        self.remindDate = remindDate
+        self.remindOrNot = remindOrNot
     }
 }

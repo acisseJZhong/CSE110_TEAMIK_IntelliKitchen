@@ -45,7 +45,12 @@ class MyChoresTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+    }
+    
+    func setChore(chore: Chore) {
+        taskNameLabel.text = chore.task
+        lastDoneLabel.text = chore.lastDone
+        frequencyLabel.text = chore.timePeriod
     }
 }
 
@@ -133,11 +138,12 @@ class ChoresTableViewCell: UITableViewCell {
     @IBOutlet weak var labelView: UILabel!
     @IBOutlet weak var orilabelView: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func setlabel(chores:Choreshomepage) {
+        orilabelView.text = chores.message
+        orilabelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
+        orilabelView.textColor = UIColor.darkGray
+        labelView.text = chores.message2
+        labelView.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
+        labelView.textColor = UIColor.darkGray
     }
 }
