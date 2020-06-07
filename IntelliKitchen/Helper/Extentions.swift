@@ -453,10 +453,10 @@ extension FoodViewController: UITableViewDelegate, UITableViewDataSource {
         if(food.expiredate < 0){
             cell?.backgroundColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
         }
-        else if(food.expiredate < 3){
+        else if(food.expiredate <= 3){
             cell?.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
         }
-        else if(food.expiredate < 5){
+        else if(food.expiredate <= 5){
             cell?.backgroundColor = UIColor(red: 255/255, green: 196/255, blue: 196/255, alpha: 1)
         }
         else{
@@ -487,5 +487,26 @@ extension ChoresViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         cell.setlabel(chores: chores)
         return cell
+    }
+extension RecipeViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return recipelist.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let recipe = recipelist[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CollectionViewCell
+        cell.setCell(recipe: recipe)
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let recipe = recipelist[indexPath.item]
+        let id = recipe.id
+        let storyboard = UIStoryboard(name:"Main",bundle: nil)
+        let anotherVC = storyboard.instantiateViewController(identifier: "menudetail") as! ScrollViewController
+        anotherVC.passid = id;
+        self.present(anotherVC,animated:true,completion: nil)
     }
 }
