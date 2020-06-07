@@ -11,7 +11,7 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseAuth
 
-class ChoresViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChoresViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
