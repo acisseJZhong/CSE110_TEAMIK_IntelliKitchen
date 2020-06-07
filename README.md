@@ -1,6 +1,6 @@
 # IntelliKitchen 
 
-![IK logo](https://github.com/acisseJZhong/CSE110_IntelliKitchen/logo.png)
+![IK logo](https://github.com/acisseJZhong/CSE110_TEAMIK_IntelliKitchen/logo.png)
 | Contributor                                                   | Role                      |
 | ---                                                           | ---                       |
 | [Jessica Zhong](https://github.com/acisseJZhong)              | Project Manager           |
