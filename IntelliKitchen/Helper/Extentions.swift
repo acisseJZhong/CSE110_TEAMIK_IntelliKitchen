@@ -221,30 +221,32 @@ extension RecipeListScreen: UITableViewDataSource, UITableViewDelegate {
 
 extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return foodName.count
+        return foods.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         /*let cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "cell") as! CustomTableViewCell*/
         let cell = foodListTable.dequeueReusableCell(withIdentifier: "cell") as! CustomTableViewCell
         /*foods.append(foodName[indexPath.row] + "          " + boughtDate[indexPath.row] + "          " + expireDate[indexPath.row])*/
+        let Food = self.foods[indexPath.row]
+        cell.setFood(foods: Food)
         cell.foodLabel.adjustsFontSizeToFitWidth = true
         cell.bdLabel.adjustsFontSizeToFitWidth = true
         cell.edLabel.adjustsFontSizeToFitWidth = true
-        cell.foodLabel.text = foodName[indexPath.row]
-        cell.bdLabel.text = boughtDate[indexPath.row]
-        cell.edLabel.text = expireDate[indexPath.row]
-        cell.textLabel?.adjustsFontSizeToFitWidth = true
+        //cell.foodLabel.text = foodName[indexPath.row]
+        //cell.bdLabel.text = boughtDate[indexPath.row]
+        //cell.edLabel.text = expireDate[indexPath.row]
+        //cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            db.collection("users").document(self.currentUid).collection("foods").document(foodName[indexPath.row]).delete()
-            //self.foods.remove(at: indexPath.row)
-            self.foodName.remove(at: indexPath.row)
-            self.boughtDate.remove(at: indexPath.row)
-            self.expireDate.remove(at: indexPath.row)
+            db.collection("users").document(self.currentUid).collection("foods").document(foods[indexPath.row].foodName).delete()
+            self.foods.remove(at: indexPath.row)
+            //self.foodName.remove(at: indexPath.row)
+            //self.boughtDate.remove(at: indexPath.row)
+            //self.expireDate.remove(at: indexPath.row)
             self.foodListTable.reloadData()
             self.createAlert(title: "Delete success!", message: "Successfully delete the food!")
             //Delete data in database
@@ -305,20 +307,16 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension AddFoodViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return foodNames.count
+        return foods.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = foodListTableView.dequeueReusableCell(withIdentifier: "foodCell") as! AddFoodTableViewCell
-        //let cell = AddFoodTableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: "foodCell")
-        cell.bDateLabel.text = bDate[indexPath.row]
-        cell.eDateLabel.text = eDate[indexPath.row]
-        cell.foodNameLabel.text = foodNames[indexPath.row]
+        let Food = self.foods[indexPath.row]
+        cell.setFood(foods: Food)
         cell.bDateLabel.adjustsFontSizeToFitWidth = true
         cell.eDateLabel.adjustsFontSizeToFitWidth = true
         cell.foodNameLabel.adjustsFontSizeToFitWidth = true
-        //cell.textLabel?.text = foods[indexPath.row]
-        //cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
     

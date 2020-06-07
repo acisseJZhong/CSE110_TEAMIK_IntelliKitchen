@@ -62,6 +62,12 @@ class AddFoodTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func setFood(foods: Foods) {
+        foodNameLabel.text = foods.foodName
+        bDateLabel.text = foods.boughtDate
+        eDateLabel.text = foods.expireDate
+    }
 }
 
 class RecipeCell: UITableViewCell {
@@ -88,6 +94,12 @@ class CustomTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func setFood(foods: Foods) {
+        foodLabel.text = foods.foodName
+        edLabel.text = foods.boughtDate
+        bdLabel.text = foods.expireDate
     }
 }
 

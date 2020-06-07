@@ -22,10 +22,7 @@ class AddFoodViewController: UIViewController {
     private var datePicker: UIDatePicker?
     private var datePicker2: UIDatePicker?
     
-    var foods = [String]()
-    var foodNames = [String]()
-    var bDate = [String]()
-    var eDate = [String]()
+    var foods = [Foods]()
     
     let db = Firestore.firestore()
     
@@ -61,14 +58,9 @@ class AddFoodViewController: UIViewController {
     }
     
     func insertNewFood(){
-        foods.append("\(foodNameField.text!)       \(boughtDateField.text!)       \(expirationDateField.text!)")
-        foodNames.append(foodNameField.text ?? "")
-        bDate.append(boughtDateField.text ?? "")
-        eDate.append(expirationDateField.text ?? "")
-        let indexPath = IndexPath(row: foods.count - 1, section: 0)
-        foodListTableView.beginUpdates()
-        foodListTableView.insertRows(at: [indexPath], with: .automatic)
-        foodListTableView.endUpdates()
+        let newFood = Foods(foodName: foodNameField.text!, boughtDate: boughtDateField.text!, expireDate: expirationDateField.text!)
+        foods.append(newFood)
+        foodListTableView.reloadData()
         foodNameField.text = ""
         boughtDateField.text = ""
         expirationDateField.text = ""

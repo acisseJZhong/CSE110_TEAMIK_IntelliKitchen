@@ -21,7 +21,7 @@ class MyFoodViewController: UIViewController{
     var foodName = [String]()
     var boughtDate = [String]()
     var expireDate = [String]()
-    var foods = [String]()
+    var foods = [Foods]()
     var editFoodName: UITextField?
     var editBoughtDate: UITextField?
     var editExpireDate: UITextField?
@@ -41,9 +41,11 @@ class MyFoodViewController: UIViewController{
                 let name = data["foodName"] as? String ?? ""
                 let bDate = data["boughtDate"] as? String ?? ""
                 let eDate = data["expireDate"] as? String ?? ""
-                self.foodName.append(name)
-                self.boughtDate.append(bDate)
-                self.expireDate.append(eDate)
+                let newFood = Foods(foodName: name, boughtDate: bDate, expireDate: eDate)
+                self.foods.append(newFood)
+                //self.foodName.append(name)
+                //self.boughtDate.append(bDate)
+                //self.expireDate.append(eDate)
             }
             self.foodListTable.reloadData()
         }
