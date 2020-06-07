@@ -13,6 +13,7 @@ import FirebaseFirestore
 
 class AddFoodViewController: UIViewController {
     
+    //reference and global varaible
     @IBOutlet weak var foodNameField: UITextField!
     @IBOutlet weak var boughtDateField: UITextField!
     @IBOutlet weak var expirationDateField: UITextField!

@@ -11,6 +11,7 @@ import Firebase
 
 class RecipeListScreen: UIViewController {
     
+    // reference and global varaible
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchText: UILabel!
     

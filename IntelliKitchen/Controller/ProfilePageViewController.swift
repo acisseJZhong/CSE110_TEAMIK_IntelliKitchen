@@ -47,9 +47,9 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     func loadUserInfo(){
         let db = Firestore.firestore()
         
-        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
-        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
-        let tempGoogleIconUrl = LoginController.GlobalVariable.googleIconUrl
+        let tempGoogleUsername = GlobalVariable.googleUsername
+        let tempGoogleEmail = GlobalVariable.googleEmail
+        let tempGoogleIconUrl = GlobalVariable.googleIconUrl
         
         //handle google log in
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
@@ -169,8 +169,8 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     @IBAction func showOrHidePassword(_ sender: Any) {
-        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
-        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
+        let tempGoogleUsername = GlobalVariable.googleUsername
+        let tempGoogleEmail = GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
             self.createAlert(title: "Notice", message: "You may not change your password by signing in with Google")
@@ -205,8 +205,8 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     @IBAction func importImage(_ sender: Any) {
-        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
-        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
+        let tempGoogleUsername = GlobalVariable.googleUsername
+        let tempGoogleEmail = GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
             self.createAlert(title: "Notice", message: "You may not change your profile photo by signing in with Google")
@@ -272,8 +272,8 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
     }
     
     @IBAction func saveUsernameAction(_ sender: Any) {
-        let tempGoogleUsername = LoginController.GlobalVariable.googleUsername
-        let tempGoogleEmail = LoginController.GlobalVariable.googleEmail
+        let tempGoogleUsername = GlobalVariable.googleUsername
+        let tempGoogleEmail = GlobalVariable.googleEmail
         
         if tempGoogleUsername != "" && tempGoogleEmail != ""{
             self.createAlert(title: "Notice", message: "You may not change your username by signing in with Google")
@@ -331,9 +331,10 @@ class ProfilePageViewController: UIViewController, UINavigationControllerDelegat
         view.window?.rootViewController = loginController
         view.window?.makeKeyAndVisible()
         
-        LoginController.GlobalVariable.googleUsername = ""
-        LoginController.GlobalVariable.googleEmail = ""
-        LoginController.GlobalVariable.googleIconUrl = URL(string: "")
+        GlobalVariable.googleUsername = ""
+        GlobalVariable.googleEmail = ""
+        
+        GlobalVariable.googleIconUrl = URL(string: "")
     }
 }
 

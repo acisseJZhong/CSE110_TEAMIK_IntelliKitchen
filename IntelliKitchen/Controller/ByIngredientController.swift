@@ -12,6 +12,7 @@ import Firebase
 
 class ByIngredientController: UIViewController {
     
+    // all the reference and global variables
     @IBOutlet weak var ingredientSearchBar: UISearchBar!
     @IBOutlet weak var ingredientTableView: UITableView!
     @IBOutlet weak var searchButton: UIButton!
@@ -24,10 +25,8 @@ class ByIngredientController: UIViewController {
     
     var allIngredient: [String] = []
     var selectedIngredient: [String] = []
-    
     var searchAllIngredient = [String]()
     var searchSelectedIngredient = [String]()
-    
     var searching = false
     
     override func viewDidLoad() {

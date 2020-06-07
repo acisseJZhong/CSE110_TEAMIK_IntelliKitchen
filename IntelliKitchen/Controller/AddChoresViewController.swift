@@ -12,6 +12,7 @@ import FirebaseFirestore
 
 class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    // reference and global varaible
     @IBOutlet weak var taskField: UITextField!
     @IBOutlet weak var choresList: UITableView!
     @IBOutlet weak var lastDoneField: UITextField!

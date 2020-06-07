@@ -8,20 +8,6 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var foodLabel: UILabel!
-    @IBOutlet weak var edLabel: UILabel!
-    @IBOutlet weak var bdLabel: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-}
-
 
 class CommentCell: UITableViewCell {
     
@@ -90,6 +76,21 @@ class RecipeCell: UITableViewCell {
         recipeRating.text = "Average Rating: \(recipe.rating)"
     }
 }
+
+class CustomTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var foodLabel: UILabel!
+    @IBOutlet weak var edLabel: UILabel!
+    @IBOutlet weak var bdLabel: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+}
+
 
 class AddChoresTableViewCell: UITableViewCell {
 

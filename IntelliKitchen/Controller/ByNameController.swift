@@ -11,6 +11,7 @@ import Firebase
 
 class ByNameController: UIViewController {
     
+    // reference and global varaible
     @IBOutlet weak var nameSearchBar: UISearchBar!
     @IBOutlet weak var nameTableView: UITableView!
     @IBOutlet weak var searchButton: UIButton!
