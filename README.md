@@ -1,17 +1,18 @@
 # IntelliKitchen 
 
+![IK logo](https://github.com/acisseJZhong/CSE110_IntelliKitchen/logo.png)
 | Contributor                                                   | Role                      |
 | ---                                                           | ---                       |
-| [Yilun Hao](https://github.com/ndoum)                         | Senior System Analyst     |
-| [Qiao Rong](https://github.com/aiiitingx)                     | Business Analyst          |
-| [Jiaming Zhang](https://github.com/alvinli222)                | Software Architect        |
-| [David Cheung](https://github.com/hl219)                      | Software Development Lead |
-| [Jiangnan Xu](https://github.com/hl219)                       | Database Specialist       |
-| [Duolan Ouyang](https://github.com/dorianm7)                  | User Interface Specialist |
 | [Jessica Zhong](https://github.com/acisseJZhong)              | Project Manager           |
-| [Jialu Xu](https://github.com/shayan900)                      | Quality Assurance Lead    |
-| [Dawei Wang](https://github.com/cksriprajittichai)            | Algorithm Specialist      |
-| [Kaixun Zhang](https://github.com/Ethan-Yuan-ZY)              | Database Specialist       |
+| [Yilun Hao](https://github.com/ylh301)                        | Senior System Analyst     |
+| [Duolan Ouyang](https://github.com/duouyang)                  | User Interface Specialist |
+| [Jiangnan Xu](https://github.com/jn1118)                      | Database Specialist       |
+| [Qiao Rong](https://github.com/QRrong)                        | Business Analyst          |
+| [David Cheung](https://github.com/sawsa307)                   | Software Development Lead |
+| [Dawei Wang](https://github.com/wdwei9717)                    | Algorithm Specialist      |
+| [Jialu Xu](https://github.com/machaeese)                      | Quality Assurance Lead    |
+| [Jiaming Zhang](https://github.com/FanTasZZhang)              | Software Architect        |
+| [Kaixun Zhang](https://github.com/Lucas610)                   | Database Specialist       |
 
 ### Introduction
 As busy students who focus on studying, we always forget to use our food in the fridge and lead to waste, which is very environmentally unfriendly. Sometimes we also forget to do the chores, 
@@ -60,37 +61,57 @@ Minimum Specs:
 9. Click on the "Run" button. 
 10. When you finish building the project, and the simulator pops up, you can start testing.
 
+### Software Desgin (MVC)
+In this project, we incorporate MVC(Model View Controller) architecture to ensure the code is maintainable and readable. We mainly distribute our code into three folders: Model, View, and Controller. 
+- Model is folder includes the database access file and objects in our project. 
+- View represents the UI layout of our App, i.e. how we present data to the users. 
+- Controllers are used to connect View and Model.
+
+### Code samples
+
+
 ### Known bugs
-Expected behavior: After the user signs in with Google, the app shall redirect the user to the home page without displaying any alert.
+1. 
+- Expected behavior: After the user signs in with Google, the app shall redirect the user to the home page without displaying any alert.
 
 - Actual behavior: Before the app redirects the user to the profile page, it may display the error “Please fill in all fields.” on the home page for a few seconds. It may also sometimes have less than a second delay on the sign in page before the app redirects the users to the profile page.
 
-Expected behavior: In my chores list, if the user first turns on the remind function by clicking the “Remind” button, and then chooses to finish the chore, and the user will receive the notifications for later repeating tasks. 
+2. 
+- Expected behavior: In my chores list, if the user first turns on the remind function by clicking the “Remind” button, and then chooses to finish the chore, and the user will receive the notifications for later repeating tasks. 
 
 - Actual behavior: In my chores list, if the user first turns on the remind function by clicking the “Remind” button, and then chooses to finish the chore, and the user will no longer receive the notifications for later repeating tasks. 
 
-Expected behavior: When the user clicks on “View My Favorites”, and comments under the recipes from this list, and then goes back to the view my favorite list, it will double the amount of the recipes that was previously commented.
-
+3. 
+- Expected behavior: When the user clicks on “View My Favorites”, and comments under the recipes from this list, and then goes back to the view my favorite list, it will double the amount of the recipes that was previously commented.
 
 - Actual behavior: When the user clicks on “View My Favorites”, and comments under the recipes from this list, and then goes back to the view my favorite list, the number of recipes on this favorite list should remain the same. 
 
-Expected behavior: After the user rates a recipe and clicks on the “Submit” button, the pop-up window shall disappear, and both the average rating and the number of people rated on the recipe detail page should automatically be updated. 
+4. 
+- Expected behavior: After the user rates a recipe and clicks on the “Submit” button, the pop-up window shall disappear, and both the average rating and the number of people rated on the recipe detail page should automatically be updated. 
 
 - Actual behavior: After the user rates a recipe and clicks on the “Submit” button, the pop-up window shall disappear, and both the average rating and the number of people rated on the recipe detail page will not be updated. Both of the data will be updated when we re-enter this page.
 
-Expected behavior: When the user clicks on a recipe that has a very long recipe title,  the user is able to see both the recipe title, the recipe rating, and the recipe image separately.
+5. 
+- Expected behavior: When the user clicks on a recipe that has a very long recipe title,  the user is able to see both the recipe title, the recipe rating, and the recipe image separately.
 
 - Actual behavior: When the user clicks on a recipe that has a very long recipe title, the 
 recipe title may overflow and cover the recipe rating or/and the recipe image.
 
-Expected behavior: When the user clicks into the recipe to see the details, the recipe name and the recipe details should match.
+6. 
+- Expected behavior: When the user clicks into the recipe to see the details, the recipe name and the recipe details should match.
 
 - Actual behavior: When the user clicks into the recipe to see the details, the recipe name 
 and the recipe details don't match for a few certain recipes. (It’s because our database store the wrong information)
+
+7. 
+Sometimes when the user clicks on a certain recipe, the whole app freezes and has a runtime exception. In this case, please re-run the whole app. 
 
 ### Notes
 After the user enters the recipe name/ingredients they want to search and click the “search” button, a recipe list will pop up. There might be repetitive recipe pictures. However, even if they have the same recipe picture shown, the recipes are actually different. They have either different ingredients or different instructions.
 
 ### Contacts for Technical Support
-Jessica Zhong  --  Project Manager                         (858)900-5337
-David Cheung   --  Software Development Lead               (415)269-4604
+| Name                                                          | Contact                   |
+| ---                                                           | ---                       |
+| Jiaming Zhang - Software Architect                            | (858)263-5398             |
+| Jessica Zhong - Project Manager                               | (858)900-5337             |
+| David Cheung - Software Development Lead                      | (415)269-4604             |
