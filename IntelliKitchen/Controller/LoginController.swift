@@ -7,12 +7,9 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
 import GoogleSignIn
-import FBSDKLoginKit
-import FBSDKCoreKit
-import FirebaseDatabase
+
+
 
 class LoginController: UIViewController, GIDSignInDelegate{
     
@@ -23,6 +20,7 @@ class LoginController: UIViewController, GIDSignInDelegate{
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var googleButton: GIDSignInButton!
     
+    let data: Db = Db()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,18 +44,7 @@ class LoginController: UIViewController, GIDSignInDelegate{
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             //Signing the user
-            Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-                if error != nil{
-                    let errorMessage = error!.localizedDescription
-                    self.errorLabel.text = errorMessage.split(separator: ".")[0] + "."
-                    self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
-                }
-                else{
-                    let homepageFoodController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homepageFoodController) as? FoodViewController
-                    self.view.window?.rootViewController = homepageFoodController
-                    self.view.window?.makeKeyAndVisible()
-                }
-            }
+            data.siginUser(email: email,password: password, lc: self)
         }
     }
     
@@ -88,36 +75,8 @@ class LoginController: UIViewController, GIDSignInDelegate{
             self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
             return
         }
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
+        data.googleSignin(user: user, lc: self)
         
-        Auth.auth().signIn(with: credential) { (result, error) in
-            if let error = error {
-                self.errorLabel.text = error.localizedDescription
-                self.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
-            }
-            else {
-                let ProfileController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
-                self.view.window?.rootViewController = ProfileController
-                self.view.window?.makeKeyAndVisible()
-            }
-        }
-        
-        // Perform any operations on signed in user here.
-        GlobalVariable.googleUsername = user.profile.name
-        GlobalVariable.googleEmail = user.profile.email
-        GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
     }
-    
-    func getGoogleUsername() -> String {
-        return GlobalVariable.googleUsername
-    }
-    
-    func getGoogleEmail() -> String {
-        return GlobalVariable.googleEmail
-    }
-    
-    func getGoogleIconUrl() -> URL? {
-        return GlobalVariable.googleIconUrl
-    }
+
 }

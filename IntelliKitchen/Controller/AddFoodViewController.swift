@@ -20,6 +20,7 @@ class AddFoodViewController: UIViewController {
     private var datePicker2: UIDatePicker?
     
     var foods = [Foods]()
+    var data: Db = Db()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,7 @@ class AddFoodViewController: UIViewController {
         if(foodNameField.text == "" || boughtDateField.text == "" || expirationDateField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
-
+            self.data.loadAddFood(afvc: self)
             createAlert(title: "Success!", message: "Successfully added food!")
             insertNewFood()
         }
