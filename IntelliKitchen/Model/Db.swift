@@ -458,7 +458,7 @@ class Db {
     
     func editFood(mfvc: MyFoodViewController, index: Int) {
         let currentUid = Auth.auth().currentUser!.uid
-        db.collection("users").document(currentUid).collection("foods").document(mfvc.foodName[index]).delete()
+        db.collection("users").document(currentUid).collection("foods").document(mfvc.foods[index].foodName).delete()
         db.collection("users").document(currentUid).collection("foods").document(mfvc.editFoodName?.text ?? "").setData(["foodName":mfvc.editFoodName?.text ?? "", "boughtDate":mfvc.editBoughtDate?.text ?? "", "expireDate":mfvc.editExpireDate?.text ?? ""])
     }
     
