@@ -26,8 +26,6 @@ class RecipeViewController: UIViewController{
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        //collectionView.delegate = self
-        //collectionView.dataSource = self
         
         ref = Database.database().reference()
         let db = Firestore.firestore()
@@ -97,14 +95,15 @@ class RecipeViewController: UIViewController{
     }
     
     func getRecipeList(name: String, completionHandler:@escaping ([Int], [Int]) -> ()) {
+        let name2 = name.replacingOccurrences(of: " ", with: "").lowercased()
         var currentfood:[Int] = []
         var transfer:[Int] = []
-        self.databaseHandle = self.ref?.child("Ingredients/"+name).observe(.value, with: { (snapshot) in
+        self.databaseHandle = self.ref?.child("Ingredients/"+name2).observe(.value, with: { (snapshot) in
             if(snapshot.exists()){
                 transfer.append(contentsOf: snapshot.value as! [Int])
                 currentfood = snapshot.value as! [Int]
             }
-            self.databaseHandle = self.ref?.child("Ingredients/"+name+"s").observe(.value, with: { (snapshot) in
+            self.databaseHandle = self.ref?.child("Ingredients/"+name2+"s").observe(.value, with: { (snapshot) in
                 if(snapshot.exists()){
                     transfer.append(contentsOf: snapshot.value as! [Int])
                     currentfood = snapshot.value as! [Int]
