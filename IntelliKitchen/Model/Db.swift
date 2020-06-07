@@ -997,5 +997,211 @@ class Db {
         db.collection("users").document(currentUid).collection("chores").document(acvc.taskField.text ?? "").setData(["choreName":acvc.taskField.text ?? "", "lastDone":acvc.lastDoneField.text ?? "", "frequency":acvc.timePeriodField.text ?? "", "remindDate":acvc.remindDate, "remindOrNot": false])
         acvc.createAlert(title: "Success!", message: "Successfully added chore!")
     }
+    
+    // Function from RecipeViewController
+    func loadRecipe(rvc: RecipeViewController) {
+        var ref = Database.database().reference()
+        let db = Firestore.firestore()
+        let currentUid = Auth.auth().currentUser!.uid
+        db.collection("users").document(currentUid).collection("foods").getDocuments { (snapshot,error) in
+            if(error != nil){
+                print(error!)
+            }else{
+                for document in (snapshot!.documents){
+                    let name = document.data()["foodName"] as! String
+                    let expireSingle = document.data()["expireDate"] as! String
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MM/dd/yyyy"
+                    dateFormatter.locale = Locale.init(identifier: "en_GB")
+                    if(expireSingle != ""){
+                        let d = dateFormatter.date(from: expireSingle)!
+                        let today = Date()
+                        let calendar = Calendar.current
+                        // Replace the hour (time) of both dates with 00:00
+                        let date1 = calendar.startOfDay(for: today)
+                        let date2 = calendar.startOfDay(for: d)
+                        
+                        let components = calendar.dateComponents([.day], from: date1, to: date2)
+                        let inday = components.day!
+                        if(inday>0){
+                            rvc.list.append(Food(name: name,expiredate: inday))
+                        }
+                    }
+                }
+                rvc.list = rvc.list.sorted(by: { $0.expiredate < $1.expiredate })
+                self.getdicList(rvc: rvc, completionHandler: { (list) in
+                    let list = list
+                    for index in list{
+                        let databaseHandle = ref.child("Recipe/-M8IVR-st6dljGq6M4xN/"+String(index)).observe(.value, with: { (snapshot) in
+                            let value = snapshot.value as? NSDictionary
+                            let recipe_name = value?.value(forKey: "recipe_name") as! String
+                            if(!rvc.allRecipe.contains(recipe_name)){
+                                var image = UIImage(named: "Mask Group 7")
+                                if(value?.value(forKey: "img") != nil){
+                                    let name = value?.value(forKey: "img") as! String
+                                    let imageURL = URL(string: name)
+                                    let data = try? Data(contentsOf: imageURL!)
+                                    image = UIImage(data: data!)
+                                    rvc.allRecipe.append(recipe_name)
+                                    rvc.recipelist.append(Recipehomepage(image: image!, name: recipe_name, id: String(index)))
+                                    rvc.collectionView.reloadData()
+                                    rvc.collectionView .layoutIfNeeded()
+                                }
+                                else{
+                                    if(value?.value(forKey: "recipe_pic") != nil){
+                                        let name = value?.value(forKey: "recipe_pic") as! String
+                                        let imageURL = URL(string: name)
+                                        let data = try? Data(contentsOf: imageURL!)
+                                        image = UIImage(data: data!)
+                                        rvc.allRecipe.append(recipe_name)
+                                        rvc.recipelist.append(Recipehomepage(image: image!, name: recipe_name, id: String(index)))
+                                        rvc.collectionView.reloadData()
+                                        rvc.collectionView .layoutIfNeeded()
+                                    }
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        }
+    }
+    
+    func getRecipeList(rvc: RecipeViewController, name: String, completionHandler:@escaping ([Int], [Int]) -> ()) {
+        let name2 = name.replacingOccurrences(of: " ", with: "").lowercased()
+        var currentfood:[Int] = []
+        var transfer:[Int] = []
+        var ref = Database.database().reference()
+
+        let databaseHandle = ref.child("Ingredients/"+name2).observe(.value, with: { (snapshot) in
+            if(snapshot.exists()){
+                transfer.append(contentsOf: snapshot.value as! [Int])
+                currentfood = snapshot.value as! [Int]
+            }
+            let databaseHandle = ref.child("Ingredients/"+name2+"s").observe(.value, with: { (snapshot) in
+                if(snapshot.exists()){
+                    transfer.append(contentsOf: snapshot.value as! [Int])
+                    currentfood = snapshot.value as! [Int]
+                }
+                completionHandler(transfer, currentfood)
+            })
+        })
+    }
+    
+    func getdicList(rvc: RecipeViewController, completionHandler:@escaping ([Int]) -> ()) {
+        var list:[Int] = []
+        for food in rvc.list{
+            self.getRecipeList(rvc: rvc, name: food.name){ (translist, currlist) in
+                list.append(contentsOf: translist)
+                let currlist = currlist
+                let mappedItems = list.map { ($0, 1) }
+                var returned = [Int]()
+                let counts = Dictionary(mappedItems, uniquingKeysWith: +)
+                for key in counts.keys{
+                    if(counts[key]! >= 2 && returned.count<3){
+                        returned.append(key)
+                        list = list.filter{$0 != key}
+                    }
+                }
+                while(counts.count > 0 && food.expiredate <= 3 && food.expiredate > 0 && currlist.count > 0 && returned.count<3){
+                    returned.append(currlist.randomElement()!)
+                }
+                while(counts.count > 0 && food.expiredate <= 5 && food.expiredate > 3 && currlist.count > 0 && returned.count<2){
+                    returned.append(currlist.randomElement()!)
+                }
+                while(counts.count > 0 && food.expiredate > 5 && currlist.count > 0 && returned.count<1){
+                    returned.append(currlist.randomElement()!)
+                }
+                completionHandler(returned)
+            }
+        }
+    }
+    
+    // Function from RecipeListScreen
+    func retrieveRecipes(rls: RecipeListScreen, searchByName: Bool, searchArray: [String], completion: @escaping (_ searchedRecipes: [Recipe]) -> Void) {
+        var ref = Database.database().reference()
+
+        var tempRecipes: [Recipe] = []
+        
+        getRecipeID(searchByName, searchArray, completion: { recipeID in
+            if recipeID.count == 0 {
+                completion(tempRecipes)
+            } else {
+                let recipeRef = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN")
+                recipeRef.observe(.value, with: { snapshot in
+                    for child in snapshot.children {
+                        let snap = child as! DataSnapshot
+                        if recipeID.contains(Int(snap.key)!) {
+                            rls.newrecipeid.append(snap.key)
+                            if let dict = snap.value as? [String: Any] {
+                                var image = UIImage()
+                                if dict["img"] == nil {
+                                    if dict["recipe_pic"] == nil {
+                                        image = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
+                                    } else {
+                                        let imageUrl = URL(string: dict["recipe_pic"] as! String)
+                                        let imageData = try! Data(contentsOf: imageUrl!)
+                                        image = UIImage(data: imageData)!
+                                    }
+                                } else {
+                                    let imageUrl = URL(string: dict["img"] as! String)
+                                    let imageData = try! Data(contentsOf: imageUrl!)
+                                    image = UIImage(data: imageData)!
+                                }
+                                let ratingsArray = dict["rating"] as! [Int]
+                                let ratingDouble = Double(ratingsArray[0])/Double(ratingsArray[1])
+                                let ratingString = String(format: "%.1f", ratingDouble)
+                                
+                                let recipe = Recipe(image: image, title: dict["recipe_name"] as! String, rating: ratingString)
+                                tempRecipes.append(recipe)
+                            }
+                        }
+                    }
+                    completion(tempRecipes)
+                    
+                })
+            }
+        })
+    }
+    
+    func getRecipeID(_ searchByName: Bool, _ searchArray: [String], completion: @escaping (_ recipeID: [Int]) -> Void) {
+        if searchByName {
+            var recipeID: [Int] = []
+            let recipeRef = Database.database().reference().child("RecipeNameTOId")
+            recipeRef.observe(.value, with: {snapshot in
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    if searchArray.contains(snap.key) {
+                        recipeID.append(contentsOf: (snap.value as? [Int])!)
+                    }
+                }
+                completion(recipeID)
+            })
+        } else {
+            var result = Set<Int>()
+            var first = true
+            
+            let ingredientRef = Database.database().reference().child("Ingredients")
+            ingredientRef.observe(.value, with: {snapshot in
+                for child in snapshot.children {
+                    let snap = child as! DataSnapshot
+                    if searchArray.contains(snap.key) {
+                        let value = (snap.value as? [Int])!
+                        let valueSet = Set(value)
+                        if first {
+                            result = valueSet
+                            first = false
+                        } else {
+                            result = result.intersection(valueSet)
+                        }
+                        if result.count == 0 {
+                            break
+                        }
+                    }
+                }
+                completion(Array(result))
+            })
+        }
+    }
 }
 
