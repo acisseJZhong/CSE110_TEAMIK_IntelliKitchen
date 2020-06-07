@@ -175,10 +175,17 @@ recipe title may overflow and cover the recipe rating or/and the recipe image.
 and the recipe details don't match for a few certain recipes. (It’s because our database store the wrong information)
 
 7. 
+- Expected behavior: When the user edits the chores, the Last Done date shall be updated on the screen based on the user's input.
+- Actual behavior: When the user edits the chores, the Last Done date sometimes won't appear on the screen. Try re-run the whole app.
+
+8. 
 - Sometimes when the user clicks on a certain recipe, the whole app freezes and has a runtime exception. In this case, please re-run the whole app. 
 
 ### Notes
 After the user enters the recipe name/ingredients they want to search and click the “search” button, a recipe list will pop up. There might be repetitive recipe pictures. However, even if they have the same recipe picture shown, the recipes are actually different. They have either different ingredients or different instructions.
+
+### Video
+https://www.youtube.com/watch?v=T_g3GKa9lXc
 
 ### Contacts for Technical Support
 | Name                                                          | Contact                   |
