@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class ByNameController: UIViewController {
     
@@ -22,6 +21,7 @@ class ByNameController: UIViewController {
     let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     let darkGreen = UIColor(red: 87.0/255.0, green: 132.0/255.0, blue: 56.0/255.0, alpha: 0.8)
     
+    let data:Db = Db()
     var recipeNameArray: [String] = []
     var searchRecipe = [String]()
     var searching = false
@@ -35,18 +35,7 @@ class ByNameController: UIViewController {
         searchButton.tintColor = .white
         nameTableView.backgroundColor = lightGreen
         nameTableView.layer.cornerRadius = 20
-        getRecipeNames()
-    }
-    
-    func getRecipeNames() {
-        let nameRef = Database.database().reference().child("RecipeNameTOId")
-        nameRef.observeSingleEvent(of: .value) { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                self.recipeNameArray.append(snap.key)
-                self.nameTableView.reloadData()
-            }
-        }
+        data.getRecipeNames(bnc:self)
     }
     
     @IBAction func search(_ sender: Any) {

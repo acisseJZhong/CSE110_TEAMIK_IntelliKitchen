@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseFirestore
-
 
 class MyFoodViewController: UIViewController{
     
@@ -17,7 +14,6 @@ class MyFoodViewController: UIViewController{
     @IBOutlet weak var foodListTable: UITableView!
     
     //var ref: DatabaseReference?
-    var databaseHandle: DatabaseHandle?
     var foodName = [String]()
     var boughtDate = [String]()
     var expireDate = [String]()
@@ -26,30 +22,14 @@ class MyFoodViewController: UIViewController{
     var editBoughtDate: UITextField?
     var editExpireDate: UITextField?
     var row: Int = 0
-    let db = Firestore.firestore()
-    var currentUid = Auth.auth().currentUser!.uid
+    var data:Db = Db()
     
     public var datePicker: UIDatePicker?
     public var datePicker2: UIDatePicker?
-    //var contents = ""
-    
     
     override func viewDidLoad() {
-        db.collection("users").document(self.currentUid).collection("foods").getDocuments { (snapshot, error) in
-            for document in snapshot!.documents{
-                let data = document.data()
-                let name = data["foodName"] as? String ?? ""
-                let bDate = data["boughtDate"] as? String ?? ""
-                let eDate = data["expireDate"] as? String ?? ""
-                let newFood = Foods(foodName: name, boughtDate: bDate, expireDate: eDate)
-                self.foods.append(newFood)
-                //self.foodName.append(name)
-                //self.boughtDate.append(bDate)
-                //self.expireDate.append(eDate)
-            }
-            self.foodListTable.reloadData()
-        }
-        
+
+        data.loadMyFood(mfvc: self)
         datePicker = UIDatePicker()
         datePicker2 = UIDatePicker()
         datePicker?.datePickerMode = .date
