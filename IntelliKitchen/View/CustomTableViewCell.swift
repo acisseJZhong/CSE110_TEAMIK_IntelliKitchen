@@ -98,8 +98,8 @@ class CustomTableViewCell: UITableViewCell {
     
     func setFood(foods: Foods) {
         foodLabel.text = foods.foodName
-        edLabel.text = foods.boughtDate
-        bdLabel.text = foods.expireDate
+        edLabel.text = foods.expireDate
+        bdLabel.text = foods.boughtDate
     }
 }
 
