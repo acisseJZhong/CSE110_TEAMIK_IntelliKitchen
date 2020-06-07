@@ -74,7 +74,6 @@ class RecipeListScreen: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
     func createArray(_ searchByName: Bool, _ searchArray: [String]) {
         retrieveRecipes(searchByName, searchArray, completion: { searchedRecipes in
             if searchedRecipes.count == 0 {

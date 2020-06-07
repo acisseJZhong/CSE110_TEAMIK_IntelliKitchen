@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
-import FirebaseFirestore
 
 class AddFoodViewController: UIViewController {
     
@@ -23,9 +20,7 @@ class AddFoodViewController: UIViewController {
     private var datePicker2: UIDatePicker?
     
     var foods = [Foods]()
-    
-    let db = Firestore.firestore()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         datePicker = UIDatePicker()
@@ -50,8 +45,7 @@ class AddFoodViewController: UIViewController {
         if(foodNameField.text == "" || boughtDateField.text == "" || expirationDateField.text == ""){
             createAlert(title: "Oops", message: "It seems like you miss something!")
         } else {
-            let currentUid = Auth.auth().currentUser!.uid
-            db.collection("users").document(currentUid).collection("foods").document(foodNameField.text ?? "").setData(["foodName":foodNameField.text ?? "", "boughtDate":boughtDateField.text ?? "", "expireDate":expirationDateField.text ?? ""])
+
             createAlert(title: "Success!", message: "Successfully added food!")
             insertNewFood()
         }

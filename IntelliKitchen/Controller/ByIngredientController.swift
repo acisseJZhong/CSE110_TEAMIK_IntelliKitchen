@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Firebase
-
 
 class ByIngredientController: UIViewController {
     
@@ -23,6 +21,7 @@ class ByIngredientController: UIViewController {
     let lightGreen = UIColor(red: 146.0/255.0, green: 170.0/255.0, blue: 68.0/255.0, alpha: 1.0)
     let darkGreen = UIColor(red: 87.0/255.0, green: 132.0/255.0, blue: 56.0/255.0, alpha: 0.8)
     
+    let data:Db = Db()
     var allIngredient: [String] = []
     var selectedIngredient: [String] = []
     var searchAllIngredient = [String]()
@@ -31,7 +30,7 @@ class ByIngredientController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getIngredients()
+        data.getIngredients(bic:self)
         searchByName.titleLabel?.textAlignment = .center
         searchByIngredient.titleLabel?.textAlignment = .center
         
@@ -45,16 +44,6 @@ class ByIngredientController: UIViewController {
         ingredientTableView.backgroundColor = lightGreen
     }
     
-    func getIngredients() {
-        let ingredientRef = Database.database().reference().child("Ingredients")
-        ingredientRef.observeSingleEvent(of: .value) { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                self.allIngredient.append(snap.key)
-                self.ingredientTableView.reloadData()
-            }
-        }
-    }
     
     @IBAction func search(_ sender: Any) {
         if selectedIngredient.count == 0 {

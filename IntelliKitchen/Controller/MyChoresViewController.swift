@@ -6,48 +6,30 @@
 //  Copyright © 2020 D.WANG. All rights reserved.
 //
 
-import Firebase
-import FirebaseAuth
-import FirebaseFirestore
 import UIKit
 
 class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var choresList: UITableView!
-    
-    var ref: DatabaseReference?
-    var databaseHandle: DatabaseHandle?
+
     var chores = [Chore]()
     var editTaskName: UITextField?
     var editLastDoneDate: UITextField?
     var editFrequency: UITextField?
-    private var datePicker: UIDatePicker?
-    private var pickerView: UIPickerView?
-    let db = Firestore.firestore()
+    public var datePicker: UIDatePicker?
+    public var pickerView: UIPickerView?
     var remindDate: String = ""
     var row: Int = 0
-    var currentUid = Auth.auth().currentUser!.uid
     let toolBar = UIToolbar()
     var RemindRechooseTextF: UITextField?
     var RemindRechoosePastDate = false
+    var data:Db = Db()
     
     let frequencyStr = ["Once a day", "Twice a day", "Once a week", "Twice a week", "Once a month", "Twice a month"]
     
     override func viewDidLoad() {
-        db.collection("users").document(currentUid).collection("chores").getDocuments { (snapshot, error) in
-            for document in snapshot!.documents{
-                let data = document.data()
-                let name = data["choreName"] as? String ?? ""
-                let ldDate = data["lastDone"] as? String ?? ""
-                let freq = data["frequency"] as? String ?? ""
-                let rDate = data["remindDate"] as? String ?? ""
-                let rOrNot = data["remindOrNot"] as? Bool ?? false
-                let chore = Chore(task: name, lastDone: ldDate, timePeriod: freq, remindDate: rDate, remindOrNot: rOrNot)
-                self.chores.append(chore)
-            }
-            self.choresList.reloadData()
-        }
         
+        self.data.loadMyChores(mcvc:self)
         pickerView = UIPickerView()
         pickerView?.dataSource = self
         pickerView?.delegate = self
@@ -96,26 +78,11 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
         let taskName = self.chores[indexPath.row].task
+        let index = indexPath.row
         // Write action code for the trash
         let DeleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            let currentUid = Auth.auth().currentUser!.uid
-            let choreRef = self.db.collection("users").document(currentUid).collection("chores").document(taskName)
-            choreRef.getDocument { (document, error) in
-                if error == nil {
-                    if document != nil && document!.exists {
-                        let documentData = document?.data()
-                        let remindOrNot = documentData?["remindOrNot"] as! Bool
-                        if remindOrNot{
-                            let reminderID = documentData?["reminderID"] as! String
-                            let center = UNUserNotificationCenter.current()
-                            center.removePendingNotificationRequests(withIdentifiers: [reminderID])
-                        }
-                        self.db.collection("users").document(currentUid).collection("chores").document(taskName).delete()
-                        self.chores.remove(at: indexPath.row)
-                        self.choresList.reloadData()
-                    }
-                }
-            }
+
+            self.data.deleteChores(mcvc: self, taskName: taskName, index: index)
             self.createAlert(title: "Delete success!", message: "Successfully delete the task")
             success(true)
         })
@@ -124,35 +91,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         // Write action code for the Flag
         let SkipAction = UIContextualAction(style: .normal, title:  "Skip", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
-            
-            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
-            choreRef.getDocument { (document, error) in
-                if error == nil {
-                    if document != nil && document!.exists {
-                        let documentData = document?.data()
-                        let remindOrNot = documentData?["remindOrNot"] as! Bool
-                        if remindOrNot{
-                            let reminderID = documentData?["reminderID"] as! String
-                            let center = UNUserNotificationCenter.current()
-                            center.removePendingNotificationRequests(withIdentifiers: [reminderID])
-                        }
-                        let choreName = documentData?["choreName"] as! String
-                        let lastDone = documentData?["lastDone"] as! String
-                        let remindDate = documentData?["remindDate"] as! String
-                        let frequency = documentData?["frequency"] as! String
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "MM/dd/yyyy"
-                        let newRemindDate = self.updateRemindDate(date: formatter.string(from: Date()), freq: frequency)
-                        var newRequestID = ""
-                        if remindOrNot{
-                            newRequestID = self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
-                        }
-                        choreRef.setData(["choreName": choreName, "frequency": frequency, "lastDone": lastDone, "remindDate": newRemindDate, "remindOrNot": remindOrNot, "reminderID": newRequestID])
-                        self.choresList.reloadData()
-                    }
-                }
-            }
-            
+            self.data.skipChores(mcvc: self, taskName: taskName)
             self.createAlert(title: "Skip success!", message: "Successfully skip the task")
             success(true)
         })
@@ -160,113 +99,12 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Write action code for the More
         let RemindAction = UIContextualAction(style: .normal, title:  "Remind", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
-            choreRef.getDocument { (document, error) in
-                if error == nil {
-                    if document != nil && document!.exists {
-                        let documentData = document?.data()
-                        let choreName = documentData?["choreName"] as! String
-                        let lastDone = documentData?["lastDone"] as! String
-                        var remindDate = documentData?["remindDate"] as! String
-                        let frequency = documentData?["frequency"] as! String
-                        var date = Date()
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "MM/dd/yyyy"
-                        let remindDateObj = formatter.date(from: remindDate)
-                        let reChoose = remindDateObj ?? date < date // is true if remind date is in the past
-                        if reChoose {
-                            //1. Create the alert controller.
-                            let alert = UIAlertController(title: "Your remind date has passed", message: "Please reselect your remind date", preferredStyle: .alert)
-                            
-                            //2. Add the text field. You can configure it however you need.
-                            alert.addTextField { (textField) in
-                                self.doDatePicker()
-                                textField.inputView = self.datePicker
-                                textField.text = formatter.string(from: self.datePicker!.date)
-                                self.RemindRechooseTextF = textField
-                                self.datePicker?.addTarget(self, action: #selector(self.datePickerChanged), for: .valueChanged)
-                            }
-                            
-                            // 3. Grab the value from the text field, and print it when the user clicks OK.
-                            alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak alert] (_) in
-                                let formatter = DateFormatter()
-                                formatter.dateFormat = "MM/dd/yyyy"
-                                self.remindDate = formatter.string(from: self.datePicker!.date)
-                                
-                                if self.RemindRechoosePastDate {
-                                    self.createAlert(title: "Remind failed", message: "You have to set the remind date to a future day")
-                                } else {
-                                    self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: self.remindDate)
-                                    self.createAlert(title: "Remind success", message: "Remind date changed successfully!")
-                                }
-                            }))
-                            // 4. Present the alert.
-                            self.present(alert, animated: true, completion: nil)
-                            
-                        } else {
-                            remindDate = formatter.string(from: date)
-                            self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
-                            self.createAlert(title: "Remind success!", message: "Successfully set the reminder")
-                            //                               success(true)
-                        }
-                        
-                    }
-                }
-            }
+            self.data.remindChores(mcvc: self, taskName: taskName)
         })
         RemindAction.backgroundColor = UIColor.init(red: 255/255, green: 211/255, blue: 0/255, alpha: 0.85)
         
         let FinishAction = UIContextualAction(style: .normal, title:  "Finish", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
-            choreRef.getDocument { (document, error) in
-                if error == nil {
-                    if document != nil && document!.exists {
-                        let documentData = document?.data()
-                        let remindOrNot = documentData?["remindOrNot"] as! Bool
-                        if remindOrNot{
-                            let reminderID = documentData?["reminderID"] as! String
-                            let center = UNUserNotificationCenter.current()
-                            center.removePendingNotificationRequests(withIdentifiers: [reminderID])
-                        }
-                        
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MM/dd/yyyy"
-                        self.remindDate = self.updateRemindDate(date: dateFormatter.string(from: Date()), freq: self.chores[indexPath.row].timePeriod)
-                        let choreName = documentData?["choreName"] as! String
-                        let lastDone = documentData?["lastDone"] as! String
-                        let remindDate = documentData?["remindDate"] as! String
-                        let frequency = documentData?["frequency"] as! String
-                        let date = Date()
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "MM/dd/yyyy"
-                        
-                        self.chores[indexPath.row].lastDone = formatter.string(from: date)
-                        
-                        if remindOrNot {
-                            let requestID = self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
-                            self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
-                                .setData(
-                                    ["choreName":self.chores[indexPath.row].task,
-                                     "lastDone": self.chores[indexPath.row].lastDone,
-                                     "frequency": self.chores[indexPath.row].timePeriod,
-                                     "remindDate": self.remindDate,
-                                     "remindOrNot": self.chores[indexPath.row].remindOrNot,
-                                     "reminderID": requestID])
-                        } else {
-                            self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
-                                .setData(
-                                    ["choreName":self.chores[indexPath.row].task,
-                                     "lastDone": self.chores[indexPath.row].lastDone,
-                                     "frequency": self.chores[indexPath.row].timePeriod,
-                                     "remindDate": self.remindDate,
-                                     "remindOrNot": self.chores[indexPath.row].remindOrNot])
-                        }
-                        self.choresList.reloadData()
-                    }
-                }
-            }
-            
-            
+            self.data.finishChores(mcvc: self, taskName: taskName, index: index)
             self.createAlert(title: "Finish success!", message: "Successfully finish the task")
             success(true)
         })
@@ -283,13 +121,9 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = choresList.dequeueReusableCell(withIdentifier: "cell") as! MyChoresTableViewCell
         let Chore = self.chores[indexPath.row]
         cell.setChore(chore: Chore)
-//        cell.taskNameLabel.text = choreName[indexPath.row]
-//        cell.frequencyLabel.text = frequency[indexPath.row]
-//        cell.lastDoneLabel.text = lastDone[indexPath.row]
         cell.taskNameLabel.adjustsFontSizeToFitWidth = true
         cell.frequencyLabel.adjustsFontSizeToFitWidth = true
         cell.lastDoneLabel.adjustsFontSizeToFitWidth = true
-        //cell.textLabel?.adjustsFontSizeToFitWidth = true
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -328,35 +162,26 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             //backend deal with data change here
             let taskName = self.chores[row].task
-            db.collection("users").document(currentUid).collection("chores").document(taskName).delete()
+            self.data.editDeleteChores(taskName: taskName)
+ 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
-            if(editFrequency?.text == "Once a day" || editFrequency?.text == "Twice a day") {
-                var dateObj = dateFormatter.date(from: editLastDoneDate?.text ?? "")
+            var dateObj = dateFormatter.date(from: editLastDoneDate?.text ?? "")
+            
+            if (editFrequency?.text == "Once a day" || editFrequency?.text == "Twice a day") {
                 dateObj = dateObj?.addingTimeInterval(86400)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(editFrequency?.text == "Once a week") {
-                var dateObj = dateFormatter.date(from: editLastDoneDate?.text ?? "")
+            } else if (editFrequency?.text == "Once a week") {
                 dateObj = dateObj?.addingTimeInterval(604800)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(editFrequency?.text == "Twice a week") {
-                var dateObj = dateFormatter.date(from: editLastDoneDate?.text ?? "")
+            } else if (editFrequency?.text == "Twice a week") {
                 dateObj = dateObj?.addingTimeInterval(302400)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(editFrequency?.text == "Once a month") {
-                var dateObj = dateFormatter.date(from: editLastDoneDate?.text ?? "")
+            } else if (editFrequency?.text == "Once a month") {
                 dateObj = dateObj?.addingTimeInterval(2592000)
-                remindDate = dateFormatter.string(from: dateObj!)
-            }
-            if(editFrequency?.text == "Twice a month") {
-                var dateObj = dateFormatter.date(from: editLastDoneDate?.text ?? "")
+            } else if (editFrequency?.text == "Twice a month") {
                 dateObj = dateObj?.addingTimeInterval(1296000)
-                remindDate = dateFormatter.string(from: dateObj!)
             }
-            db.collection("users").document(currentUid).collection("chores").document(editTaskName?.text ?? "").setData(["choreName":editTaskName?.text ?? "", "lastDone":editLastDoneDate?.text ?? "", "frequency":editFrequency?.text ?? "", "remindDate":remindDate, "remindOrNot": false])
+            remindDate = dateFormatter.string(from: dateObj!)
+            
+            self.data.editAddChores(mcvc: self, remindDate: remindDate)
             
             //data change appear in frontend
             self.chores.remove(at: row)
@@ -379,53 +204,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func pushNotification (chore:  DocumentReference, choreName: String, frequency:String, lastDone:String, remindDate:String) -> String{
-        let choreRemindingDate = remindDate
-        let year = Int(choreRemindingDate.split(separator: "/")[2])
-        let day = Int(choreRemindingDate.split(separator: "/")[1])
-        let month = Int(choreRemindingDate.split(separator: "/")[0])
-        
-        
-        // Notification
-        // Step 1: Ask for permission
-        let center = UNUserNotificationCenter.current()
-        
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-        }
-        
-        
-        // Step 2: Create the notification content
-        let content = UNMutableNotificationContent()
-        content.title = "Chores Reminder from IntelliKitchen"
-        content.body = "You have to do " + choreName + " on " + remindDate
-        
-        // Step 3: Create the notification trigger
-        var dateComponents = DateComponents()
-        dateComponents.year = year
-        dateComponents.month = month
-        dateComponents.day = day
-        dateComponents.timeZone = TimeZone(abbreviation: "PST")
-        dateComponents.hour = 15
-        dateComponents.minute = 27
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        
-        // Step 4: Create the request
-        
-        let uuidString = UUID().uuidString
-        
-        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-        let requestID = request.identifier // Need to save to Firebase
-        
-        // Step 5: Register the request
-        center.add(request) { (error) in
-            // Check the error parameter and handle any errors
-        }
-        
-        // update information in databse
-        chore.setData(["choreName": choreName, "frequency": frequency, "lastDone": lastDone, "remindDate": remindDate, "remindOrNot": true, "reminderID": requestID])
-        return requestID
-    }
+
     
     func updateRemindDate(date: String, freq: String) -> String{
         let dateFormatter = DateFormatter()
