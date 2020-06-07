@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseFirestore
 
 class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -23,13 +21,11 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
     let frequency = ["Once a day", "Twice a day", "Once a week", "Twice a week", "Once a month", "Twice a month"]
     
     var chores = [Chore]()
-    var ref: DatabaseReference!
-    let db = Firestore.firestore()
     var remindDate: String = ""
-    
+    let data:Db = Db()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
         datePicker = UIDatePicker()
         pickerView = UIPickerView()
         pickerView?.dataSource = self
@@ -69,9 +65,7 @@ class AddChoresViewController: UIViewController, UIPickerViewDataSource, UIPicke
             }
             
             remindDate = dateFormatter.string(from: dateObj!)
-            let currentUid = Auth.auth().currentUser!.uid
-            db.collection("users").document(currentUid).collection("chores").document(taskField.text ?? "").setData(["choreName":taskField.text ?? "", "lastDone":lastDoneField.text ?? "", "frequency":timePeriodField.text ?? "", "remindDate":remindDate, "remindOrNot": false])
-            createAlert(title: "Success!", message: "Successfully added chore!")
+            data.addTappedHelper(acvc: self)
             insertNewChore()
         }
     }

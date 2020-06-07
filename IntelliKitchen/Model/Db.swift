@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 import FirebaseAuth
 import UserNotifications
 import FirebaseDatabase
@@ -19,7 +20,7 @@ import GoogleSignIn
 class Db {
     var db = Firestore.firestore()
     
-
+    
     // Function from LoginController
     func siginUser(email: String, password: String, lc: LoginController){
         //Signing the user
@@ -40,26 +41,26 @@ class Db {
     
     func googleSignin(user: GIDGoogleUser, lc: LoginController){
         guard let authentication = user.authentication else { return }
-              let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
-              
-              Auth.auth().signIn(with: credential) { (result, error) in
-                  if let error = error {
-                      lc.errorLabel.text = error.localizedDescription
-                      lc.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
-                  }
-                  else {
-                      let ProfileController = lc
-                        .storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
-                      lc.view.window?.rootViewController = ProfileController
-                      lc.view.window?.makeKeyAndVisible()
-                  }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
         
+        Auth.auth().signIn(with: credential) { (result, error) in
+            if let error = error {
+                lc.errorLabel.text = error.localizedDescription
+                lc.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
             }
-          // Perform any operations on signed in user here.
-          GlobalVariable.googleUsername = user.profile.name
-          GlobalVariable.googleEmail = user.profile.email
-          GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
+            else {
+                let ProfileController = lc
+                    .storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
+                lc.view.window?.rootViewController = ProfileController
+                lc.view.window?.makeKeyAndVisible()
+            }
+            
         }
+        // Perform any operations on signed in user here.
+        GlobalVariable.googleUsername = user.profile.name
+        GlobalVariable.googleEmail = user.profile.email
+        GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
+    }
     
     //Function from ForgetPasswordController
     func sendUserEmail(email: String, fg: ForgetPasswordViewController){
@@ -378,50 +379,50 @@ class Db {
     }
     
     func pushNotification (chore:  DocumentReference, choreName: String, frequency:String, lastDone:String, remindDate:String) -> String {
-            let choreRemindingDate = remindDate
-            let year = Int(choreRemindingDate.split(separator: "/")[2])
-            let day = Int(choreRemindingDate.split(separator: "/")[1])
-            let month = Int(choreRemindingDate.split(separator: "/")[0])
-            
-            // Notification
-            // Step 1: Ask for permission
-            let center = UNUserNotificationCenter.current()
-            
-            center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            }
-            
-            // Step 2: Create the notification content
-            let content = UNMutableNotificationContent()
-            content.title = "Chores Reminder from IntelliKitchen"
-            content.body = "You have to do " + choreName + " on " + remindDate
-            
-            // Step 3: Create the notification trigger
-            var dateComponents = DateComponents()
-            dateComponents.year = year
-            dateComponents.month = month
-            dateComponents.day = day
-            dateComponents.timeZone = TimeZone(abbreviation: "PST")
-            dateComponents.hour = 15
-            dateComponents.minute = 27
-            
-            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-            
-            // Step 4: Create the request
-            
-            let uuidString = UUID().uuidString
-            
-            let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
-            let requestID = request.identifier // Need to save to Firebase
-            
-            // Step 5: Register the request
-            center.add(request) { (error) in
-                // Check the error parameter and handle any errors
-            }
-            
-            // update information in databse
-            chore.setData(["choreName": choreName, "frequency": frequency, "lastDone": lastDone, "remindDate": remindDate, "remindOrNot": true, "reminderID": requestID])
-            return requestID
+        let choreRemindingDate = remindDate
+        let year = Int(choreRemindingDate.split(separator: "/")[2])
+        let day = Int(choreRemindingDate.split(separator: "/")[1])
+        let month = Int(choreRemindingDate.split(separator: "/")[0])
+        
+        // Notification
+        // Step 1: Ask for permission
+        let center = UNUserNotificationCenter.current()
+        
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
         }
+        
+        // Step 2: Create the notification content
+        let content = UNMutableNotificationContent()
+        content.title = "Chores Reminder from IntelliKitchen"
+        content.body = "You have to do " + choreName + " on " + remindDate
+        
+        // Step 3: Create the notification trigger
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.timeZone = TimeZone(abbreviation: "PST")
+        dateComponents.hour = 15
+        dateComponents.minute = 27
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        // Step 4: Create the request
+        
+        let uuidString = UUID().uuidString
+        
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        let requestID = request.identifier // Need to save to Firebase
+        
+        // Step 5: Register the request
+        center.add(request) { (error) in
+            // Check the error parameter and handle any errors
+        }
+        
+        // update information in databse
+        chore.setData(["choreName": choreName, "frequency": frequency, "lastDone": lastDone, "remindDate": remindDate, "remindOrNot": true, "reminderID": requestID])
+        return requestID
+    }
     
     
     // Function from AddFoodViewController
@@ -465,26 +466,26 @@ class Db {
     func loadFoodInfo (fvc: FoodViewController) {
         let currentUid = Auth.auth().currentUser!.uid
         self.db.collection("users").document(currentUid).collection("foods").getDocuments { (snapshot,error) in
-                if(error != nil){
-                    print(error!)
-                }else{
-                    for document in (snapshot!.documents){
-                        let name = document.data()["foodName"] as! String
-                        let expireSingle = document.data()["expireDate"] as! String
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MM/dd/yyyy"
-                        dateFormatter.locale = Locale.init(identifier: "en_GB")
-                        if(expireSingle != ""){
-                            let d = dateFormatter.date(from: expireSingle)!
-                            let today = Date()
-                            let calendar = Calendar.current
-                            // Replace the hour (time) of both dates with 00:00
-                            let date1 = calendar.startOfDay(for: today)
-                            let date2 = calendar.startOfDay(for: d)
-                            
-                            let components = calendar.dateComponents([.day], from: date1, to: date2)
-                            let inday = components.day!
-                            fvc.list.append(Food(name: name,expiredate: inday))
+            if(error != nil){
+                print(error!)
+            }else{
+                for document in (snapshot!.documents){
+                    let name = document.data()["foodName"] as! String
+                    let expireSingle = document.data()["expireDate"] as! String
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MM/dd/yyyy"
+                    dateFormatter.locale = Locale.init(identifier: "en_GB")
+                    if(expireSingle != ""){
+                        let d = dateFormatter.date(from: expireSingle)!
+                        let today = Date()
+                        let calendar = Calendar.current
+                        // Replace the hour (time) of both dates with 00:00
+                        let date1 = calendar.startOfDay(for: today)
+                        let date2 = calendar.startOfDay(for: d)
+                        
+                        let components = calendar.dateComponents([.day], from: date1, to: date2)
+                        let inday = components.day!
+                        fvc.list.append(Food(name: name,expiredate: inday))
                     }
                     fvc.list = fvc.list.sorted(by: { $0.expiredate < $1.expiredate })
                     fvc.tableView.reloadData()
@@ -540,7 +541,7 @@ class Db {
             }
         }
     }
-
+    
     
     // Function from ByIngredientController
     func getIngredients(bic:ByIngredientController) {
@@ -570,5 +571,431 @@ class Db {
     
     // Function from MyChoresViewController
     
+    //Functions from ProfilepageViewController
+    func loadUserInfo(ppvc: ProfilePageViewController){
+        let db = Firestore.firestore()
+        
+        let tempGoogleUsername = GlobalVariable.googleUsername
+        let tempGoogleEmail = GlobalVariable.googleEmail
+        let tempGoogleIconUrl = GlobalVariable.googleIconUrl
+        
+        //handle google log in
+        if tempGoogleUsername != "" && tempGoogleEmail != ""{
+            ppvc.userName?.text = tempGoogleUsername
+            
+            ppvc.userEmail?.text = tempGoogleEmail
+            
+            guard let imageURL = tempGoogleIconUrl else { return  }
+            
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: imageURL) else { return }
+                
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    ppvc.myImageView?.image = image
+                    self.uploadProfileImage(ppvc: ppvc, image!){(url) in
+                        
+                    }
+                }
+            }
+            let currentUid = Auth.auth().currentUser!.uid
+            
+            db.collection("users").document(currentUid).collection("favoriteRecipe").getDocuments{ (snapshot, error) in
+                for document in snapshot!.documents{
+                    let documentData = document.data()
+                    ppvc.favoriteIDList = documentData["favRecipe"] as! [String]
+                    if ppvc.favoriteIDList.count == 0{
+                        ppvc.favRecipeAlert?.text = "Add Some Favorite while Searching"
+                    } else {
+                        ppvc.favRecipeAlert?.text = "My Favorite Recipes:"
+                        
+                    }
+                    ppvc.favoriteRecipes = ppvc.createArray(ppvc.favoriteIDList)
+                }
+            }
+            
+            db.collection("users").document(currentUid).setData(["username":tempGoogleUsername, "email":tempGoogleEmail, "uid": currentUid]) { (error) in
+                if error != nil{
+                    print(" error when saving google sign in information")
+                }
+            }
+            //handle normal login
+        } else {
+            let currentUid = Auth.auth().currentUser!.uid
+            db.collection("users").document(currentUid).getDocument { (document, error) in
+                print(ppvc.userName?.text)
+                if error == nil {
+                    if document != nil && document!.exists {
+                        let documentData = document?.data()
+                        
+                        ppvc.userName?.text = documentData?["username"] as? String
+                        ppvc.userEmail?.text = documentData?["email"] as? String
+                        ppvc.loadImageFromFirebase()
+                        
+                    } else {
+                        print("Can read the document but the document might not exists")
+                    }
+                    
+                } else {
+                    print("Something wrong reading the document")
+                }
+            }
+            db.collection("users").document(currentUid).collection("favoriteRecipe").getDocuments{ (snapshot, error) in
+                for document in snapshot!.documents{
+                    let documentData = document.data()
+                    ppvc.favoriteIDList = documentData["favRecipe"] as! [String]
+                    if ppvc.favoriteIDList.count == 0{
+                        ppvc.favRecipeAlert?.text = "Add Some Favorite while Searching"
+                    } else {
+                        ppvc.favRecipeAlert?.text = "My Favorite Recipes:"
+                    }
+                    ppvc.favoriteRecipes = ppvc.createArray(ppvc.favoriteIDList)
+                }
+            }
+        }
+    }
+    
+    
+    func retrieveFR(ppvc: ProfilePageViewController, _ favoriteIDList: [String], completion: @escaping (_ searchedRecipes: [FavoriteRecipe]) -> Void){
+        let ref = Database.database().reference()
+        var temp: [FavoriteRecipe] = []
+        
+        for recipe in favoriteIDList{
+            let currentRecipeString = "Recipe/-M8IVR-st6dljGq6M4xN/" + recipe
+            let recipeRef = ref.child(currentRecipeString)
+            recipeRef.observe(.value, with: {snapshot in
+                let snap = snapshot as! DataSnapshot
+                if let dict = snap.value as? [String: Any]{
+                    var currentImage = UIImage()
+                    var urlString = try! dict["img"] as? String
+                    if urlString == nil {
+                        urlString = try! dict["recipe_pic"] as! String
+                    }
+                    if urlString == nil {
+                        currentImage = UIImage(imageLiteralResourceName: "RecipeImage.jpg")
+                    } else {
+                        var imageUrl = URL(string: urlString!)
+                        let imageData = try! Data(contentsOf: imageUrl!)
+                        currentImage = UIImage(data: imageData)!
+                    }
+                    var currentTitle = dict["recipe_name"] as! String
+                    let tempFR = FavoriteRecipe(image: currentImage, title: currentTitle)
+                    temp.append(tempFR)
+                }
+                completion(temp)
+            })
+        }
+    }
+    
+    func uploadProfileImage(ppvc: ProfilePageViewController, _ image:UIImage, completion: @escaping ((_ url:URL?)->())){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let storageRef = Storage.storage().reference().child("users/\(uid)")
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
+        
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        storageRef.putData(imageData, metadata: metaData) {metaData, error in
+            if error == nil, metaData != nil {
+                //if let url = storageRef.downloadURL(completion: (URL?, Error?) -> Void){
+                completion(nil)
+                
+            } else {
+                completion(nil)
+            }
+            //success
+        }
+    }
+    
+    func changePasswordHelper(ppvc: ProfilePageViewController){
+        let email = Auth.auth().currentUser?.email
+        
+        Auth.auth().sendPasswordReset(withEmail: email!) { (error) in
+            if error == nil{
+                ppvc.createAlertSignOut(title: "Success", message: "A link has been sent to your email!")
+            }
+            else{
+                ppvc.createAlert(title: "Oops!", message: "There‘s something wrong. Please try again.")
+            }
+        }
+    }
+    
+    func loadImageFromFirebaseHelper(ppvc:ProfilePageViewController){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let storageRef = Storage.storage().reference().child("users/\(uid)")
+        storageRef.getData(maxSize: 1*65536*65536) {data, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                // Data for "images/island.jpg" is returned
+                ppvc.myImageView?.image = UIImage(data: data!)
+            }
+        }
+    }
+    
+    
+    func saveUsernameActionHelper(ppvc: ProfilePageViewController){
+        let db = Firestore.firestore()
+        let currentUid = Auth.auth().currentUser!.uid
+        let updateString = ppvc.userName!.text
+        db.collection("users").document(currentUid).updateData(["username": updateString])
+    }
+    
+    func signoutTappedHelper(ppvc: ProfilePageViewController){
+        
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    //Function from ScrollViewController
+    func scrollViewDidLoadHelper(svc: ScrollViewController){
+        let db = Firestore.firestore()
+        
+        
+        let rootRef = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/steps");
+        let titledb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/recipe_name");
+        let ingredientsdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/ingredients");
+        var imagedb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/img");
+        var imagedbnew = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/recipe_pic");
+        var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/rating");
+        
+        
+        
+        let currentUid = Auth.auth().currentUser!.uid
+        db.collection("users").document(currentUid).collection("favoriteRecipe").getDocuments { (snapshot, error) in
+            for document in snapshot!.documents{
+                let documentData = document.data()
+                svc.favlist = documentData["favRecipe"] as? [String] ?? []
+                if svc.favlist.contains(svc.passid){
+                    svc.favornot = true
+                }
+                if svc.favornot{
+                    svc.FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
+                }
+                else{
+                    svc.FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
+                }
+            }
+        }
+        
+        //get rating
+        ratingdb.observeSingleEvent(of: .value) { (snapshot) in
+            var ratingtuple = snapshot.value as! [Int];
+            var avrating = Double(ratingtuple[0])/Double(ratingtuple[1])
+            svc.ratinglabel.text = "Average Rating: " + String(format: "%.1f", avrating) + "     " + String(ratingtuple[1]) + " have rated"
+        }
+        
+        
+        //grab steps from db
+        rootRef.observe(.value, with: { snapshot in
+            svc.mylist = snapshot.value as! [String];
+            let length = svc.mylist.count;
+            
+            for i in 0...length-1{
+                svc.wholelist = svc.wholelist + String(i+1) + ". " + svc.mylist[i]+"\n\n";
+            }
+            svc.stepsdisplay.text = svc.wholelist;
+            svc.innerscroll.contentLayoutGuide.bottomAnchor.constraint(equalTo: svc.stepsdisplay.bottomAnchor).isActive = true
+            
+        })
+        
+        // grab menutitle
+        titledb.observeSingleEvent(of: .value) { (snapshot) in
+            svc.menutitle.text = snapshot.value as! String;
+            svc.menutitle.text = (svc.menutitle.text)?.capitalized;
+        }
+        
+        // grab ingredients
+        ingredientsdb.observe(.value) { (snapshot) in
+            svc.ingredientlist = snapshot.value as! [String];
+            svc.ingredientlist = (svc.ingredientlist).removingDuplicates();
+            let length2 = svc.ingredientlist.count;
+            for j in 0...length2-1{
+                if (j%2 == 0) {
+                    svc.leftstring = svc.leftstring + (svc.ingredientlist[j]).capitalized + "\n";
+                }
+                else{
+                    svc.rightstring = svc.rightstring + (svc.ingredientlist[j]).capitalized + "\n";
+                }
+            }
+            svc.lefthalf.text = svc.leftstring;
+            svc.righthalf.text = svc.rightstring;
+            svc.ingrescroll.contentLayoutGuide.bottomAnchor.constraint(equalTo: svc.lefthalf.bottomAnchor).isActive = true
+            
+        }
+        
+        // grab recipe photo
+        imagedb.observeSingleEvent(of: .value) { (snapshot) in
+            if(!(snapshot.value is NSNull)){
+                svc.imageurl = URL(string: snapshot.value as! String);
+                svc.menupic.load(url: svc.imageurl);
+                svc.menupic.layer.cornerRadius = 10;
+            }
+            else{
+                imagedbnew.observeSingleEvent(of: .value) { (snapshot) in
+                    if(snapshot.value != nil){
+                        svc.imageurl = URL(string: snapshot.value as! String);
+                        svc.menupic.load(url: svc.imageurl);
+                        svc.menupic.layer.cornerRadius = 10;
+                    }
+                }
+            }
+        }
+        
+        self.forloopHelper(svc: svc);
+        
+        db.collection("users").document(currentUid).getDocument { (document, error) in
+            if error == nil {
+                if document != nil && document!.exists {
+                    let documentData = document?.data()
+                    svc.commentedlist = documentData?["commentedlist"] as? [String] ?? []
+                    if svc.commentedlist.contains(svc.passid){
+                        svc.commentornot = true
+                    }
+                } else {
+                    print("Can read the document but the document might not exists")
+                }
+                
+            } else {
+                print("Something wrong reading the document")
+            }
+        }
+    }
+    
+    func submitButtonHelper(submitdisplay: UIButton, svc: ScrollViewController){
+        let db = Firestore.firestore()
+        let currentUid = Auth.auth().currentUser!.uid
+        if (!svc.commentornot){
+            let commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/comments");
+            svc.commentcelllist.removeAll()
+            svc.commentlist.append([currentUid, svc.Comments.text!]);
+            commentdb.setValue(svc.commentlist);
+            svc.commentedlist.append(svc.passid)
+            db.collection("users").document(currentUid).updateData(["commentedlist" : svc.commentedlist])
+            
+            
+            svc.commentornot = true
+            svc.Comments.text = nil
+        } else {
+            let alert = UIAlertController(title: "Already commented", message: "You have already commented this recipe~", preferredStyle: UIAlertController.Style.alert)
+            svc.Comments.text = nil
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            svc.present(alert, animated: true, completion: nil)
+            svc.submitdisplay.isEnabled = false
+            svc.submitdisplay.setTitleColor(.gray, for: .normal)
+        }
+    }
+    
+    func clickFavouriteButtonHelper(FavouriteButton: UIButton, svc:ScrollViewController){
+        let db = Firestore.firestore()
+        let currentUid = Auth.auth().currentUser!.uid
+        if(!svc.favornot) {
+            svc.FavouriteButton.setImage(UIImage(named:"feather-heart"), for: .normal)
+            svc.favlist.append(svc.passid)
+            db.collection("users").document(currentUid).collection("favoriteRecipe").document("favRecipeList").setData(["favRecipe": svc.favlist])
+            svc.favornot = true
+        }
+        else{
+            svc.FavouriteButton.setImage(UIImage(named:"Ellipse 2"), for: .normal)
+            let index = svc.favlist.firstIndex(of: svc.passid)
+            svc.favlist.remove(at: index!)
+            db.collection("users").document(currentUid).collection("favoriteRecipe").document("favRecipeList").setData(["favRecipe": svc.favlist])
+            svc.favornot = false
+        }
+    }
+    
+    func beforeforloopHelper(svc:ScrollViewController, completion: @escaping (_ temptemp: [[String]]) ->Void){
+        var temptemp: [[String]] = [[""]]
+        let commentdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/comments");
+        commentdb.observe(.value) { (snapshot) in
+            temptemp = snapshot.value as! [[String]] ;
+            completion(temptemp)
+        }
+    }
+    
+    func generateuserpicHelper(svc:ScrollViewController, _ currentid: String, completion: @escaping (_ picarray: Data ) -> Void){
+        //self.commentlist = temptemp
+        generateusernameHelper(svc: svc, currentid, completion: { namearray in
+            var picarray: Data?
+            svc.infoUsername[currentid] = namearray
+            let storageRef = Storage.storage().reference().child("users/\(currentid)")
+            storageRef.getData(maxSize: 1*65536*655366) { (data, error) in
+                if (data == nil) {
+                    picarray = try! Data(contentsOf: URL(string:"https://revleap.com/wp-content/themes/revleap/images/no-profile-image.jpg")!)
+                }
+                else{
+                    picarray = data
+                }
+                completion(picarray!)
+            }
+        })
+    }
+    
+    func generateusernameHelper(svc:ScrollViewController, _ currentid: String, completion: @escaping (_ namearray: (String) ) -> Void){
+        let db = Firestore.firestore()
+        let currentUid = Auth.auth().currentUser!.uid
+        var namearray:String = ""
+        db.collection("users").document(currentid).getDocument { (document, error) in
+            if error == nil {
+                if document != nil && document!.exists {
+                    let documentData = document?.data()
+                    namearray = documentData?["username"] as? String ?? ""
+                    
+                } else {
+                    print("Can read the document but the document might not exists")
+                }
+                
+            } else {
+                print("Something wrong reading the document")
+            }
+            completion(namearray)
+        }
+    }
+    
+    func forloopHelper(svc:ScrollViewController){
+        beforeforloopHelper (svc:svc, completion: {temptemp in
+            svc.commentlist = temptemp
+            var count = 0
+            for eachstring in svc.commentlist {
+                let currentid = eachstring[0]
+                self.generateuserpicHelper(svc: svc, currentid, completion: { namepic in
+                    svc.infoPhoto[currentid] = namepic
+                    
+                    let tempcomment = Comment(image: UIImage(data: svc.infoPhoto[currentid]!)!, name: svc.infoUsername[currentid] ?? "", description: eachstring[1]);
+                    count = count + 1
+                    svc.commentcelllist.append(tempcomment)
+                    if svc.commentcelllist.count == 0{
+                        svc.commentstableview.isHidden = true
+                    } else {
+                        svc.commentstableview.isHidden = false
+                        svc.commentstableview.reloadData()
+                    }
+                })
+            }
+            
+        })
+    }
+    
+    func viewWillAppearHelper(svc: ScrollViewController){
+        var ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+svc.passid+"/rating");
+        ratingdb.observeSingleEvent(of: .value) { (snapshot) in
+            var ratingtuple = snapshot.value as! [Int];
+            var avrating = Double(ratingtuple[0])/Double(ratingtuple[1])
+            svc.ratinglabel.text = "Average Rating: " + String(format: "%.1f", avrating) + "     " + String(ratingtuple[1]) + " have rated"
+        }
+    }
+    
+    //function from AddChoresViewController
+    func addTappedHelper(acvc: AddChoresViewController){
+        let db = Firestore.firestore()
+        let currentUid = Auth.auth().currentUser!.uid
+        db.collection("users").document(currentUid).collection("chores").document(acvc.taskField.text ?? "").setData(["choreName":acvc.taskField.text ?? "", "lastDone":acvc.lastDoneField.text ?? "", "frequency":acvc.timePeriodField.text ?? "", "remindDate":acvc.remindDate, "remindOrNot": false])
+        acvc.createAlert(title: "Success!", message: "Successfully added chore!")
+    }
 }
 
