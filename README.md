@@ -89,15 +89,16 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell") as! RecipeCell
         cell.setRecipe(recipe: recipe)
         return cell
-    }
-
+}
+```
 The setRecipe() method will take a Recipe struct and unwrap its information and set up each cell’s visualization on the user interface.
-    
-    func setRecipe(recipe:Recipe) {
-        recipeImage.image = recipe.image
-        recipeTitle.text = recipe.title
-        recipeRating.text = "Average Rating: \(recipe.rating)"
-    }
+
+```
+func setRecipe(recipe:Recipe) {
+    recipeImage.image = recipe.image
+    recipeTitle.text = recipe.title
+    recipeRating.text = "Average Rating: \(recipe.rating)"
+}
 ```
 
 The following is an example of Controller. The code is from ByNameController.swift, where it defines the searching activity initiated by the user. The event handler will take the user’s searching keyword(s) and perform queries in the database for all matching results.
@@ -120,8 +121,27 @@ The following is an example of Controller. The code is from ByNameController.swi
         }
     }
 ```
+### Code Layer
+In our iOS app project, we used layer architecture. And layer architecture mainly consists of three parts:
 
-### Known bugs
+- User Interface
+    - Handles interactions between the user and the app.
+    - We use SwiftUI and UIKit, see main.storyboard and view folder
+
+- Data Access
+    - Exposes the data stored in external system, e.g. CoreData, iCloud, REST API, to the business layer.
+    - We use firebase as the database
+
+- Business Logic
+    - The software representation of the business concepts. It constrains the behavior of the app to match with the needs of a specific company.
+    - See controller folder for the functionality invoked from user interface
+
+Why layers:
+simplify the design considerably
+enable different role players to effectively work at various levels of abstraction
+support the portability of software artifacts (model-based ideally)
+
+### Known Bugs
 1. 
 - Expected behavior: After the user signs in with Google, the app shall redirect the user to the home page without displaying any alert.
 
