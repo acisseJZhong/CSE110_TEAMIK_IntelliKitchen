@@ -40,6 +40,7 @@
 		8AEF2E64247932560041EAFA /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEF2E63247932560041EAFA /* Extentions.swift */; };
 		9C1D0AA4248C74A600FB428C /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D0AA3248C74A600FB428C /* GlobalVariable.swift */; };
 		AEC873752480841900BA17CE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AEC873742480841900BA17CE /* GoogleService-Info.plist */; };
+		AECFCEDA248C911D006DB1E8 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECFCED9248C911D006DB1E8 /* Food.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		9C1D0AA3248C74A600FB428C /* GlobalVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		9C4CF6BA0FE49E2BD21B0D0C /* Pods-IntelliKitchen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntelliKitchen.release.xcconfig"; path = "Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen.release.xcconfig"; sourceTree = "<group>"; };
 		AEC873742480841900BA17CE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		AECFCED9248C911D006DB1E8 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		CB25438B6F74569006957CFC /* Pods-IntelliKitchen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IntelliKitchen.debug.xcconfig"; path = "Target Support Files/Pods-IntelliKitchen/Pods-IntelliKitchen.debug.xcconfig"; sourceTree = "<group>"; };
 		D8A40009C83E3AF9FA21B525 /* Pods_IntelliKitchen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IntelliKitchen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -191,6 +193,7 @@
 				8AEF2E5324778E310041EAFA /* FavoriteRecipe.swift */,
 				8A4F33E5247B211200F9826D /* Comment.swift */,
 				9C1D0AA3248C74A600FB428C /* GlobalVariable.swift */,
+				AECFCED9248C911D006DB1E8 /* Food.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				8AEF2E5024778E120041EAFA /* ProfilePageViewController.swift in Sources */,
 				8AEA49E4247C80AF009118D0 /* AddFoodViewController.swift in Sources */,
 				8A4F33DE247B1F6200F9826D /* RecipeListScreen.swift in Sources */,
+				AECFCEDA248C911D006DB1E8 /* Food.swift in Sources */,
 				8AEF2E5E2479322D0041EAFA /* ChoresViewController.swift in Sources */,
 				8AC4E6C22459600400A1E91E /* AppDelegate.swift in Sources */,
 				8AEF2E64247932560041EAFA /* Extentions.swift in Sources */,

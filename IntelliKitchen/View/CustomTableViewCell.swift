@@ -121,5 +121,3 @@ class ChoresTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 }
-
-

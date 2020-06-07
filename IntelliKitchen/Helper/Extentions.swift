@@ -435,3 +435,35 @@ extension ProfilePageViewController: UITableViewDataSource, UITableViewDelegate 
         self.present(secondVC,animated:true,completion: nil)
     }
 }
+
+extension FoodViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return list.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let food = list[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FoodCell")
+        
+        cell?.textLabel?.text = food.name
+        cell?.textLabel?.font = UIFont(name: "Acumin Pro SemiCondensed", size: 15)
+        cell?.textLabel?.textColor = UIColor.darkGray
+        if(food.expiredate < 0){
+            cell?.backgroundColor = UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 1)
+        }
+        else if(food.expiredate < 3){
+            cell?.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
+        }
+        else if(food.expiredate < 5){
+            cell?.backgroundColor = UIColor(red: 255/255, green: 196/255, blue: 196/255, alpha: 1)
+        }
+        else{
+            cell?.backgroundColor = UIColor.white
+        }
+        tableView.layer.cornerRadius = 20
+        cell?.selectionStyle = .none
+        return cell!
+    }
+}
