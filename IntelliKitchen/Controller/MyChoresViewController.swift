@@ -17,12 +17,7 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     var ref: DatabaseReference?
     var databaseHandle: DatabaseHandle?
-    var choreName = [String]()
-    var lastDone = [String]()
-    var frequency = [String]()
-    var chores = [String]()
-    var remindDates = [String]()
-    var remindOrNot = [Bool]()
+    var chores = [Chore]()
     var editTaskName: UITextField?
     var editLastDoneDate: UITextField?
     var editFrequency: UITextField?
@@ -47,11 +42,8 @@ class MyChoresViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 let freq = data["frequency"] as? String ?? ""
                 let rDate = data["remindDate"] as? String ?? ""
                 let rOrNot = data["remindOrNot"] as? Bool ?? false
-                self.choreName.append(name)
-                self.lastDone.append(ldDate)
-                self.frequency.append(freq)
-                self.remindDates.append(rDate)
-                self.remindOrNot.append(rOrNot)
+                let chore = Chore(task: name, lastDone: ldDate, timePeriod: freq, remindDate: rDate, remindOrNot: rOrNot)
+                self.chores.append(chore)
             }
             self.choresList.reloadData()
         }
@@ -103,10 +95,11 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
+        let taskName = self.chores[indexPath.row].task
         // Write action code for the trash
         let DeleteAction = UIContextualAction(style: .normal, title:  "Delete", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             let currentUid = Auth.auth().currentUser!.uid
-            let choreRef = self.db.collection("users").document(currentUid).collection("chores").document(self.choreName[indexPath.row])
+            let choreRef = self.db.collection("users").document(currentUid).collection("chores").document(taskName)
             choreRef.getDocument { (document, error) in
                 if error == nil {
                     if document != nil && document!.exists {
@@ -117,10 +110,8 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                             let center = UNUserNotificationCenter.current()
                             center.removePendingNotificationRequests(withIdentifiers: [reminderID])
                         }
-                        self.db.collection("users").document(currentUid).collection("chores").document(self.choreName[indexPath.row]).delete()
-                        self.choreName.remove(at: indexPath.row)
-                        self.lastDone.remove(at: indexPath.row)
-                        self.frequency.remove(at: indexPath.row)
+                        self.db.collection("users").document(currentUid).collection("chores").document(taskName).delete()
+                        self.chores.remove(at: indexPath.row)
                         self.choresList.reloadData()
                     }
                 }
@@ -133,7 +124,8 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         // Write action code for the Flag
         let SkipAction = UIContextualAction(style: .normal, title:  "Skip", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
-            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row])
+            
+            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
             choreRef.getDocument { (document, error) in
                 if error == nil {
                     if document != nil && document!.exists {
@@ -168,7 +160,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         
         // Write action code for the More
         let RemindAction = UIContextualAction(style: .normal, title:  "Remind", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row])
+            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
             choreRef.getDocument { (document, error) in
                 if error == nil {
                     if document != nil && document!.exists {
@@ -225,7 +217,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
         RemindAction.backgroundColor = UIColor.init(red: 255/255, green: 211/255, blue: 0/255, alpha: 0.85)
         
         let FinishAction = UIContextualAction(style: .normal, title:  "Finish", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row])
+            var choreRef = self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
             choreRef.getDocument { (document, error) in
                 if error == nil {
                     if document != nil && document!.exists {
@@ -239,7 +231,7 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MM/dd/yyyy"
-                        self.remindDate = self.updateRemindDate(date: dateFormatter.string(from: Date()), freq: self.frequency[indexPath.row])
+                        self.remindDate = self.updateRemindDate(date: dateFormatter.string(from: Date()), freq: self.chores[indexPath.row].timePeriod)
                         let choreName = documentData?["choreName"] as! String
                         let lastDone = documentData?["lastDone"] as! String
                         let remindDate = documentData?["remindDate"] as! String
@@ -247,12 +239,27 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
                         let date = Date()
                         let formatter = DateFormatter()
                         formatter.dateFormat = "MM/dd/yyyy"
-                        self.lastDone[indexPath.row] = formatter.string(from: date)
+                        
+                        self.chores[indexPath.row].lastDone = formatter.string(from: date)
+                        
                         if remindOrNot {
                             let requestID = self.pushNotification(chore: choreRef, choreName: choreName, frequency: frequency, lastDone: lastDone, remindDate: remindDate)
-                            self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row]).setData(["choreName":self.choreName[indexPath.row], "lastDone": self.lastDone[indexPath.row], "frequency": self.frequency[indexPath.row], "remindDate": self.remindDate, "remindOrNot": self.remindOrNot[indexPath.row], "reminderID": requestID])
+                            self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
+                                .setData(
+                                    ["choreName":self.chores[indexPath.row].task,
+                                     "lastDone": self.chores[indexPath.row].lastDone,
+                                     "frequency": self.chores[indexPath.row].timePeriod,
+                                     "remindDate": self.remindDate,
+                                     "remindOrNot": self.chores[indexPath.row].remindOrNot,
+                                     "reminderID": requestID])
                         } else {
-                            self.db.collection("users").document(self.currentUid).collection("chores").document(self.choreName[indexPath.row]).setData(["choreName":self.choreName[indexPath.row], "lastDone": self.lastDone[indexPath.row], "frequency": self.frequency[indexPath.row], "remindDate": self.remindDate, "remindOrNot": self.remindOrNot[indexPath.row]])
+                            self.db.collection("users").document(self.currentUid).collection("chores").document(taskName)
+                                .setData(
+                                    ["choreName":self.chores[indexPath.row].task,
+                                     "lastDone": self.chores[indexPath.row].lastDone,
+                                     "frequency": self.chores[indexPath.row].timePeriod,
+                                     "remindDate": self.remindDate,
+                                     "remindOrNot": self.chores[indexPath.row].remindOrNot])
                         }
                         self.choresList.reloadData()
                     }
@@ -269,14 +276,16 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return choreName.count
+        return chores.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = choresList.dequeueReusableCell(withIdentifier: "cell") as! MyChoresTableViewCell
-        cell.taskNameLabel.text = choreName[indexPath.row]
-        cell.frequencyLabel.text = frequency[indexPath.row]
-        cell.lastDoneLabel.text = lastDone[indexPath.row]
+        let Chore = self.chores[indexPath.row]
+        cell.setChore(chore: Chore)
+//        cell.taskNameLabel.text = choreName[indexPath.row]
+//        cell.frequencyLabel.text = frequency[indexPath.row]
+//        cell.lastDoneLabel.text = lastDone[indexPath.row]
         cell.taskNameLabel.adjustsFontSizeToFitWidth = true
         cell.frequencyLabel.adjustsFontSizeToFitWidth = true
         cell.lastDoneLabel.adjustsFontSizeToFitWidth = true
@@ -318,7 +327,8 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
             print("error")
         } else {
             //backend deal with data change here
-            db.collection("users").document(currentUid).collection("chores").document(choreName[row]).delete()
+            let taskName = self.chores[row].task
+            db.collection("users").document(currentUid).collection("chores").document(taskName).delete()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             if(editFrequency?.text == "Once a day" || editFrequency?.text == "Twice a day") {
@@ -349,18 +359,15 @@ extension MyChoresViewController: UITableViewDataSource, UITableViewDelegate {
             db.collection("users").document(currentUid).collection("chores").document(editTaskName?.text ?? "").setData(["choreName":editTaskName?.text ?? "", "lastDone":editLastDoneDate?.text ?? "", "frequency":editFrequency?.text ?? "", "remindDate":remindDate, "remindOrNot": false])
             
             //data change appear in frontend
-            choreName.remove(at: row)
-            lastDone.remove(at: row)
-            frequency.remove(at: row)
-            remindOrNot.remove(at: row)
-            remindDates.remove(at: row)
-            choreName.append(editTaskName?.text ?? "")
-            lastDone.append(editLastDoneDate?.text ?? "")
-            frequency.append(editFrequency?.text ?? "")
-            remindOrNot.append(false)
-            remindDates.append(remindDate)
+            self.chores.remove(at: row)
+            let _choreName = editTaskName?.text ?? ""
+            let _lastDone = editLastDoneDate?.text ?? ""
+            let _frequency = editFrequency?.text ?? ""
+            let _remindDates = remindDate
+            let _remindOrNot = false
+            let newChore = Chore(task: _choreName, lastDone: _lastDone, timePeriod: _frequency, remindDate: _remindDates, remindOrNot: _remindOrNot)
+            self.chores.append(newChore)
             choresList.reloadData()
-            
         }
     }
     
