@@ -467,3 +467,25 @@ extension FoodViewController: UITableViewDelegate, UITableViewDataSource {
         return cell!
     }
 }
+
+extension ChoresViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return list.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let chores = list[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChoresCell") as! ChoresTableViewCell
+        if(chores.expiredate < 0){
+            cell.backgroundColor = UIColor(red: 250/255, green: 160/255, blue: 160/255, alpha: 1)
+        }
+        else{
+            cell.backgroundColor = UIColor.white
+        }
+        tableView.layer.cornerRadius = 20
+        cell.selectionStyle = .none
+        cell.setlabel(chores: chores)
+        return cell
+    }
+}
