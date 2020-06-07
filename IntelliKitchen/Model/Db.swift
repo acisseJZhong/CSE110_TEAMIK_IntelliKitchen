@@ -19,9 +19,7 @@ import GoogleSignIn
 class Db {
     var db = Firestore.firestore()
     
-    
-    
-    
+
     // Function from LoginController
     func siginUser(email: String, password: String, lc: LoginController){
         //Signing the user
