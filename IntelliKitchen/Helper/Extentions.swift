@@ -290,13 +290,18 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             //deal with data change here
             data.editFood(mfvc: self, index: row)
-            foodName.remove(at: row)
-            boughtDate.remove(at: row)
-            expireDate.remove(at: row)
-            //foods.remove(at: row)
-            foodName.append(editFoodName?.text ?? "")
-            boughtDate.append(editBoughtDate?.text ?? "")
-            expireDate.append(editExpireDate?.text ?? "")
+            
+//            foodName.remove(at: row)
+//            boughtDate.remove(at: row)
+//            expireDate.remove(at: row)
+//            foods.remove(at: row)
+//            foodName.append(editFoodName?.text ?? "")
+//            boughtDate.append(editBoughtDate?.text ?? "")
+//            expireDate.append(editExpireDate?.text ?? "")
+            let food = self.foods[row]
+            food.expireDate = editExpireDate?.text as! String
+            food.boughtDate = editBoughtDate?.text as! String
+            food.foodName = editFoodName?.text as! String
             self.foodListTable.reloadData()
             
         }
