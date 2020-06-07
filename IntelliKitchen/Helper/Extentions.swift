@@ -242,7 +242,8 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
-            db.collection("users").document(self.currentUid).collection("foods").document(foods[indexPath.row].foodName).delete()
+            
+            data.deleteFood(mfvc: self, index: indexPath.row)
             self.foods.remove(at: indexPath.row)
             //self.foodName.remove(at: indexPath.row)
             //self.boughtDate.remove(at: indexPath.row)
@@ -288,8 +289,7 @@ extension MyFoodViewController: UITableViewDataSource, UITableViewDelegate {
             print("error")
         } else {
             //deal with data change here
-            db.collection("users").document(self.currentUid).collection("foods").document(foodName[row]).delete()
-            db.collection("users").document(self.currentUid).collection("foods").document(editFoodName?.text ?? "").setData(["foodName":editFoodName?.text ?? "", "boughtDate":editBoughtDate?.text ?? "", "expireDate":editExpireDate?.text ?? ""])
+            data.editFood(mfvc: self, index: row)
             foodName.remove(at: row)
             boughtDate.remove(at: row)
             expireDate.remove(at: row)
@@ -488,6 +488,8 @@ extension ChoresViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setlabel(chores: chores)
         return cell
     }
+}
+
 extension RecipeViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return recipelist.count

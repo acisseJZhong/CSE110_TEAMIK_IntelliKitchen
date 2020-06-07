@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import FBSDKCoreKit
+import Firebase
 
 @UIApplicationMain
 
