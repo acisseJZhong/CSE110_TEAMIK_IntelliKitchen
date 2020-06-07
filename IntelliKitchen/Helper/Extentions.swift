@@ -115,23 +115,23 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (selectedIngredient.count >= 20) {
-            let alert = UIAlertController(title: "Too many ingredients!", message: "Please remove ingredients before adding", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            let index = indexPath.row
-            let cell = tableView.cellForRow(at: indexPath)
-            let label = (cell?.textLabel?.text)!
-            if searching {
-                if index < searchSelectedIngredient.count {
-                    searchSelectedIngredient = searchSelectedIngredient.filter{ $0 != label }
-                    searchAllIngredient.append(label)
-                    searchAllIngredient.sort()
-                    
-                    selectedIngredient = selectedIngredient.filter { $0 != label }
-                    allIngredient.append(label)
-                    allIngredient.sort()
+        let index = indexPath.row
+        let cell = tableView.cellForRow(at: indexPath)
+        let label = (cell?.textLabel?.text)!
+        if searching {
+            if index < searchSelectedIngredient.count {
+                searchSelectedIngredient = searchSelectedIngredient.filter{ $0 != label }
+                searchAllIngredient.append(label)
+                searchAllIngredient.sort()
+                
+                selectedIngredient = selectedIngredient.filter { $0 != label }
+                allIngredient.append(label)
+                allIngredient.sort()
+            } else {
+                if (selectedIngredient.count >= 20) {
+                    let alert = UIAlertController(title: "Too many ingredients!", message: "Please remove ingredients before adding", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 } else {
                     searchSelectedIngredient.append(label)
                     searchSelectedIngredient.sort()
@@ -141,19 +141,25 @@ extension ByIngredientController: UITableViewDelegate, UITableViewDataSource {
                     selectedIngredient.sort()
                     allIngredient = allIngredient.filter { $0 != label }
                 }
+            }
+        } else {
+            if index < selectedIngredient.count {
+                selectedIngredient = selectedIngredient.filter { $0 != label }
+                allIngredient.append(label)
+                allIngredient.sort()
             } else {
-                if index < selectedIngredient.count {
-                    selectedIngredient = selectedIngredient.filter { $0 != label }
-                    allIngredient.append(label)
-                    allIngredient.sort()
+                if (selectedIngredient.count >= 20) {
+                    let alert = UIAlertController(title: "Too many ingredients!", message: "Please remove ingredients before adding", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 } else {
                     selectedIngredient.append(label)
                     selectedIngredient.sort()
                     allIngredient = allIngredient.filter { $0 != label }
                 }
             }
-            ingredientTableView.reloadData()
         }
+        ingredientTableView.reloadData()
     }
 }
 
