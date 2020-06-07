@@ -13,12 +13,184 @@ import UserNotifications
 import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
+import GoogleSignIn
+
 
 class Db {
     var db = Firestore.firestore()
     
-    // Function from MyChoresViewController
     
+    
+    
+    // Function from LoginController
+    func siginUser(email: String, password: String, lc: LoginController){
+        //Signing the user
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if error != nil{
+                let errorMessage = error!.localizedDescription
+                lc.errorLabel.text = errorMessage.split(separator: ".")[0] + "."
+                lc.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
+            }
+            else{
+                let profileController = lc.storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
+                lc.view.window?.rootViewController = profileController
+                lc.view.window?.makeKeyAndVisible()
+            }
+        }
+    }
+    
+    
+    func googleSignin(user: GIDGoogleUser, lc: LoginController){
+        guard let authentication = user.authentication else { return }
+              let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
+              
+              Auth.auth().signIn(with: credential) { (result, error) in
+                  if let error = error {
+                      lc.errorLabel.text = error.localizedDescription
+                      lc.errorLabel.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
+                  }
+                  else {
+                      let ProfileController = lc
+                        .storyboard?.instantiateViewController(identifier: Constants.Storyboard.profileController) as? ProfilePageViewController
+                      lc.view.window?.rootViewController = ProfileController
+                      lc.view.window?.makeKeyAndVisible()
+                  }
+        
+            }
+          // Perform any operations on signed in user here.
+          GlobalVariable.googleUsername = user.profile.name
+          GlobalVariable.googleEmail = user.profile.email
+          GlobalVariable.googleIconUrl = user.profile.imageURL(withDimension: 400)
+        }
+    
+    //Function from ForgetPasswordController
+    func sendUserEmail(email: String, fg: ForgetPasswordViewController){
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            if error == nil{
+                fg.message.alpha = 1
+                fg.message.textColor = UIColor.init(red: 146/255, green: 170/255, blue: 68/255, alpha: 1)
+                fg.message.text = "A link has been sent to your email!"
+            }
+            else{
+                fg.message.alpha = 1
+                fg.message.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
+                fg.message.text = "Can't find the email"
+            }
+        }
+    }
+    
+    
+    
+    // functions from RegisterViewController
+    
+    
+    func createUser(username: String, email:String, password:String ,rc:RegisterViewController){
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            
+            if error != nil{
+                let errorMessage = error!.localizedDescription
+                rc.showError(errorMessage.split(separator: ".")[0] + ".")
+            }
+            else{
+                //created sucessfully
+                let db = Firestore.firestore()
+                db.collection("users").document(result!.user.uid).setData(["username":username, "email":email, "uid": result!.user.uid, "favRecipe":[]]) { (error) in
+                    if error != nil{
+                        rc.showError("Error saving user's data")
+                    }
+                }
+                // Transition to the home scree
+                rc.transitionHome()
+            }
+        }
+    }
+    
+    
+    
+    
+    func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let storageRef = Storage.storage().reference().child("users/\(uid)")
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
+        
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        storageRef.putData(imageData, metadata: metaData) {metaData, error in
+            if error == nil, metaData != nil {
+                completion(nil)
+                
+            } else {
+                completion(nil)
+            }
+            //success
+        }
+    }
+    
+    
+    //Functions from RatingViewController
+    
+    func getRatingdb(rvc: RatingViewController){
+        rvc.currentUid = Auth.auth().currentUser!.uid
+        let db = Firestore.firestore()
+        let ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+rvc.passid+"/rating");
+        //get ratingnumber
+        ratingdb.observeSingleEvent(of: .value) { (snapshot) in
+            let ratingtuple = snapshot.value as! [Int];
+            rvc.numofpeople = ratingtuple[1]
+            rvc.ratingsum = ratingtuple[0]
+        }
+        //get ratedlist
+        db.collection("users").document(rvc.currentUid).getDocument { (document, error) in
+            if error == nil {
+                if document != nil && document!.exists {
+                    let documentData = document?.data()
+                    rvc.ratedlist = documentData?["ratedlist"] as? [String] ?? []
+                    if rvc.ratedlist.contains(rvc.passid){
+                        rvc.ratedornot = true
+                    }
+                } else {
+                    print("Can read the document but the document might not exists")
+                }
+            } else {
+                print("Something wrong reading the document")
+            }
+        }
+        //return ratingdb
+    }
+    
+    
+    
+    func tapSubmit(submitbutton: UIButton!, rvc: RatingViewController){
+        let db = Firestore.firestore()
+        if (!rvc.ratedornot){
+            rvc.ratedlist.append(rvc.passid)
+            db.collection("users").document(rvc.currentUid).updateData(["ratedlist" : rvc.ratedlist])
+            rvc.numofpeople = rvc.numofpeople + 1
+            rvc.ratingsum = rvc.ratingsum + rvc.ratingarray.last!
+            let ratingdb = Database.database().reference().child("Recipe/-M8IVR-st6dljGq6M4xN/"+rvc.passid+"/rating");
+            ratingdb.setValue([rvc.ratingsum,rvc.numofpeople])
+            rvc.ratedornot = true
+            rvc.dismiss(animated: true, completion: nil)}
+            //ref.setValue(ratingarray.last)}
+        else {
+            let alert = UIAlertController(title: "Already rated", message: "You have already rated this recipe~", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            rvc.present(alert, animated: true, completion: nil)
+            submitbutton.isEnabled = false
+            submitbutton.setTitleColor(.gray, for: .normal)
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    // Function from MyChoresViewController
     func loadMyChores(mcvc: MyChoresViewController) {
         let currentUid = Auth.auth().currentUser!.uid
         db.collection("users").document(currentUid).collection("chores").getDocuments { (snapshot, error) in

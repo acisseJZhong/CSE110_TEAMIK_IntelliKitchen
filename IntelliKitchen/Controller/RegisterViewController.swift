@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseFirestore
-import FirebaseAuth
+
 
 class RegisterViewController: UIViewController {
     
@@ -19,6 +17,8 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
+    
+    let data: Db = Db()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,51 +89,15 @@ class RegisterViewController: UIViewController {
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
             // Create the user
-            Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                
-                if error != nil{
-                    let errorMessage = error!.localizedDescription
-                    self.showError(errorMessage.split(separator: ".")[0] + ".")
-                }
-                else{
-                    //created sucessfully
-                    let db = Firestore.firestore()
-                    db.collection("users").document(result!.user.uid).setData(["username":username, "email":email, "uid": result!.user.uid, "favRecipe":[]]) { (error) in
-                        if error != nil{
-                            self.showError("Error saving user's data")
-                        }
-                    }
-                    // Transition to the home scree
-                    self.transitionHome()
-                }
+            data.createUser(username: username,email: email, password: password, rc: self)
+
             }
-        }
         let defaultImageString = "profileTapped"
         guard let myUIImage = UIImage(named: defaultImageString) else { return }
-        self.uploadProfileImage(myUIImage){(url) in
-            
+        data.uploadProfileImage(myUIImage){(url) in
         }
     }
-    
-    func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())){
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        let storageRef = Storage.storage().reference().child("users/\(uid)")
-        
-        guard let imageData = image.jpegData(compressionQuality: 0.75) else {return}
-        
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpg"
-        
-        storageRef.putData(imageData, metadata: metaData) {metaData, error in
-            if error == nil, metaData != nil {
-                completion(nil)
-                
-            } else {
-                completion(nil)
-            }
-            //success
-        }
-    }
+
     
     func transitionHome() {
         let welcomeController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.welcomeController) as? WelcomeController

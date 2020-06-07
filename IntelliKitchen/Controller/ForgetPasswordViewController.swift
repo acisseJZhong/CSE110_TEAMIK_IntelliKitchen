@@ -7,13 +7,15 @@
 //
 
 import UIKit
-import FirebaseAuth
+
 
 class ForgetPasswordViewController: UIViewController {
     
     // reference and global variable
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var message: UITextField!
+    
+    let data: Db = Db()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,18 +34,7 @@ class ForgetPasswordViewController: UIViewController {
         }
         else{
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            Auth.auth().sendPasswordReset(withEmail: email) { (error) in
-                if error == nil{
-                    self.message.alpha = 1
-                    self.message.textColor = UIColor.init(red: 146/255, green: 170/255, blue: 68/255, alpha: 1)
-                    self.message.text = "A link has been sent to your email!"
-                }
-                else{
-                    self.message.alpha = 1
-                    self.message.textColor = UIColor.init(red: 255/255, green: 0/255, blue: 0/255, alpha: 1)
-                    self.message.text = "Can't find the email"
-                }
-            }
+            data.sendUserEmail(email: email, fg:self)
         }
     }
 }
